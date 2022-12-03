@@ -48,7 +48,9 @@ const DrawerDropdown = ({ items, title }: DrawerDropdownProps) => {
 							onClick={() => {
 								dispatch(toggleDrawer());
 								setTimeout(() => {
-									dispatch(l.onClick());
+									if (l.onClick) {
+										dispatch(l.onClick());
+									}
 								}, 500);
 							}}
 						>
