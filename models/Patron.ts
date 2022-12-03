@@ -1,7 +1,7 @@
 import { Schema, models, model } from "mongoose";
 
 interface PatronInterface {
-	datePosted: Date;
+	datePosted: () => Date;
 	description: string[];
 	name: {
 		firstName?: string;
@@ -22,7 +22,7 @@ const PatronSchema = new Schema<PatronInterface>({
 			required: false,
 		},
 		index: {
-			type: number,
+			type: Number,
 			// BUG: change this to using default only if quote.string exists.
 			required: false,
 			default: 1,
