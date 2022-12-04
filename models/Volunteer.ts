@@ -1,11 +1,12 @@
 import { Schema, models, model } from "mongoose";
 
-interface VolunteerInterface {
-	datePosted: Date;
+export interface VolunteerInterface {
+	datePosted?: Date | (() => Date);
 	description: string[];
+	email?: string;
 	name: {
-		firstName?: string;
-		lastName?: string;
+		first?: string;
+		last?: string;
 	};
 	quote: {
 		string?: string;
@@ -13,7 +14,9 @@ interface VolunteerInterface {
 		// NOTE: Make sure to account for indexs that are out of range. If index is above maximum possible, place at end of last paragraph. If no index, place after first paragraph.
 		index?: number;
 	};
+	image?: string;
 	regularJob?: string;
+	id: Schema.Types.ObjectId;
 }
 
 const VolunteerSchema = new Schema<VolunteerInterface>({
@@ -27,6 +30,10 @@ const VolunteerSchema = new Schema<VolunteerInterface>({
 			required: false,
 		},
 	},
+	email: {
+		type: String,
+		required: false,
+	},
 	regularJob: {
 		type: String,
 		required: false,
@@ -35,24 +42,36 @@ const VolunteerSchema = new Schema<VolunteerInterface>({
 		type: [String],
 		required: true,
 	},
+	image: {
+		type: String,
+		required: false,
+	},
 	quote: {
 		string: {
 			type: String,
 			required: false,
 		},
 		index: {
-			type: number,
+			type: Number,
 			// BUG: change this to using default only if quote.string exists.
-			required: false,
-			default: 1,
+			required: () => {
+				/// @ts-ignore
+				return Boolean(this.quote.string);
+			},
+			default: () => {
+				/// @ts-ignore
+				return this.quote.string ? 1 : null;
+			},
 		},
 	},
 	datePosted: {
 		type: Date,
-		required: true,
+		required: false,
 		default: Date(),
 	},
 });
+
+VolunteerSchema.alias("_id", "id");
 
 export default models?.Volunteer ||
 	model<VolunteerInterface>("Volunteer", VolunteerSchema);

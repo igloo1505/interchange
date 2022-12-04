@@ -21,7 +21,6 @@ const Toast = ({ config }: ToastProps) => {
 	const [cancelID, setCancelId] = useState<string | any>(null);
 	const dispatch = useAppDispatch();
 	const __timeout = config.delay || 3000;
-	console.log("stuff", isShown, cancelID, config.message);
 
 	const closeToast = (withTimeout: boolean) => {
 		// if (!isShown) return;
