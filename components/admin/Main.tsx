@@ -6,17 +6,26 @@ import {
 	SortButton,
 	AddItemButton,
 } from "react-admin";
-import jsonServerProvider from "ra-data-json-server";
 import { ReactQueryDevtools } from "react-query/devtools";
 import dataProvider from "./dataHandlers/dataProvider";
 import VolunteerList from "./dataHandlers/VolunteerList";
 import VolunteerCreate from "./dataHandlers/VolunteerCreate";
+import VolunteerShow from "./dataHandlers/VolunteerShow";
+import VolunteerEdit from "./dataHandlers/VolunteerEdit";
 
-const App = () => (
-	<Admin dataProvider={dataProvider}>
-		<Resource name="volunteers" list={VolunteerList} create={VolunteerCreate} />
-		<ReactQueryDevtools initialIsOpen={true} />
-	</Admin>
-);
+const App = () => {
+	return (
+		<Admin dataProvider={dataProvider}>
+			<Resource
+				name="volunteers"
+				list={VolunteerList}
+				create={VolunteerCreate}
+				edit={VolunteerEdit}
+				show={VolunteerShow}
+			/>
+			<ReactQueryDevtools initialIsOpen={true} />
+		</Admin>
+	);
+};
 
 export default App;

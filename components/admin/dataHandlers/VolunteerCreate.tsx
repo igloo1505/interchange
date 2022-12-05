@@ -5,14 +5,15 @@ import {
 	TextInput,
 	DateInput,
 	required,
+	email,
 } from "react-admin";
 import Box from "@mui/material/Box";
-import RichText from './RichText';
-
+import RichText from "./RichText";
+import * as yup from "yup";
 const VolunteerCreate = () => {
 	return (
 		<Create>
-			<SimpleForm>
+			<SimpleForm mode="onBlur" reValidateMode="onBlur">
 				<Box display={{ xs: "block", sm: "flex", width: "100%" }}>
 					<Box flex={1} mr={{ xs: 0, sm: "0.5em" }}>
 						<TextInput
@@ -36,7 +37,7 @@ const VolunteerCreate = () => {
 						<TextInput
 							source="email"
 							label="Email"
-							// validate={[required()]}
+							validate={[email()]}
 							fullWidth
 						/>
 					</Box>
@@ -49,10 +50,7 @@ const VolunteerCreate = () => {
 						/>
 					</Box>
 				</Box>
-				<RichText
-				label="Their Story"
-				source="description"
-				/>
+				<RichText label="Their Story" source="description" />
 			</SimpleForm>
 		</Create>
 	);

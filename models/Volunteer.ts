@@ -1,7 +1,7 @@
 import { Schema, models, model } from "mongoose";
 
 export interface VolunteerInterface {
-	datePosted?: Date | (() => Date);
+	datePosted?: Date | (() => Date) | string;
 	description: string[];
 	email?: string;
 	name: {
@@ -16,9 +16,14 @@ export interface VolunteerInterface {
 	};
 	image?: string;
 	regularJob?: string;
-	id: Schema.Types.ObjectId;
+	id?: Schema.Types.ObjectId;
 }
-
+console.log(
+	"new date",
+	new Date().toLocaleString("en-US", {
+		timeZone: "America/Chicago",
+	})
+);
 const VolunteerSchema = new Schema<VolunteerInterface>({
 	name: {
 		first: {
@@ -56,18 +61,23 @@ const VolunteerSchema = new Schema<VolunteerInterface>({
 			// BUG: change this to using default only if quote.string exists.
 			required: () => {
 				/// @ts-ignore
-				return Boolean(this.quote.string);
+				return Boolean(this?.quote?.string);
 			},
 			default: () => {
 				/// @ts-ignore
-				return this.quote.string ? 1 : null;
+				return this?.quote?.string ? 1 : null;
 			},
 		},
 	},
 	datePosted: {
 		type: Date,
-		required: false,
-		default: Date(),
+		// required: false,
+		default: () => {
+			let d = new Date().toLocaleString("en-US", {
+				timeZone: "America/Chicago",
+			});
+			return d;
+		},
 	},
 });
 

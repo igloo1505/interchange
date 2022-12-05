@@ -20,3 +20,16 @@
 - [ ] Edit image(s) on main page
 - [ ] Edit hours
 - [ ] Change Special events
+
+
+
+
+## Dates and To-dos:
+### 12-03-22
+- Started today around 1pm. Took a while to get comfortable with React-Admin but now things are going smoothly.
+#### Resume by:
+1. Update routes working for volunteer.
+2. Image key added to volunteer and all related routes
+    - Remove image on model delete
+    - Remove old image on update
+3. Essentially copy over everything to patron model, with only minor differences, then begin UI.

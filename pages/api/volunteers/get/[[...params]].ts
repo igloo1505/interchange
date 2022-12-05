@@ -1,33 +1,56 @@
 import nc from "next-connect";
-import Volunteer from "../../../../models/Volunteer";
+import Volunteer, { VolunteerInterface } from "../../../../models/Volunteer";
 import { NextApiRequest, NextApiResponse } from "next";
 import { ErrorResponse, sendError } from "../../../../types/ErrorResponse";
-import { splitByLinebreak } from "../../../../utils/utilityFunctions";
 import connectDB from "../../../../utils/connectMongo";
-import { parse } from "query-string";
 import "colors";
 
 const handler = nc();
 
 handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
-	console.log(`req.body: ${req.body}`.bgGreen.black);
-	console.log(`req.query: ${req.query}`.red);
-	console.log(`stringified req.query: ${JSON.stringify(req.query)}`.red);
+	console.log(
+		`stringified req.query: ${JSON.stringify(req.query, null, 2)}`.cyan
+	);
 	try {
-		let volunteers = await Volunteer.find();
+		debugger;
+		let volunteers: any[] = [];
+		if (!req?.query.id) {
+			volunteers = await Volunteer.find()
+				/// @ts-ignore
+				.skip((Number(req.query?.page) - 1) * Number(req?.query?.perPage) || 0)
+				/// @ts-ignore
+				.limit(Number(req?.query?.perPage) || null)
+				.collation({ locale: "en" })
+				/// @ts-ignore
+				.sort({
+					[`${
+						req.query?.sortField === "id" ? "name.last" : req.query?.sortField
+					}`]: `${req.query?.sortOrder}`.toLowerCase(),
+				});
+		}
+		if (req?.query.id && typeof req?.query.id !== "undefined") {
+			let x = await Volunteer.findById(req.query.id);
+			volunteers.push(x);
+		}
+		if (req?.query.ids && typeof req?.query.ids !== "undefined") {
+			// debugger;
+			console.log("req?.query.ids: ", req?.query.ids);
+			let ids: string[] | string = req.query.ids;
+			if (typeof ids === "string") ids = [ids];
+			ids.map(async (_id) => {
+				let x = await Volunteer.findById(_id);
+				volunteers.push(x);
+			});
+		}
 		let total = await Volunteer.count();
 		console.log("volunteers: ", volunteers);
-		console.log("Array.isArray(volunteers): ", Array.isArray(volunteers));
-		if (!Array.isArray(volunteers)) {
-			console.log("here...");
-			volunteers = [volunteers];
-		}
 
 		let data = volunteers.map((v) => {
 			return v.toObject({ getters: true, virtuals: true });
 		});
-		let result = { result: { data, total }, success: true };
-		console.log(`returning: ${result}`.blue);
+		let result = { response: data, total: total, success: true };
+		console.log(`returning: ${JSON.stringify(result, null, 2)}`.bgBlue.white);
+		debugger;
 		res.json(result);
 	} catch (error) {
 		let errorResponse: ErrorResponse = {

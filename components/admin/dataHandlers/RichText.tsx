@@ -10,6 +10,22 @@ import {
 	QuoteButtons,
 	ClearButtons,
 } from "ra-input-rich-text";
+import Image from "@tiptap/extension-image";
+import Heading from "@tiptap/extension-heading";
+import Paragraph from "@tiptap/extension-paragraph";
+import Ordered from "@tiptap/extension-ordered-list";
+import Bullet from "@tiptap/extension-bullet-list";
+
+export const EditorOptions = {
+	...DefaultEditorOptions,
+	extensions: [
+		...DefaultEditorOptions.extensions,
+		Heading,
+		Bullet,
+		Ordered,
+		Paragraph,
+	],
+};
 
 enum buttonSizeEnum {
 	small = "small",
@@ -33,9 +49,9 @@ const RichText = ({
 			source={source}
 			label={label}
 			fullWidth
+			editorOptions={EditorOptions}
 			toolbar={
 				<RichTextInputToolbar>
-					<LevelSelect size={buttonSize} />
 					<FormatButtons size={buttonSize} />
 					<AlignmentButtons size={buttonSize} />
 					<ListButtons size={buttonSize} />

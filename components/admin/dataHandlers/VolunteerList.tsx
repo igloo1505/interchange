@@ -14,7 +14,9 @@ import {
 	FunctionField,
 	EmailField,
 	ImageField,
+	RichTextField,
 } from "react-admin";
+import VolunteerShow from "./VolunteerShow";
 
 const ListActions = () => {
 	return (
@@ -27,13 +29,13 @@ const ListActions = () => {
 };
 
 const postFilters = [
-	<TextInput label="Email" source="email" />,
 	<TextInput label="Name" source="name" />,
+	<TextInput label="Email" source="email" />,
 ];
 
 const VolunteerList = () => {
 	return (
-		<List actions={<ListActions />} filters={postFilters} title="Volunteers">
+		<List filters={postFilters} title="Volunteers">
 			<Datagrid rowClick="edit">
 				<TextField source="name.first" about="First Name" label="First Name" />
 				<TextField source="name.last" label="Last Name" />
@@ -43,26 +45,28 @@ const VolunteerList = () => {
 					label="Quote Index"
 					about="Defines after which paragraph quote will appear if a quote exists."
 				/>
-				<TextField
-					source="quote.string"
-					label="Quote"
-					about="Optional quote to highlight what Interchange means to them."
-				/>
 				<TextField source="regularJob" label="Day Job" />
 				<FunctionField
 					label="Description"
+					source="description"
 					render={(r) => {
-						let s = "";
-						r.description.map((d: string, i: number, a: string[]) => {
-							s += d;
-							if (i < a.length - 1) {
-								s += "\n";
-							}
-						});
-						return s;
+						let x = r.description.join("");
+						if (x.length > 47) {
+							x = x.slice(0, 47);
+							x += "...";
+						}
+						let s = { __html: x };
+						return (
+							<div
+								dangerouslySetInnerHTML={s}
+								style={{
+									listStyle: "outside",
+								}}
+							></div>
+						);
 					}}
 				/>
-				<DateField source="datePosted" />
+				<DateField source="datePosted" locales="cst" />
 			</Datagrid>
 		</List>
 	);

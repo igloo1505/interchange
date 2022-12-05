@@ -9,6 +9,7 @@ import {
 	UpdateParams,
 	DeleteParams,
 	DeleteManyParams,
+	DataProvider,
 } from "react-admin";
 import { stringify } from "query-string";
 import axios from "axios";
@@ -17,12 +18,14 @@ axios.defaults.headers.common = {
 	"Content-Type": "application/json",
 };
 
-type returnType = {
-	data: VolunteerInterface[];
-};
+// type returnType = {
+// 	data: VolunteerInterface[];
+// };
 
-export default {
+const dataProvider: DataProvider = {
 	getList: async (resource: string, params: GetListParams) => {
+		// debugger;
+		console.log("getList", params);
 		let query = {
 			page: params.pagination.page,
 			perPage: params.pagination.perPage,
@@ -39,11 +42,13 @@ export default {
 					: "",
 		};
 		let res = await axios.get(`/api/${resource}/get?${stringify(query)}`);
-		console.log("res.data.result: ", res.data.result);
-		return { data: res.data.result.data, total: res.data.result.total };
+		console.log("res: (getList) ", res);
+		return { data: res.data.response, total: res.data.total };
 	},
 
 	getOne: async (resource: string, params: GetOneParams) => {
+		// debugger;
+		console.log("getOne", params);
 		let query = {
 			id: params.id,
 			meta:
@@ -53,10 +58,16 @@ export default {
 					: "",
 		};
 		let res = await axios.get(`/api/${resource}/get?${stringify(query)}`);
-		return res.data;
+		console.log("res.data?.result?.data[0]: ", res.data?.result?.data[0]);
+		return { data: res.data?.response[0] };
 	},
 
 	getMany: async (resource: string, params: GetManyParams) => {
+		// debugger;
+		console.log("getMany", params);
+		if (typeof params.ids === "undefined" || params.ids.length === 0) {
+			return { data: [] };
+		}
 		let query = {
 			ids: JSON.stringify(params.ids),
 			meta:
@@ -65,14 +76,17 @@ export default {
 					? JSON.stringify(params.meta)
 					: "",
 		};
+		// if(typeof )
 		let res = await axios.get(`/api/${resource}/get?${stringify(query)}`);
-		return res.data;
+		console.log("res: (getMany) ", res);
+		return { data: res.data?.response };
 	},
 
 	getManyReference: async (
 		resource: string,
 		params: GetManyReferenceParams
 	) => {
+		// debugger;
 		let query = {
 			target: params.target,
 			id: params.id,
@@ -91,30 +105,50 @@ export default {
 					: "",
 		};
 		let res = await axios.get(`/api/${resource}/get?${stringify(query)}`);
-		return res.data;
+		console.log("res: (getManyReference) ", res);
+		return { data: res.data.response, total: res.data.total };
 	},
 	create: async (resource: string, params: CreateParams) => {
+		// debugger;
+		console.log("create", params);
 		let res = await axios.post(`/api/${resource}/add`, params.data);
+		console.log("res: (create)", res);
 		return { data: res.data.result };
 	},
+	update: async (resource: string, params: UpdateParams) => {
+		// debugger;
+		console.log("update", params);
+		// const query = {};
+		// const res = await axios.put(`/api/${resource}/`);
+		// return { data: {} };
+	},
 
-	update: (resource: string, params: UpdateParams) => {},
-
-	updateMany: (resource: string, params: UpdateManyParams) => {},
+	updateMany: async (resource: string, params: UpdateManyParams) => {
+		// debugger;
+		console.log("updateMany", params);
+		// return only ids
+		// return { data: [] };
+	},
 
 	delete: async (resource: string, params: DeleteParams) => {
+		// debugger;
+		console.log("delete", params);
 		let res = await axios.post(`/api/${resource}/remove`, {
 			id: params.id,
 		});
-		console.log("res.data.result: ", res.data.result);
-		return { data: res.data.result.length > 1 ? false : res.data.result[0] };
+		return {
+			data: res.data.response.length > 1 ? false : res.data.response[0],
+		};
 	},
 
 	deleteMany: async (resource: string, params: DeleteManyParams) => {
+		// debugger;
+		console.log("deleteMany", params);
 		let res = await axios.post(`/api/${resource}/remove`, {
 			ids: params.ids,
 		});
-		console.log("res.data.result (many): ", res.data.result);
-		return { data: res.data.result.map((r) => r.id) };
+		return { data: res.data.response.map((r: VolunteerInterface) => r.id) };
 	},
 };
+
+export default dataProvider;

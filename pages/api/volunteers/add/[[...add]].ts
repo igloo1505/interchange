@@ -10,7 +10,7 @@ import "colors";
 const handler = nc();
 
 handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
-	console.log(`req.body: ${req.body}`.bgGreen.black);
+	console.log(`req.body: ${JSON.stringify(req.body, null, 2)}`.bgGreen.black);
 	let splitString: string[] = splitByLinebreak(req.body.description);
 
 	try {

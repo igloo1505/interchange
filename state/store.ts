@@ -9,6 +9,7 @@ const store = configureStore({
 	devTools: process.env.NODE_ENV !== "production" || true,
 	preloadedState: initialState,
 });
+
 declare global {
 	interface Window {
 		store: typeof store;

@@ -37,11 +37,11 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 			return sendError(errorResponse, res);
 		}
 		await volunteers.forEach(
-			async (v) => await Volunteer.findByIdAndRemove(v.id)
+			async (v) => await Volunteer.findByIdAndRemove(v.id || v._id)
 		);
 
 		let response = {
-			result: volunteers,
+			response: volunteers,
 			success: true,
 		};
 		console.log("response: ", response);
