@@ -19,10 +19,17 @@ import { numberOnlyKeyDown } from "../../../utils/utilityFunctions";
 import { RichTextInput } from "ra-input-rich-text";
 
 const VolunteerEdit = () => {
-	const record = useRecordContext();
-	console.log("record: ", record);
 	return (
-		<Edit>
+		<Edit
+			sx={{
+				"& .RaEdit-main": {
+					margin: {
+						xs: "0.25rem 0.5rem 6rem 0.5rem",
+						sm: "0.25rem 0.5rem 2rem 0rem",
+					},
+				},
+			}}
+		>
 			<SimpleForm>
 				<TextInput disabled label="Id" source="id" />
 				<Box display={{ xs: "block", sm: "flex", width: "100%" }}>
@@ -66,18 +73,25 @@ const VolunteerEdit = () => {
 					multiline
 					// validate={required()}
 				/>
-				<RichTextInput
+				<RichText
 					source="description"
 					label="Their Story"
 					// validate={required()}
 				/>
-				<NumberInput
-					source="quote.index"
-					label="Quote Index"
-					onKeyDown={numberOnlyKeyDown}
-					// validate={required()}
-				/>
-				<DateInput label="Date Posted" source="datePosted" />
+				<Box display={{ xs: "block", sm: "flex", width: "100%" }}>
+					<Box flex={1} mr={{ xs: 0, sm: "0.5em" }}>
+						<NumberInput
+							source="quote.index"
+							label="Quote Index"
+							onKeyDown={numberOnlyKeyDown}
+							// validate={required()}
+							fullWidth
+						/>
+					</Box>
+					<Box flex={1} ml={{ xs: 0, sm: "0.5em" }}>
+						<DateInput label="Date Posted" source="datePosted" fullWidth />
+					</Box>
+				</Box>
 			</SimpleForm>
 		</Edit>
 	);

@@ -2,7 +2,7 @@ import { Schema, models, model } from "mongoose";
 
 export interface VolunteerInterface {
 	datePosted?: Date | (() => Date) | string;
-	description: string[];
+	description: string;
 	email?: string;
 	name: {
 		first?: string;
@@ -44,7 +44,7 @@ const VolunteerSchema = new Schema<VolunteerInterface>({
 		required: false,
 	},
 	description: {
-		type: [String],
+		type: String,
 		required: true,
 	},
 	image: {

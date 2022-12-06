@@ -1,1 +1,2 @@
-# Template for Next.js projects
+# A pretty straight-forward project for an awesome organization
+

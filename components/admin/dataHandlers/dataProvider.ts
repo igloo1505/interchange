@@ -116,18 +116,16 @@ const dataProvider: DataProvider = {
 		return { data: res.data.result };
 	},
 	update: async (resource: string, params: UpdateParams) => {
-		// debugger;
-		console.log("update", params);
-		// const query = {};
-		// const res = await axios.put(`/api/${resource}/`);
-		// return { data: {} };
+		console.log("update: params: ", params);
+		const res = await axios.put(`/api/${resource}/edit`, params);
+		return { data: res.data?.response[0] };
 	},
 
 	updateMany: async (resource: string, params: UpdateManyParams) => {
-		// debugger;
 		console.log("updateMany", params);
-		// return only ids
-		// return { data: [] };
+		let res = await axios.put(`/api/${resource}/edit`, params);
+		// TODO: change r: VolunteerInterface to VolunteerInterface | PatronInterface...
+		return { data: res.data?.response?.map((r: VolunteerInterface) => r.id) };
 	},
 
 	delete: async (resource: string, params: DeleteParams) => {
@@ -147,6 +145,7 @@ const dataProvider: DataProvider = {
 		let res = await axios.post(`/api/${resource}/remove`, {
 			ids: params.ids,
 		});
+		// TODO: change r: VolunteerInterface to VolunteerInterface | PatronInterface...
 		return { data: res.data.response.map((r: VolunteerInterface) => r.id) };
 	},
 };

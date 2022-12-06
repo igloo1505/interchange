@@ -12,7 +12,6 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
 		`stringified req.query: ${JSON.stringify(req.query, null, 2)}`.cyan
 	);
 	try {
-		debugger;
 		let volunteers: any[] = [];
 		if (!req?.query.id) {
 			volunteers = await Volunteer.find()
@@ -33,7 +32,6 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
 			volunteers.push(x);
 		}
 		if (req?.query.ids && typeof req?.query.ids !== "undefined") {
-			// debugger;
 			console.log("req?.query.ids: ", req?.query.ids);
 			let ids: string[] | string = req.query.ids;
 			if (typeof ids === "string") ids = [ids];
@@ -50,7 +48,6 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
 		});
 		let result = { response: data, total: total, success: true };
 		console.log(`returning: ${JSON.stringify(result, null, 2)}`.bgBlue.white);
-		debugger;
 		res.json(result);
 	} catch (error) {
 		let errorResponse: ErrorResponse = {
