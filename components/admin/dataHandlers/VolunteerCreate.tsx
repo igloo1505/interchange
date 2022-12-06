@@ -6,10 +6,13 @@ import {
 	DateInput,
 	required,
 	email,
+	ImageInput,
+	ImageField,
 } from "react-admin";
 import Box from "@mui/material/Box";
 import RichText from "./RichText";
 import * as yup from "yup";
+import { numberOnlyKeyDown } from "../../../utils/utilityFunctions";
 const VolunteerCreate = () => {
 	return (
 		<Create>
@@ -43,14 +46,36 @@ const VolunteerCreate = () => {
 					</Box>
 					<Box flex={1} ml={{ xs: 0, sm: "0.5em" }}>
 						<TextInput
-							source="regularJob"
-							label="Day Job"
-							// validate={[required()]}
+							source="phone"
+							label="Phone"
 							fullWidth
+							onKeyDown={numberOnlyKeyDown(["-"])}
 						/>
 					</Box>
 				</Box>
+
+				<TextInput
+					source="regularJob"
+					label="Day Job"
+					// validate={[required()]}
+					fullWidth
+				/>
+				<TextInput
+					source="quote.string"
+					label="Meaningful quote"
+					// validate={[required()]}
+					fullWidth
+				/>
 				<RichText label="Their Story" source="description" />
+				<ImageInput
+					source="image"
+					label="Photo"
+					accept={[".jpeg", ".jpg", ".png"]}
+					multiple={false}
+					name="image"
+				>
+					<ImageField source="src" title="filename" />
+				</ImageInput>
 			</SimpleForm>
 		</Create>
 	);

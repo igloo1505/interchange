@@ -1,5 +1,5 @@
 import { Schema, models, model } from "mongoose";
-
+import { parsePhone } from "../utils/utilityFunctions";
 export interface VolunteerInterface {
 	datePosted?: Date | (() => Date) | string;
 	description: string;
@@ -15,15 +15,11 @@ export interface VolunteerInterface {
 		index?: number;
 	};
 	image?: string;
+	phone?: number | string | undefined;
 	regularJob?: string;
 	id?: Schema.Types.ObjectId;
 }
-console.log(
-	"new date",
-	new Date().toLocaleString("en-US", {
-		timeZone: "America/Chicago",
-	})
-);
+
 const VolunteerSchema = new Schema<VolunteerInterface>({
 	name: {
 		first: {
@@ -37,6 +33,10 @@ const VolunteerSchema = new Schema<VolunteerInterface>({
 	},
 	email: {
 		type: String,
+		required: false,
+	},
+	phone: {
+		type: Number,
 		required: false,
 	},
 	regularJob: {

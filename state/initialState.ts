@@ -7,6 +7,10 @@ const initialState = {
 			isOpen: false,
 		},
 	},
+	app: {
+		isLoading: false,
+		error: null,
+	},
 };
 
 export default initialState;

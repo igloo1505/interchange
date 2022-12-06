@@ -83,7 +83,7 @@ const VolunteerEdit = () => {
 						<NumberInput
 							source="quote.index"
 							label="Quote Index"
-							onKeyDown={numberOnlyKeyDown}
+							onKeyDown={numberOnlyKeyDown([])}
 							// validate={required()}
 							fullWidth
 						/>

@@ -12,15 +12,9 @@ import {
 	DataProvider,
 } from "react-admin";
 import { stringify } from "query-string";
-import axios from "axios";
+// import axios, { useAxios } from "axios";
 import { VolunteerInterface } from "../../../models/Volunteer";
-axios.defaults.headers.common = {
-	"Content-Type": "application/json",
-};
-
-// type returnType = {
-// 	data: VolunteerInterface[];
-// };
+import axios, { methodEnum } from "../../../utils/useAxios";
 
 const dataProvider: DataProvider = {
 	getList: async (resource: string, params: GetListParams) => {
@@ -41,8 +35,12 @@ const dataProvider: DataProvider = {
 					? JSON.stringify(params.meta)
 					: "",
 		};
-		let res = await axios.get(`/api/${resource}/get?${stringify(query)}`);
-		console.log("res: (getList) ", res);
+		// let res = await axios.get();
+		let res = await axios({
+			method: methodEnum.get,
+			url: `/api/${resource}/get?${stringify(query)}`,
+		});
+		// console.log("res: (getList) ", res);
 		return { data: res.data.response, total: res.data.total };
 	},
 
@@ -57,7 +55,11 @@ const dataProvider: DataProvider = {
 					? JSON.stringify(params.meta)
 					: "",
 		};
-		let res = await axios.get(`/api/${resource}/get?${stringify(query)}`);
+		// let res = await axios.get();
+		let res = await axios({
+			method: methodEnum.get,
+			url: `/api/${resource}/get?${stringify(query)}`,
+		});
 		console.log("res.data?.result?.data[0]: ", res.data?.result?.data[0]);
 		return { data: res.data?.response[0] };
 	},
@@ -77,7 +79,11 @@ const dataProvider: DataProvider = {
 					: "",
 		};
 		// if(typeof )
-		let res = await axios.get(`/api/${resource}/get?${stringify(query)}`);
+		// let res = await axios.get(`/api/${resource}/get?${stringify(query)}`);
+		let res = await axios({
+			method: methodEnum.get,
+			url: `/api/${resource}/get?${stringify(query)}`,
+		});
 		console.log("res: (getMany) ", res);
 		return { data: res.data?.response };
 	},
@@ -104,20 +110,36 @@ const dataProvider: DataProvider = {
 					? JSON.stringify(params.meta)
 					: "",
 		};
-		let res = await axios.get(`/api/${resource}/get?${stringify(query)}`);
+		let res = await axios({
+			method: methodEnum.get,
+			url: `/api/${resource}/get?${stringify(query)}`,
+		});
 		console.log("res: (getManyReference) ", res);
 		return { data: res.data.response, total: res.data.total };
 	},
 	create: async (resource: string, params: CreateParams) => {
 		// debugger;
 		console.log("create", params);
-		let res = await axios.post(`/api/${resource}/add`, params.data);
+		// let res = await axios.post(, params.data, {
+		// 	headers: ,
+		// });
+		let res = await axios({
+			method: methodEnum.post,
+			url: `/api/${resource}/add`,
+			data: params.data,
+			headers: { "content-type": "multipart/form-data" },
+		});
 		console.log("res: (create)", res);
 		return { data: res.data.result };
 	},
 	update: async (resource: string, params: UpdateParams) => {
 		console.log("update: params: ", params);
-		const res = await axios.put(`/api/${resource}/edit`, params);
+		// const res = await axios.put();
+		let res = await axios({
+			method: methodEnum.put,
+			url: `/api/${resource}/edit`,
+			data: params,
+		});
 		return { data: res.data?.response[0] };
 	},
 
@@ -131,8 +153,13 @@ const dataProvider: DataProvider = {
 	delete: async (resource: string, params: DeleteParams) => {
 		// debugger;
 		console.log("delete", params);
-		let res = await axios.post(`/api/${resource}/remove`, {
-			id: params.id,
+		// let res = await axios.post(`/api/${resource}/remove`, );
+		let res = await axios({
+			method: methodEnum.post,
+			url: `/api/${resource}/remove`,
+			data: {
+				id: params.id,
+			},
 		});
 		return {
 			data: res.data.response.length > 1 ? false : res.data.response[0],
@@ -142,8 +169,12 @@ const dataProvider: DataProvider = {
 	deleteMany: async (resource: string, params: DeleteManyParams) => {
 		// debugger;
 		console.log("deleteMany", params);
-		let res = await axios.post(`/api/${resource}/remove`, {
-			ids: params.ids,
+		let res = await axios({
+			method: methodEnum.post,
+			url: `/api/${resource}/remove`,
+			data: {
+				ids: params.ids,
+			},
 		});
 		// TODO: change r: VolunteerInterface to VolunteerInterface | PatronInterface...
 		return { data: res.data.response.map((r: VolunteerInterface) => r.id) };

@@ -32,7 +32,6 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
 			volunteers.push(x);
 		}
 		if (req?.query.ids && typeof req?.query.ids !== "undefined") {
-			console.log("req?.query.ids: ", req?.query.ids);
 			let ids: string[] | string = req.query.ids;
 			if (typeof ids === "string") ids = [ids];
 			ids.map(async (_id) => {
@@ -41,7 +40,6 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
 			});
 		}
 		let total = await Volunteer.count();
-		console.log("volunteers: ", volunteers);
 
 		let data = volunteers.map((v) => {
 			return v.toObject({ getters: true, virtuals: true });
