@@ -36,3 +36,10 @@ yarn-error.log*
 next-env.d.ts
 # snippets.code-snippets
 # .vscode/
+
+
+
+# Firebase & Auth stuff
+.env
+.env**
+.vscode/**
