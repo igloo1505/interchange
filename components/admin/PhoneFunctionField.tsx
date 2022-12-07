@@ -41,6 +41,7 @@ const PhoneFunctionField = (props: Partial<FunctionFieldProps>) => {
 				</a>
 			) : (
 				<div className="flex flex-row items-center justify-start gap-1">
+					<span className="text-[0.75rem] leading-snug">N/A</span>
 				</div>
 			)}
 		</Fragment>

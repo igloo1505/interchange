@@ -18,14 +18,16 @@ const grievances = [
 
 export const sendError = (data: ErrorResponse, res: NextApiResponse) => {
 	return res.status(data.statusCode || 500).json({
-		displayMessage: `${
-			grievances[Math.floor(Math.random() * grievances.length)]
-		}, ${data.displayMessage
-			?.slice(0, 1)
-			.toLowerCase()}${data.displayMessage?.slice(
-			1,
-			data.displayMessage.length - 1
-		)}`,
+		displayMessage: data.displayMessage
+			? `${
+					grievances[Math.floor(Math.random() * grievances.length)]
+			  }, ${data.displayMessage
+					?.slice(0, 1)
+					.toLowerCase()}${data.displayMessage?.slice(
+					1,
+					data.displayMessage.length - 1
+			  )}`
+			: null,
 		consoleMessage: data.consoleMessage,
 		error: data.error,
 		success: false,

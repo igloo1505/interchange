@@ -6,6 +6,15 @@ const initialState = {
 		drawer: {
 			isOpen: false,
 		},
+		dimensions: {
+			navbar: {
+				height: null as unknown as number,
+			},
+			viewport: {
+				width: null as unknown as number,
+				height: null as unknown as number,
+			},
+		},
 	},
 	app: {
 		isLoading: false,

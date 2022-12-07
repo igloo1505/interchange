@@ -4,22 +4,28 @@ import {
 	useShowContext,
 	WithRecord,
 	useEditContext,
-	useRefresh
+	useRefresh,
 } from "react-admin";
 import React, { useState, useEffect, Fragment } from "react";
 import Image from "next/image";
 import { HiOutlineXMark } from "react-icons/hi2";
 import { VolunteerInterface } from "../../models/Volunteer";
-import {clearImage} from '../../utils/clearImage';
+import { clearImage } from "../../utils/clearImage";
 interface ImageEditFieldProps {
 	source: string;
 	label: string;
 	resource: string;
+	fullWidth?: boolean;
 }
 
-const ImageEditField = ({ source, label, resource }: ImageEditFieldProps) => {
+const ImageEditField = ({
+	source,
+	label,
+	resource,
+	fullWidth = false,
+}: ImageEditFieldProps) => {
 	const { record: _record } = useEditContext();
-	const refresh = useRefresh()
+	const refresh = useRefresh();
 	const handleClearImage = async () => {
 		let _data = {
 			id: _record.id,
@@ -27,9 +33,10 @@ const ImageEditField = ({ source, label, resource }: ImageEditFieldProps) => {
 			previousData: _record,
 		};
 		console.log(JSON.stringify(_data, null, 2));
-		let res = await clearImage({id: _record.id, resource: resource})
-		if(res.data.success){
-			refresh()
+		let res = await clearImage({ id: _record.id, resource: resource });
+		console.log("res: ", res);
+		if (res.data.success) {
+			refresh();
 		}
 	};
 
@@ -63,6 +70,7 @@ const ImageEditField = ({ source, label, resource }: ImageEditFieldProps) => {
 									accept={[".jpeg", ".jpg", ".png"]}
 									multiple={false}
 									name="image"
+									fullWidth={fullWidth}
 								>
 									<ImageField source="src" title="filename" />
 								</ImageInput>

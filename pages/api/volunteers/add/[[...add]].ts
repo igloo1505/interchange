@@ -54,14 +54,9 @@ handler.post(async (req: NextApiRequest | any, res: NextApiResponse | any) => {
 			}
 			props.phone = parsedPhone;
 		}
-		// let file = req?.file as CustomFileResult;
-		// const { mimetype, originalname, image, placeholder, bucket } = file;
-		// let x = await upload();
 		let volunteer = new Volunteer({
 			...props,
 		});
-		await volunteer.vali;
-		// let imageUrl = await upload(req);
 		let savedVolunteer = await volunteer.save();
 		res.json({
 			result: savedVolunteer.toObject({

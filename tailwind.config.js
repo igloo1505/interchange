@@ -1,3 +1,5 @@
+const { fontFamily } = require("tailwindcss/defaultTheme");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	content: [
@@ -20,6 +22,7 @@ module.exports = {
 			inherit: colors.inherit,
 			current: colors.current,
 			primary: colors.sky,
+			secondary: "#D1501F",
 			toast_success: `${colors.green[500]}`,
 			toast_error: colors.red[600],
 			toast_warning: colors.yellow[500],
@@ -374,22 +377,7 @@ module.exports = {
 			DEFAULT: "1",
 		},
 		fontFamily: {
-			sans: [
-				"ui-sans-serif",
-				"system-ui",
-				"-apple-system",
-				"BlinkMacSystemFont",
-				'"Segoe UI"',
-				"Roboto",
-				'"Helvetica Neue"',
-				"Arial",
-				'"Noto Sans"',
-				"sans-serif",
-				'"Apple Color Emoji"',
-				'"Segoe UI Emoji"',
-				'"Segoe UI Symbol"',
-				'"Noto Color Emoji"',
-			],
+			sans: ["var(--font-inter)", ...fontFamily.sans],
 			serif: [
 				"ui-serif",
 				"Georgia",
@@ -988,7 +976,7 @@ module.exports = {
 		"active",
 		"disabled",
 	],
-	plugins: [],
+	plugins: [require("@tailwindcss/forms")],
 	safelist: [
 		"bg-toast_success",
 		"bg-toast_error",

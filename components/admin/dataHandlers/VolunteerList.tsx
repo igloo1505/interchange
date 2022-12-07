@@ -11,7 +11,7 @@ import {
 	TextInput,
 	EmailField,
 } from "react-admin";
-import VolunteerShow from "./VolunteerShow";
+import { useState, useEffect } from "react";
 
 const ListActions = () => {
 	return (
@@ -29,18 +29,36 @@ const postFilters = [
 ];
 
 const VolunteerList = () => {
+	const [viewport, setViewport] = useState<number | undefined>();
+	const handleViewport = () => {
+		if (typeof window === "undefined") {
+			return;
+		}
+		let w = window?.innerWidth;
+		setViewport(w);
+	};
+	useEffect(() => {
+		handleViewport();
+		window?.addEventListener("resize", handleViewport);
+	}, []);
 	return (
 		<List filters={postFilters} title="Volunteers">
 			<Datagrid rowClick="show">
 				<TextField source="name.first" about="First Name" label="First Name" />
 				<TextField source="name.last" label="Last Name" />
-				<EmailField source="email" label="Email" />
-				<NumberField
-					source="quote.index"
-					label="Quote Index"
-					about="Defines after which paragraph quote will appear if a quote exists."
-				/>
-				<TextField source="regularJob" label="Day Job" />
+				{viewport && viewport > 650 && (
+					<EmailField source="email" label="Email" />
+				)}
+				{viewport && viewport > 850 && (
+					<NumberField
+						source="quote.index"
+						label="Quote Index"
+						about="Defines after which paragraph quote will appear if a quote exists."
+					/>
+				)}
+				{viewport && viewport > 850 && (
+					<TextField source="regularJob" label="Day Job" />
+				)}
 				<DateField source="datePosted" locales="cst" />
 			</Datagrid>
 		</List>

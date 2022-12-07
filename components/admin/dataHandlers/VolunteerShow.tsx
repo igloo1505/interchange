@@ -5,41 +5,15 @@ import {
 	DateField,
 	RichTextField,
 	Labeled,
-	ImageField,
-	useRecordContext,
-	useShowContext,
 	// EmailField,
 } from "react-admin";
 import Box from "@mui/material/Box";
-import Image from "next/image";
 import PhoneFunctionField from "../PhoneFunctionField";
 import EmailField from "../EmailField";
 import QuoteField from "../QuoteField";
-import { Fragment } from "react";
+import ImageShow from "./ImageShow";
 
 // import {RichTextField} from 'ra-input-rich-text'
-
-const ImageShow = () => {
-	const showContext = useShowContext();
-	let w =
-		window?.innerWidth && window?.innerWidth < 640
-			? window?.innerWidth * 0.8
-			: 400;
-	return (
-		<Fragment>
-			{showContext?.record?.image && (
-				<div className="relative w-[200px] h-[200px]">
-					<Image
-						src={`/uploads/${showContext.record.image}`}
-						alt="Volunteer Image"
-						fill
-						className="object-contain"
-					/>
-				</div>
-			)}
-		</Fragment>
-	);
-};
 
 const VolunteerShow = () => {
 	return (

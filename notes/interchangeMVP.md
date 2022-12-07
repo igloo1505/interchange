@@ -16,9 +16,11 @@
 ## CMS Features
 
 - [x] Add & Remove volunteers
-  - [ ] Update volunteers
-- [ ] Add & Remove patrons
-  - [ ] Update patrons
+  - [x] Update volunteers
+- [x] Add & Remove patrons
+  - [x] Update patrons
+- [ ] Contact submission form
+- [ ] View and manage contact submissions in React-admin
 - [ ] Edit text on main page
 - [ ] Edit image(s) on main page
 - [ ] Edit hours

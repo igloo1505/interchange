@@ -1,8 +1,18 @@
-import { Schema, models, model, Types } from "mongoose";
+import { Schema, models, model } from "mongoose";
 
-interface DailyHoursInterface {
+export interface DailyHoursInterface {
 	opening: number;
 	closing: number;
+}
+
+export enum Week {
+	monday = "mon",
+	tuesday = "tue",
+	wednesday = "wed",
+	thursday = "thur",
+	friday = "fri",
+	saturday = "sat",
+	sunday = "sun",
 }
 
 const DailySchema = new Schema({
@@ -16,43 +26,53 @@ const DailySchema = new Schema({
 	},
 });
 
-interface HoursInterface {
-	monday: DailyHoursInterface;
-	tuesday: DailyHoursInterface;
-	wednesday: DailyHoursInterface;
-	thursday: DailyHoursInterface;
-	friday: DailyHoursInterface;
-	saturday: DailyHoursInterface;
-	sunday: DailyHoursInterface;
+export const Daily =
+	models?.DailySchema || model<DailyHoursInterface>("Daily", DailySchema);
+
+export interface HoursInterface {
+	mon: DailyHoursInterface;
+	tue: DailyHoursInterface;
+	wed: DailyHoursInterface;
+	thur: DailyHoursInterface;
+	fri: DailyHoursInterface;
+	sat: DailyHoursInterface;
+	sun: DailyHoursInterface;
 }
 
 const HoursSchema = new Schema<HoursInterface>({
-	monday: {
+	mon: {
 		type: Schema.Types.ObjectId,
+		ref: Daily,
 		required: false,
 	},
-	tuesday: {
+	tue: {
 		type: Schema.Types.ObjectId,
+		ref: Daily,
 		required: false,
 	},
-	wednesday: {
+	wed: {
 		type: Schema.Types.ObjectId,
+		ref: Daily,
 		required: false,
 	},
-	thursday: {
+	thur: {
 		type: Schema.Types.ObjectId,
+		ref: Daily,
 		required: false,
 	},
-	friday: {
+	fri: {
 		type: Schema.Types.ObjectId,
+		ref: Daily,
 		required: false,
 	},
-	saturday: {
+	sat: {
 		type: Schema.Types.ObjectId,
+		ref: Daily,
 		required: false,
 	},
-	sunday: {
+	sun: {
 		type: Schema.Types.ObjectId,
+		ref: Daily,
 		required: false,
 	},
 });

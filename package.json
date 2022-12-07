@@ -10,10 +10,12 @@
 	},
 	"dependencies": {
 		"@headlessui/react": "^1.7.4",
+		"@next/font": "^13.0.6",
 		"@reduxjs/toolkit": "^1.9.0",
 		"@types/node": "18.11.9",
 		"@types/react": "18.0.25",
 		"@types/react-dom": "18.0.9",
+		"animate.css": "^4.1.1",
 		"axios": "^1.2.0",
 		"clsx": "^1.2.1",
 		"colors": "^1.4.0",
@@ -21,6 +23,7 @@
 		"eslint-config-next": "13.0.4",
 		"firebase": "^9.14.0",
 		"firebase-admin": "^11.3.0",
+		"formik": "^2.2.9",
 		"gsap": "^3.11.3",
 		"jsonwebtoken": "^8.5.1",
 		"mongodb": "^4.12.1",
@@ -45,6 +48,7 @@
 		"yup": "^0.32.11"
 	},
 	"devDependencies": {
+		"@tailwindcss/forms": "^0.5.3",
 		"@types/multer": "^1.4.7",
 		"@types/multiparty": "^0.0.33",
 		"@types/newman": "^5.3.1",

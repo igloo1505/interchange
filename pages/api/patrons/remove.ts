@@ -2,23 +2,58 @@ import nc from "next-connect";
 import Patron from "../../../models/Patron";
 import { NextApiRequest, NextApiResponse } from "next";
 import { ErrorResponse, sendError } from "../../../types/ErrorResponse";
+import connectDB from "../../../utils/connectMongo";
+import "colors";
+import { parse } from "querystring";
+
 const handler = nc();
 
 handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
-	console.log("req.body: ", req.body);
-	// const { id } = req.body;
 	try {
-		let patron = new Patron(req.body);
-		let savedPatron = await patron.save();
-		res.json({ contact: savedPatron, success: true });
+		let patrons = [];
+		let ids = req.body.id
+			? [req.body.id]
+			: req.body.ids
+			? [...req.body.ids]
+			: [];
+		console.log("ids: ".red, ids);
+		for (var i = 0; i < ids.length; i++) {
+			let patron = await Patron.findById(ids[i]);
+			patrons.push(
+				patron.toObject({
+					getters: true,
+					virtuals: true,
+				})
+			);
+		}
+		if (patrons.length === 0) {
+			let errorResponse: ErrorResponse = {
+				error: "Patron not found",
+				displayMessage: `Patron${
+					ids.length > 1 && "s"
+				} was not found. It may have already been deleted.`,
+				statusCode: 500,
+			};
+			return sendError(errorResponse, res);
+		}
+		await patrons.forEach(
+			async (v) => await Patron.findByIdAndRemove(v.id || v._id)
+		);
+
+		let response = {
+			response: patrons,
+			success: true,
+		};
+		console.log("response: ", response);
+		res.json(response);
 	} catch (error) {
 		let errorResponse: ErrorResponse = {
 			error: error,
-			displayMessage: "something went wrong adding that patron.",
+			displayMessage: "Something went wrong removing that volunteer.",
 			statusCode: 500,
 		};
 		sendError(errorResponse, res);
 	}
 });
 
-export default handler;
+export default connectDB(handler);

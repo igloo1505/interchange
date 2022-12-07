@@ -1,58 +1,61 @@
 import React, { useEffect } from "react";
 import gsap from "gsap";
-import { showToast } from "../../state/actions";
 import { useAppDispatch } from "../../hooks/ReduxHooks";
+import Link from "next/link";
+import { Url } from "url";
 interface NavbarProps {}
 export interface NavLink {
 	text: string;
-	href?: string;
+	href: Url;
 	onClick?: () => void | any;
 }
 
 export const links: NavLink[] = [
 	{
 		text: "Home",
-		href: "#",
+		href: "/" as unknown as Url,
 		// onClick: null,
 	},
 	{
 		text: "About",
-		href: "/About",
+		href: "/About" as unknown as Url,
 		// onClick: null,
 	},
 	{
 		text: "Contact",
-		href: "/Contact",
+		href: "/Contact" as unknown as Url,
 		// onClick: null,
 	},
 	{
 		text: "Hours & Location",
-		href: "/HoursAndLocation",
+		href: "/HoursAndLocation" as unknown as Url,
 		// onClick: null,
 	},
 	{
 		text: "Volunteer",
-		href: "/Volunteer",
+		href: "/Volunteer" as unknown as Url,
 		// onClick: null,
 	},
 	{
 		text: "Resources",
-		href: "/Resources",
+		href: "/Resources" as unknown as Url,
 		// onClick: null,
 	},
 	{
 		text: "Donate",
-		href: "/Donate",
+		href: "/Donate" as unknown as Url,
 		// onClick: null,
 	},
 ];
 
 const Navbar = ({}: NavbarProps) => {
-	const dispatch = useAppDispatch();
-
 	useEffect(() => {
+		if (typeof window === "undefined") {
+			return;
+		}
 		animateEntrance();
 	}, []);
+
 	return (
 		<div
 			className="flex-row items-center justify-center hidden w-full gap-2 py-3 md:flex"
@@ -66,16 +69,17 @@ const Navbar = ({}: NavbarProps) => {
 						onMouseEnter={() => animateHover(i)}
 						onMouseLeave={() => cancelAnimation(i)}
 					>
-						<a
+						<Link
 							href={l.href}
 							onClick={l.onClick ? l.onClick() : null}
-							className="px-2 text-sm uppercase transition-all duration-200 text-sky-800 hover:text-orange-600"
+							className="px-2 text-sm uppercase transition-all duration-200 text-primary-800 hover:text-secondary"
 							style={{
 								...(i < a.length - 1 && { borderRight: "1px solid #bae6fd" }),
 							}}
+							shallow={true}
 						>
 							{l.text}
-						</a>
+						</Link>
 						<div
 							className="h-[4px] bg-sky-700 w-full navbar-underline"
 							id={`navbar-underline-${i}`}

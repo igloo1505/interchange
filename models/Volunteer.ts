@@ -1,5 +1,4 @@
 import { Schema, models, model } from "mongoose";
-import { parsePhone } from "../utils/utilityFunctions";
 export interface VolunteerInterface {
 	datePosted?: Date | (() => Date) | string;
 	description: string;

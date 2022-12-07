@@ -9,17 +9,6 @@ import ToastConfig from "../types/ToastConfig";
 const initialState = initState.UI;
 
 const UIReducer = createReducer(initialState, (builder) => {
-	builder.addCase("SHOW_TOAST", (state, action: Types.SHOW_TOAST) => {
-		return {
-			...state,
-			toast: {
-				message: action.payload.message,
-				type: action.payload.type,
-				delay: action.payload.delay,
-			},
-		};
-	});
-
 	builder.addCase("TOGGLE_DRAWER", (state, action: Types.TOGGLE_DRAWER) => {
 		return {
 			...state,
@@ -31,10 +20,13 @@ const UIReducer = createReducer(initialState, (builder) => {
 			},
 		};
 	});
-	builder.addCase("HIDE_TOAST", (state, action: Types.HIDE_TOAST) => {
+	builder.addCase("SET_DIMENSIONS", (state, action: Types.SET_DIMENSIONS) => {
 		return {
 			...state,
-			toast: {} as ToastConfig,
+			dimensions: {
+				...state.dimensions,
+				...action.payload,
+			},
 		};
 	});
 });

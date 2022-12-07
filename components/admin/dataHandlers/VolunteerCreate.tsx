@@ -3,7 +3,6 @@ import {
 	Create,
 	SimpleForm,
 	TextInput,
-	DateInput,
 	required,
 	email,
 	ImageInput,
@@ -11,8 +10,8 @@ import {
 } from "react-admin";
 import Box from "@mui/material/Box";
 import RichText from "./RichText";
-import * as yup from "yup";
 import { numberOnlyKeyDown } from "../../../utils/utilityFunctions";
+
 const VolunteerCreate = () => {
 	return (
 		<Create>
@@ -22,7 +21,7 @@ const VolunteerCreate = () => {
 						<TextInput
 							source="name.first"
 							label="First Name"
-							// validate={[required()]}
+							validate={[required()]}
 							fullWidth
 						/>
 					</Box>
