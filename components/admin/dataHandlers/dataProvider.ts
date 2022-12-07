@@ -15,6 +15,7 @@ import { stringify } from "query-string";
 // import axios, { useAxios } from "axios";
 import { VolunteerInterface } from "../../../models/Volunteer";
 import axios, { methodEnum } from "../../../utils/useAxios";
+import QueryString from "qs";
 
 const dataProvider: DataProvider = {
 	getList: async (resource: string, params: GetListParams) => {
@@ -27,7 +28,7 @@ const dataProvider: DataProvider = {
 			sortOrder: params.sort.order,
 			filter:
 				Object.keys(params.filter).length > 0
-					? JSON.stringify(params.filter)
+					? QueryString.stringify(params.filter)
 					: "",
 			meta:
 				typeof params.meta !== "undefined" &&
@@ -102,7 +103,7 @@ const dataProvider: DataProvider = {
 			sortOrder: params.sort.order,
 			filter:
 				Object.keys(params.filter).length > 0
-					? JSON.stringify(params.filter)
+					? QueryString.stringify(params.filter)
 					: "",
 			meta:
 				typeof params.meta !== "undefined" &&

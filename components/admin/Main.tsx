@@ -20,6 +20,7 @@ import PatronEdit from "./dataHandlers/PatronEdit";
 import PatronShow from "./dataHandlers/PatronShow";
 import ContactList from "./dataHandlers/contact/ContactList";
 import ContactShow from "./dataHandlers/contact/ContactShow";
+import MarkunreadMailboxIcon from "@mui/icons-material/MarkunreadMailbox";
 
 const App = () => {
 	return (
@@ -55,7 +56,7 @@ const App = () => {
 				list={ContactList}
 				show={ContactShow}
 				recordRepresentation={(r) => `${r.name}`}
-				icon={BlindIcon}
+				icon={MarkunreadMailboxIcon}
 			/>
 			<ReactQueryDevtools initialIsOpen={true} />
 		</Admin>

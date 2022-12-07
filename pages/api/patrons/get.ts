@@ -4,6 +4,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { ErrorResponse, sendError } from "../../../types/ErrorResponse";
 import connectDB from "../../../utils/connectMongo";
 import "colors";
+import handleFilter from "../../../utils/handleFilter";
+import qs from "qs";
 
 const handler = nc();
 
@@ -13,8 +15,10 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
 	);
 	try {
 		let patrons: any[] = [];
+		let _filter = qs.parse(req.query?.filter);
+		const filter = handleFilter({ ..._filter });
 		if (!req?.query.id) {
-			patrons = await Patron.find()
+			patrons = await Patron.find(filter)
 				/// @ts-ignore
 				.skip((Number(req.query?.page) - 1) * Number(req?.query?.perPage) || 0)
 				/// @ts-ignore

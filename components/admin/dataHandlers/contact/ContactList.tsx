@@ -26,6 +26,7 @@ const ListActions = () => {
 const postFilters = [
 	<TextInput label="Name" source="name" />,
 	<TextInput label="Email" source="email" />,
+	<TextInput label="Date" source="date" />,
 ];
 
 const ContactList = () => {
