@@ -1,9 +1,11 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { db } from "./initFirebase";
+// import { db } from "./initFirebase";
 import multer, { DiskStorageOptions, Multer, MulterError } from "multer";
 import { uuid } from "uuidv4";
 import path from "path";
 import { NextFunction } from "express-serve-static-core";
+import { Schema } from "mongoose";
+import axios from "axios";
 
 // const fileBuffer = await sharp(file.buffer)
 // 	.resize({ height: 1920, width: 1080, fit: "contain" })
@@ -41,3 +43,7 @@ export const multerUpload = async (
 // 	// let req = multerUpload.single();
 // 	return "";
 // };
+
+
+
+

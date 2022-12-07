@@ -37,6 +37,7 @@
 ### 12-03-22
 - Started today around 1pm. Took a while to get comfortable with React-Admin but now things are going smoothly.
 #### Resume by:
+1. Fix issue with all volunteers returning same id as displayed in show component.
 1. Change other async loops to use for in instead of map. I just got lucky with it until now.
 1. Image Feature for Volunteer.
 2. Update routes working for volunteer.

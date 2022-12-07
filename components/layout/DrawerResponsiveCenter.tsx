@@ -33,7 +33,7 @@ const DrawerResponsiveCenter = ({
 		let tra: string;
 		if (overrideTransition && c.style.transition !== "unset") {
 			tra = c.style.transition;
-			console.log("tra: ", tra);
+
 			c.style.transition = "unset";
 			setTimeout(() => {
 				c && (c.style.transition = tra);

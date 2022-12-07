@@ -1,6 +1,7 @@
 import { FunctionField, FunctionFieldProps, useShowContext } from "react-admin";
 import React, { useState, useEffect, Fragment } from "react";
 
+import { HiPhoneArrowUpRight } from "react-icons/hi2";
 // interface PhoneFunctionFieldProps {
 //     source: string;
 //     label: string;
@@ -11,7 +12,8 @@ const PhoneFunctionField = (props: Partial<FunctionFieldProps>) => {
 	const showContext = useShowContext();
 	console.log("recordContext: in phoneFunction", showContext);
 	useEffect(() => {
-		if (showContext.record.phone) {
+		console.log("showContext?.record?.phone: ", showContext?.record?.phone);
+		if (showContext?.record.phone) {
 			set_href(`tel:${showContext.record.phone}`);
 		}
 	}, [showContext]);
@@ -30,11 +32,16 @@ const PhoneFunctionField = (props: Partial<FunctionFieldProps>) => {
 	return (
 		<Fragment>
 			{_href ? (
-				<a href={_href}>
+				<a
+					href={_href}
+					className="flex flex-row items-center justify-start gap-1"
+				>
+					<HiPhoneArrowUpRight className="fill-primary-600 w-[0.8rem] h-[0.8rem]" />
 					<FunctionField {..._props} />
 				</a>
 			) : (
-				<FunctionField {..._props} />
+				<div className="flex flex-row items-center justify-start gap-1">
+				</div>
 			)}
 		</Fragment>
 	);

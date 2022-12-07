@@ -19,7 +19,7 @@ import axios, { methodEnum } from "../../../utils/useAxios";
 const dataProvider: DataProvider = {
 	getList: async (resource: string, params: GetListParams) => {
 		// debugger;
-		console.log("getList", params);
+		// console.log("getList", params);
 		let query = {
 			page: params.pagination.page,
 			perPage: params.pagination.perPage,
@@ -46,7 +46,7 @@ const dataProvider: DataProvider = {
 
 	getOne: async (resource: string, params: GetOneParams) => {
 		// debugger;
-		console.log("getOne", params);
+		// console.log("getOne", params);
 		let query = {
 			id: params.id,
 			meta:
@@ -60,13 +60,13 @@ const dataProvider: DataProvider = {
 			method: methodEnum.get,
 			url: `/api/${resource}/get?${stringify(query)}`,
 		});
-		console.log("res.data?.result?.data[0]: ", res.data?.result?.data[0]);
+		// console.log("res.data?.result?.data[0]: ", res.data?.result?.data[0]);
 		return { data: res.data?.response[0] };
 	},
 
 	getMany: async (resource: string, params: GetManyParams) => {
 		// debugger;
-		console.log("getMany", params);
+		// console.log("getMany", params);
 		if (typeof params.ids === "undefined" || params.ids.length === 0) {
 			return { data: [] };
 		}
@@ -84,7 +84,7 @@ const dataProvider: DataProvider = {
 			method: methodEnum.get,
 			url: `/api/${resource}/get?${stringify(query)}`,
 		});
-		console.log("res: (getMany) ", res);
+		// console.log("res: (getMany) ", res);
 		return { data: res.data?.response };
 	},
 
@@ -114,12 +114,12 @@ const dataProvider: DataProvider = {
 			method: methodEnum.get,
 			url: `/api/${resource}/get?${stringify(query)}`,
 		});
-		console.log("res: (getManyReference) ", res);
+		// console.log("res: (getManyReference) ", res);
 		return { data: res.data.response, total: res.data.total };
 	},
 	create: async (resource: string, params: CreateParams) => {
 		// debugger;
-		console.log("create", params);
+		// console.log("create", params);
 		// let res = await axios.post(, params.data, {
 		// 	headers: ,
 		// });
@@ -129,7 +129,7 @@ const dataProvider: DataProvider = {
 			data: params.data,
 			headers: { "content-type": "multipart/form-data" },
 		});
-		console.log("res: (create)", res);
+		// console.log("res: (create)", res);
 		return { data: res.data.result };
 	},
 	update: async (resource: string, params: UpdateParams) => {
@@ -138,21 +138,27 @@ const dataProvider: DataProvider = {
 		let res = await axios({
 			method: methodEnum.put,
 			url: `/api/${resource}/edit`,
-			data: params,
+			data: params.data,
+			headers: { "Content-Type": "multipart/form-data" },
 		});
 		return { data: res.data?.response[0] };
 	},
 
 	updateMany: async (resource: string, params: UpdateManyParams) => {
-		console.log("updateMany", params);
-		let res = await axios.put(`/api/${resource}/edit`, params);
+		// console.log("updateMany", params);
+		let res = await axios({
+			method: methodEnum.put,
+			url: `/api/${resource}/edit`,
+			data: params,
+			headers: { "Content-Type": "multipart/form-data" },
+		});
 		// TODO: change r: VolunteerInterface to VolunteerInterface | PatronInterface...
 		return { data: res.data?.response?.map((r: VolunteerInterface) => r.id) };
 	},
 
 	delete: async (resource: string, params: DeleteParams) => {
 		// debugger;
-		console.log("delete", params);
+		// console.log("delete", params);
 		// let res = await axios.post(`/api/${resource}/remove`, );
 		let res = await axios({
 			method: methodEnum.post,
@@ -168,7 +174,7 @@ const dataProvider: DataProvider = {
 
 	deleteMany: async (resource: string, params: DeleteManyParams) => {
 		// debugger;
-		console.log("deleteMany", params);
+		// console.log("deleteMany", params);
 		let res = await axios({
 			method: methodEnum.post,
 			url: `/api/${resource}/remove`,

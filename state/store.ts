@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import UIReducer from "./UIReducer";
 import initialState from "./initialState";
+import appReducer from './appReducer';
 
 const store = configureStore({
 	reducer: {
 		UI: UIReducer,
+		app: appReducer
 	},
 	devTools: process.env.NODE_ENV !== "production" || true,
 	preloadedState: initialState,

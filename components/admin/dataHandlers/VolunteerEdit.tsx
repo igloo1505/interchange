@@ -4,19 +4,16 @@ import {
 	SimpleForm,
 	TextInput,
 	DateInput,
-	ReferenceManyField,
-	Datagrid,
-	TextField,
-	DateField,
-	EditButton,
-	required,
 	NumberInput,
+	ImageInput,
+	ImageField,
 	useRecordContext,
+	WithRecord,
 } from "react-admin";
 import RichText from "./RichText";
 import Box from "@mui/material/Box";
 import { numberOnlyKeyDown } from "../../../utils/utilityFunctions";
-import { RichTextInput } from "ra-input-rich-text";
+import ImageEditField from "../ImageEditField";
 
 const VolunteerEdit = () => {
 	return (
@@ -30,7 +27,8 @@ const VolunteerEdit = () => {
 				},
 			}}
 		>
-			<SimpleForm>
+			<SimpleForm mode="onBlur" reValidateMode="onBlur">
+				<ImageEditField source="image" label="Photo" resource="volunteers" />
 				<TextInput disabled label="Id" source="id" />
 				<Box display={{ xs: "block", sm: "flex", width: "100%" }}>
 					<Box flex={1} mr={{ xs: 0, sm: "0.5em" }}>
@@ -58,13 +56,14 @@ const VolunteerEdit = () => {
 					</Box>
 					<Box flex={1} ml={{ xs: 0, sm: "0.5em" }}>
 						<TextInput
-							source="regularJob"
-							label="Day Job"
+							source="phone"
+							label="Phone"
 							fullWidth
-							// validate={required()}
+							onKeyDown={numberOnlyKeyDown(["-"])}
 						/>
 					</Box>
 				</Box>
+				<TextInput source="regularJob" label="Day Job" fullWidth multiline />
 
 				<TextInput
 					source="quote.string"

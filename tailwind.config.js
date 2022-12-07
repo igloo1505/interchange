@@ -19,6 +19,7 @@ module.exports = {
 		colors: ({ colors }) => ({
 			inherit: colors.inherit,
 			current: colors.current,
+			primary: colors.sky,
 			toast_success: `${colors.green[500]}`,
 			toast_error: colors.red[600],
 			toast_warning: colors.yellow[500],
