@@ -5,15 +5,16 @@ import * as Types from "./ReduxTypes";
 import { Action } from "@reduxjs/toolkit";
 import { ContactInterface } from "../models/Contact";
 
-const toastConfig = new ToastConfig(
-	"info",
-	"Currently local links are only for demonstration. Remote links should work appropriately.",
-	5000
-);
+// export const showToast = (): Types.SHOW_TOAST => ({
+// 	type: "SHOW_TOAST",
+// 	payload: toastConfig,
+// });
 
-export const showToast = (): Types.SHOW_TOAST => ({
-	type: "SHOW_TOAST",
-	payload: toastConfig,
+export const toggleColumnRight = (
+	val?: boolean | null
+): Types.TOGGLE_COLUMN_RIGHT_OPEN => ({
+	type: "TOGGLE_COLUMN_RIGHT_OPEN",
+	payload: val,
 });
 
 export const toggleDrawer = (shouldShow?: boolean): Types.TOGGLE_DRAWER => ({

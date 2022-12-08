@@ -1,8 +1,4 @@
-import { MouseEventHandler } from "react";
-import { createAction } from "@reduxjs/toolkit";
 import ToastConfig from "../types/ToastConfig";
-import { number } from "react-admin";
-import { ContactInterface } from "../models/Contact";
 
 export type SHOW_TOAST = { type: "SHOW_TOAST"; payload: ToastConfig };
 
@@ -20,11 +16,18 @@ export interface dimensionsInterface {
 		width: number;
 		height: number;
 	};
+	columnRight: {
+		width: number;
+	};
 }
 
 export type SET_DIMENSIONS = {
 	type: "SET_DIMENSIONS";
 	payload: dimensionsInterface;
+};
+export type TOGGLE_COLUMN_RIGHT_OPEN = {
+	type: "TOGGLE_COLUMN_RIGHT_OPEN";
+	payload?: boolean | null;
 };
 
 export type SUBMIT_NEW_CONTACT = {

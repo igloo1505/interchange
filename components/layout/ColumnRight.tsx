@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 import initialState from "../../state/initialState";
 import gsap from "gsap";
-
+import dynamic from "next/dynamic";
+// import Map from "../general/Map";
+const Map = dynamic(() => import("../general/Map"), { ssr: false });
 interface ColumnRightProps {
 	dimensions: typeof initialState.UI.dimensions;
 	animationDelay?: number | null | undefined;
@@ -25,7 +27,9 @@ const ColumnRight = ({ dimensions, animationDelay }: ColumnRightProps) => {
 						? `${dimensions.viewport.height - dimensions.navbar.height}px`
 						: "100%",
 			}}
-		></div>
+		>
+			<Map />
+		</div>
 	);
 };
 

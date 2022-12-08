@@ -5,6 +5,7 @@ const initialState = {
 		toast: {} as ToastConfig,
 		drawer: {
 			isOpen: false,
+			columnRightOpen: false,
 		},
 		dimensions: {
 			navbar: {
@@ -13,6 +14,9 @@ const initialState = {
 			viewport: {
 				width: null as unknown as number,
 				height: null as unknown as number,
+			},
+			columnRight: {
+				width: null as unknown as number,
 			},
 		},
 	},

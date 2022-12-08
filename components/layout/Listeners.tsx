@@ -5,12 +5,12 @@ interface ListenersProps {}
 
 const Listeners = ({}: ListenersProps) => {
 	const dispatch = useAppDispatch();
-	const handleNavbarHeight = () => {
+	const handleDimensions = () => {
 		if (typeof window === "undefined") {
 			return;
 		}
 		let em = document.getElementById("navbar-outer-container");
-
+		let right = document.getElementById("column-right-container");
 		let d = em?.getBoundingClientRect();
 		let navH = 0;
 		if (d?.height) {
@@ -26,6 +26,9 @@ const Listeners = ({}: ListenersProps) => {
 					width: window.innerWidth,
 					height: window.innerHeight,
 				},
+				columnRight: {
+					width: right?.getBoundingClientRect().width || 200,
+				},
 			})
 		);
 	};
@@ -33,8 +36,8 @@ const Listeners = ({}: ListenersProps) => {
 		if (typeof window === "undefined") {
 			return;
 		}
-		handleNavbarHeight();
-		window.addEventListener("resize", handleNavbarHeight);
+		handleDimensions();
+		window.addEventListener("resize", handleDimensions);
 	}, []);
 	return <div></div>;
 };
