@@ -56,3 +56,14 @@ export enum pageEnum {
 	hoursAndLocation = "HoursAndLocation",
 	resources = "Resources",
 }
+
+export const dayKeys = ["mon", "tue", "wed", "thur", "fri", "sat", "sun"];
+export const dayValues = [
+	"Monday",
+	"Tuesday",
+	"Wednesday",
+	"Thursday",
+	"Friday",
+	"Saturday",
+	"Sunday",
+];

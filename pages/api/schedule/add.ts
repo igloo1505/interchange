@@ -9,8 +9,8 @@ import multer from "multer";
 import Daily from "../../../models/Daily";
 import { string } from "yup";
 import { Model, Schema } from "mongoose";
-let days = ["mon", "tue", "wed", "thur", "fri", "sat", "sun"];
-
+import { dayKeys } from "../../../utils/utilityFunctions";
+let days = dayKeys;
 const handler = nc();
 // const upload = uploadMiddleware("patron");
 // handler.use(upload);
@@ -36,7 +36,12 @@ handler.post(async (req: NextApiRequest | any, res: NextApiResponse | any) => {
 			// if (!fields[`${key}[open]`][0] || !fields[`${key}[close]`][0])
 			let o = new Date(fields?.[`${key}[open]`]?.[0]) || false;
 			let c = new Date(fields?.[`${key}[close]`]?.[0]) || false;
-			if (o && c) {
+			if (
+				!Number.isNaN(o.getHours()) &&
+				!Number.isNaN(o.getMinutes()) &&
+				!Number.isNaN(c.getHours()) &&
+				!Number.isNaN(c.getMinutes())
+			) {
 				let _o = `${
 					o.getHours() > 12 ? o.getHours() - 12 : o.getHours()
 				}:${o.getHours()} ${o.getHours() > 12 ? "pm" : "am"}`;
