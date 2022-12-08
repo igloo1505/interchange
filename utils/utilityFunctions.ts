@@ -47,3 +47,12 @@ export const parsePhone = (val: string) => {
 		return parseInt(_v);
 	}
 };
+
+export enum pageEnum {
+	about = "About",
+	contact = "Contact",
+	volunteer = "Volunteer",
+	donate = "Donate",
+	hoursAndLocation = "HoursAndLocation",
+	resources = "Resources",
+}

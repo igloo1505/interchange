@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import About from "../components/pageComponents/About";
 import Contact from "../components/pageComponents/Contact";
 import Volunteer from "../components/pageComponents/Volunteer";
@@ -8,15 +8,11 @@ import Hours_And_Location from "../components/pageComponents/Hours_And_Location"
 import Home from "../components/pageComponents/Home";
 import { useRouter } from "next/router";
 import WithColumnRight from "../components/layout/WithColumnRight";
-
-export enum pageEnum {
-	about = "About",
-	contact = "Contact",
-	volunteer = "Volunteer",
-	donate = "Donate",
-	hoursAndLocation = "HoursAndLocation",
-	resources = "Resources",
-}
+import { pageEnum } from "../utils/utilityFunctions";
+import Drawer from "../components/layout/Drawer";
+import Navbar from "../components/layout/Navbar";
+import Toast from "../components/layout/Toast";
+import Navbar_mobile from "../components/layout/Navbar_mobile";
 
 interface ComponentSwitcherInterface {
 	path: pageEnum | string | undefined;
@@ -53,9 +49,15 @@ const Landing = ({}: LandingProps) => {
 	console.log("component: ", component);
 	let _component = Array.isArray(component) ? component[0] : component;
 	return (
-		<WithColumnRight>
-			<ComponentSwitcher path={_component as string} />
-		</WithColumnRight>
+		<Fragment>
+			<Toast />
+			<Drawer />
+			<Navbar />
+			<Navbar_mobile />
+			<WithColumnRight>
+				<ComponentSwitcher path={_component as string} />
+			</WithColumnRight>
+		</Fragment>
 	);
 };
 

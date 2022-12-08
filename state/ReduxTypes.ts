@@ -19,6 +19,7 @@ export interface dimensionsInterface {
 	columnRight: {
 		width: number;
 	};
+	scrollbars: number;
 }
 
 export type SET_DIMENSIONS = {

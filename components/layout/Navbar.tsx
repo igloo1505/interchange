@@ -3,7 +3,19 @@ import gsap from "gsap";
 import { useAppDispatch } from "../../hooks/ReduxHooks";
 import Link from "next/link";
 import { Url } from "url";
-interface NavbarProps {}
+import { connect } from "react-redux";
+import { RootState } from "../../state/store";
+import initialState from "../../state/initialState";
+import { HiBars3 } from "react-icons/hi2";
+import { toggleDrawer } from "../../state/actions";
+const connector = connect((state: RootState, props: any) => ({
+	dimensions: state.UI.dimensions,
+	props: props,
+}));
+interface NavbarProps {
+	dimensions: typeof initialState.UI.dimensions;
+	props: any;
+}
 export interface NavLink {
 	text: string;
 	href: Url;
@@ -48,7 +60,8 @@ export const links: NavLink[] = [
 	},
 ];
 
-const Navbar = ({}: NavbarProps) => {
+const Navbar = connector(({ dimensions, props }: NavbarProps) => {
+	const dispatch = useAppDispatch();
 	useEffect(() => {
 		if (typeof window === "undefined") {
 			return;
@@ -61,35 +74,36 @@ const Navbar = ({}: NavbarProps) => {
 			className="flex-row items-center justify-center hidden w-full gap-2 py-3 md:flex"
 			id="navbar-outer-container"
 		>
-			{links.map((l, i, a) => {
-				return (
-					<div
-						className="flex flex-col items-center justify-center navbar-item"
-						key={`navbar-link-${i}`}
-						onMouseEnter={() => animateHover(i)}
-						onMouseLeave={() => cancelAnimation(i)}
-					>
-						<Link
-							href={l.href}
-							onClick={l.onClick ? l.onClick() : null}
-							className="px-2 text-sm uppercase transition-all duration-200 text-primary-800 hover:text-secondary"
-							style={{
-								...(i < a.length - 1 && { borderRight: "1px solid #bae6fd" }),
-							}}
-							shallow={true}
-						>
-							{l.text}
-						</Link>
+			{dimensions.viewport.width > 768 &&
+				links.map((l, i, a) => {
+					return (
 						<div
-							className="h-[4px] bg-sky-700 w-full navbar-underline"
-							id={`navbar-underline-${i}`}
-						/>
-					</div>
-				);
-			})}
+							className="flex flex-col items-center justify-center navbar-item"
+							key={`navbar-link-${i}`}
+							onMouseEnter={() => animateHover(i)}
+							onMouseLeave={() => cancelAnimation(i)}
+						>
+							<Link
+								href={l.href}
+								onClick={l.onClick ? l.onClick() : null}
+								className="px-2 text-sm uppercase transition-all duration-200 text-primary-800 hover:text-secondary"
+								style={{
+									...(i < a.length - 1 && { borderRight: "1px solid #bae6fd" }),
+								}}
+								shallow={true}
+							>
+								{l.text}
+							</Link>
+							<div
+								className="h-[4px] bg-sky-700 w-full navbar-underline"
+								id={`navbar-underline-${i}`}
+							/>
+						</div>
+					);
+				})}
 		</div>
 	);
-};
+});
 
 export default Navbar;
 

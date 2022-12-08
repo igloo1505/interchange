@@ -10,12 +10,14 @@ interface WithColumnRightProps {
 	dimensions: typeof initialState.UI.dimensions;
 	columnRightAnimationDelay?: number | undefined | null;
 	isOpen: boolean | null;
+	scrollbar: number;
 }
 
 const connector = connect((state: RootState, props: any) => ({
 	dimensions: state.UI.dimensions,
 	isOpen: state.UI.drawer.columnRightOpen,
 	props: props,
+	scrollbar: state.UI.dimensions.scrollbar,
 }));
 
 const WithColumnRight = connector(
@@ -24,10 +26,11 @@ const WithColumnRight = connector(
 		dimensions,
 		isOpen,
 		columnRightAnimationDelay,
+		scrollbar,
 	}: WithColumnRightProps) => {
 		const [size, setSizes] = useState({
 			open: "10vw 1fr",
-			closed: "1fr min(200px, 20vw)",
+			closed: "1fr 200px",
 		});
 		useEffect(() => {
 			if (!dimensions.viewport) return;
@@ -35,18 +38,25 @@ const WithColumnRight = connector(
 				dimensions.viewport.width > 600
 					? dimensions.viewport.width * 0.1
 					: dimensions.viewport.width - 32;
-			let rightClosed =
-				dimensions.viewport.width < 980 ? dimensions.viewport.width * 0.2 : 200;
+			let rightClosed = 200;
 			setSizes({
-				open: `${leftOpen}px ${dimensions.viewport.width - leftOpen}px`,
-				closed: `${dimensions.viewport.width - rightClosed}px ${rightClosed}px`,
+				open: `${leftOpen}px ${dimensions.viewport.width - leftOpen - 16}px`,
+				closed: `${
+					dimensions.viewport.width - rightClosed - 16
+				}px ${rightClosed}px`,
 			});
 		}, [dimensions]);
 		return (
 			<div
-				className="grid w-full h-full transition-all duration-700 will-change-auto"
+				className="flex transition-all duration-700 md:grid will-change-auto"
 				style={{
 					gridTemplateColumns: isOpen ? size.open : size.closed,
+					height: isOpen
+						? `calc(100vh - ${dimensions.navbar.height}px)`
+						: "100%",
+					overflowY: isOpen ? "hidden" : "auto",
+					overflowX: "hidden",
+					width: `calc(100vw - ${scrollbar ? scrollbar : 16}px)`,
 				}}
 			>
 				<div
@@ -57,10 +67,12 @@ const WithColumnRight = connector(
 				>
 					{children}
 				</div>
-				<ColumnRight
-					dimensions={dimensions}
-					animationDelay={columnRightAnimationDelay}
-				/>
+				{dimensions.viewport.width >= 768 && (
+					<ColumnRight
+						dimensions={dimensions}
+						animationDelay={columnRightAnimationDelay}
+					/>
+				)}
 			</div>
 		);
 	}

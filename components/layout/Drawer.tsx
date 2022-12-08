@@ -6,7 +6,8 @@ import { useAppDispatch } from "../../hooks/ReduxHooks";
 import { toggleDrawer } from "../../state/actions";
 import gsap from "gsap";
 import { links } from "./Navbar";
-import DrawerDropdown from "./DrawerDropdown";
+import infoDetails from "../../utils/infoDetails";
+import Link from "next/link";
 
 interface DrawerProps {
 	drawer: RootState["UI"]["drawer"];
@@ -15,7 +16,7 @@ interface DrawerProps {
 const Drawer = ({ drawer: { isOpen } }: DrawerProps) => {
 	const dispatch = useAppDispatch();
 	const [show, setShow] = useState(false);
-	const [viewport, setViewport] = useState(9999);
+	const [hoveredIndex, setHoveredIndex] = useState(-1);
 	useEffect(() => {
 		setShow(isOpen);
 		animateBackdropEntrance(isOpen);
@@ -23,30 +24,64 @@ const Drawer = ({ drawer: { isOpen } }: DrawerProps) => {
 	const handleBackdropClick = () => {
 		dispatch(toggleDrawer(false));
 	};
-	const handleViewport = () => {
-		if (typeof window === "undefined") {
-			return;
-		}
-		setViewport(window.innerWidth);
-	};
-	useEffect(() => {
-		if (typeof window === "undefined") {
-			return;
-		}
-		handleViewport();
-		window.addEventListener("resize", handleViewport);
-	}, []);
 
 	return (
 		<Fragment>
 			<div
 				className={clsx(
-					"fixed top-0 left-0 h-screen bg-sky-700 w-fit min-w-[150px] flex flex-col justify-start items-center z-[1000] pt-5",
+					"fixed top-0 left-0 h-screen bg-sky-700 w-fit min-w-[150px] z-[1000] flex flex-col justify-between",
 					show ? "transformDrawer_show" : "transformDrawer_hide"
 				)}
 				id="drawer-outer-container"
 			>
-				<DrawerDropdown items={links} title="About Us" />
+				<div
+					className={clsx(
+						"flex flex-col justify-start items-center  pt-5 gap-1"
+					)}
+				>
+					{links.map((l, i) => {
+						return (
+							<Link
+								href={l.href}
+								key={`drawer-item-${l}-${i}`}
+								className={`text-white mx-3 ${
+									i === links.length - 1 ? "mb-4" : ""
+								}`}
+								onMouseEnter={() => setHoveredIndex(i)}
+								onMouseLeave={() => setHoveredIndex(-1)}
+								onClick={() => {
+									dispatch(toggleDrawer());
+									setTimeout(() => {
+										if (l.onClick) {
+											dispatch(l.onClick());
+										}
+									}, 500);
+								}}
+							>
+								{l.text}
+								<div
+									className="bg-sky-300 h-[2px] w-full transition-all duration-300"
+									style={{
+										transform: `scaleX(${hoveredIndex === i ? 1 : 0})`,
+									}}
+								/>
+							</Link>
+						);
+					})}
+				</div>
+				<div className="w-full px-2 py-4 text-center text-white h-fit">
+					<div>
+						<a href={`tel:${infoDetails.phone.value}`}>
+							{infoDetails.phone.display}
+						</a>
+					</div>
+					<hr className="my-2" />
+					<a href={infoDetails.mapsHref} target="_blank">
+						<div>{infoDetails.address.main.pantry}</div>
+						<div>{`${infoDetails.city}, ${infoDetails.state}`}</div>
+						<div>{infoDetails.zip}</div>
+					</a>
+				</div>
 			</div>
 			<div
 				className={clsx(

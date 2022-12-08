@@ -18,6 +18,7 @@ const initialState = {
 			columnRight: {
 				width: null as unknown as number,
 			},
+			scrollbar: 0,
 		},
 	},
 	app: {

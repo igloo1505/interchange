@@ -6,6 +6,7 @@ import info from "../../utils/infoDetails";
 import { HiPhoneArrowUpRight } from "react-icons/hi2";
 import animate from "../../animations/animate";
 import { submitNewContact } from "../../state/actions";
+import PageTitle from "../layout/PageTitle";
 interface ContactProps {}
 
 const validationSchema = yup.object({
@@ -78,20 +79,16 @@ const Contact = ({}: ContactProps) => {
 	};
 	return (
 		<div className="mx-4 my-3">
-			<div>
-				<div
-					className="text-3xl font-thin text-primary-900 contactTitle"
-					style={{
-						transform: "translateY(-50vh)",
-					}}
-				>
-					Contact
-				</div>
-				<div
-					id="contact-form-underline"
-					className="w-full h-[2px] bg-primary-900 scale-x-0 origin-left"
-				/>
-			</div>
+			<PageTitle
+				title="Contact"
+				id_underline="contact-form-underline"
+				extraClasses="contactTitle"
+				extraStyles={{
+					transform: "translateY(-50vh)",
+				}}
+				extraClasses_underline="scale-x-0"
+			/>
+
 			<div className="mx-1 my-3 text-primary-900">
 				<div className="text-lg font-bold animateEnterLeft">{info.name}</div>
 				<div className="flex flex-row items-start justify-start text-base leading-tight animateEnterLeft">
@@ -125,7 +122,7 @@ const Contact = ({}: ContactProps) => {
 					form below.
 				</div>
 				<div>
-					<div className="grid grid-cols-1 grid-rows-2 gap-2 place-items-center md:grid-rows-1 md:grid-cols-2">
+					<div className="grid grid-cols-1 grid-rows-2 gap-2 mx-3 place-items-center md:mx-0 md:grid-rows-1 md:grid-cols-2">
 						<div className="flex flex-col items-start justify-center w-full">
 							<div className="flex flex-row items-start justify-start gap-2 mb-1">
 								<span>Name</span>
@@ -163,7 +160,7 @@ const Contact = ({}: ContactProps) => {
 							/>
 						</div>
 					</div>
-					<div className="flex flex-col items-start justify-center w-full my-3">
+					<div className="flex flex-col items-start justify-center w-full px-3 my-3 md:px-0">
 						<div className="flex flex-row items-start justify-start gap-2 mb-1">
 							<span>Website</span>
 							{formik.touched.Website && formik.errors.Website && (
@@ -181,7 +178,7 @@ const Contact = ({}: ContactProps) => {
 							onBlur={handleBlur}
 						/>
 					</div>
-					<div className="flex flex-col items-start justify-center w-full">
+					<div className="flex flex-col items-start justify-center w-full px-3 md:px-0">
 						<div className="flex flex-row items-start justify-start gap-2 mb-1">
 							<span>Comment</span>
 							{formik.touched.Comment && formik.errors.Comment && (

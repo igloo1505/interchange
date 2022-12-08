@@ -29,6 +29,7 @@ const Listeners = ({}: ListenersProps) => {
 				columnRight: {
 					width: right?.getBoundingClientRect().width || 200,
 				},
+				scrollbar: window.innerWidth - document.documentElement.clientWidth,
 			})
 		);
 	};
