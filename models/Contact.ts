@@ -33,7 +33,12 @@ const ContactSchema = new Schema<ContactInterface>({
 	},
 	received: {
 		type: Date,
-		default: Date(),
+		default: () => {
+			let d = new Date().toLocaleString("en-US", {
+				timeZone: "America/Chicago",
+			});
+			return d;
+		},
 	},
 });
 

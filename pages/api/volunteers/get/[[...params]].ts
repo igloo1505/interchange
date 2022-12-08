@@ -5,8 +5,6 @@ import { ErrorResponse, sendError } from "../../../../types/ErrorResponse";
 import connectDB from "../../../../utils/connectMongo";
 import "colors";
 import handleFilter from "../../../../utils/handleFilter";
-import router from "next/router";
-import qs from "qs";
 
 const handler = nc();
 
@@ -16,10 +14,7 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
 	);
 	try {
 		let volunteers: any[] = [];
-		console.log("req.query?.filter: ", typeof req.query?.filter);
-		let _filter = qs.parse(req.query?.filter);
-		console.log("_filter: ", _filter);
-		const filter = handleFilter({ ..._filter });
+		const filter = handleFilter(req);
 
 		if (!req?.query.id) {
 			volunteers = await Volunteer.find(filter)

@@ -1,22 +1,23 @@
-const handleFilter = (_filter: any = {}) => {
-	let keys = Object.keys(_filter);
-	let filter: any = {};
-	// _filter.name && (filter.name = { $regex: new RegExp(_filter.name, "gi") });
-	// _filter.email && (filter.email = { $regex: new RegExp(_filter.email, "gi") });
-	// if (_filter.name) {
-	// 	filter.name = { $regex: _filter.name, $options: "gi" };
-	// }
-	if (_filter.name.first) {
-		if (!filter.name) {
-			filter.name = {};
-		}
-		filter.name.first = { $regex: _filter.name, $options: "gi" };
+import { NextApiRequest } from "next";
+import qs from "querystring";
+
+const handleFilter = (req: NextApiRequest): object => {
+	if (req.query.filter === "") {
+		console.log("Returning filter {}");
+		return {};
 	}
-	if (_filter.name.last) {
-		if (!filter.name) {
-			filter.name = {};
-		}
-		filter.name.last = { $regex: _filter.name, $options: "gi" };
+	let _filter = { ...qs.parse(req.query.filter) };
+	console.log("query123: ", _filter);
+	if (typeof _filter !== "object") {
+		return {};
+	}
+	let filter: any = {};
+
+	if (_filter["name[first]"]) {
+		filter["name.first"] = { $regex: _filter["name[first]"], $options: "gi" };
+	}
+	if (_filter["name[last]"]) {
+		filter["name.last"] = { $regex: _filter["name[last]"], $options: "gi" };
 	}
 	if (_filter.email) {
 		filter.email = { $regex: _filter.email, $options: "gi" };

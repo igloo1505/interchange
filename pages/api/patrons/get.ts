@@ -15,8 +15,7 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
 	);
 	try {
 		let patrons: any[] = [];
-		let _filter = qs.parse(req.query?.filter);
-		const filter = handleFilter({ ..._filter });
+		const filter = handleFilter(req);
 		if (!req?.query.id) {
 			patrons = await Patron.find(filter)
 				/// @ts-ignore

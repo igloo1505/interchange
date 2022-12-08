@@ -24,7 +24,8 @@ const ListActions = () => {
 };
 
 const postFilters = [
-	<TextInput label="Name" source="name" />,
+	<TextInput label="First Name" source="name.first" />,
+	<TextInput label="Last Name" source="name.last" />,
 	<TextInput label="Email" source="email" />,
 ];
 
