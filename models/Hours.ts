@@ -1,5 +1,5 @@
 import { Schema, models, model } from "mongoose";
-import { DailyHoursInterface, Daily } from "./Daily";
+import { DailyHoursInterface } from "./Daily";
 
 export enum Week {
 	monday = "mon",
@@ -24,39 +24,48 @@ export interface HoursInterface {
 const HoursSchema = new Schema<HoursInterface>({
 	mon: {
 		type: Schema.Types.ObjectId,
-		ref: Daily,
+		ref: "Daily",
 		required: false,
+		autopopulate: true,
 	},
 	tue: {
 		type: Schema.Types.ObjectId,
-		ref: Daily,
+		ref: "Daily",
 		required: false,
+		autopopulate: true,
 	},
 	wed: {
 		type: Schema.Types.ObjectId,
-		ref: Daily,
+		ref: "Daily",
 		required: false,
+		autopopulate: true,
 	},
 	thur: {
 		type: Schema.Types.ObjectId,
-		ref: Daily,
+		ref: "Daily",
 		required: false,
+		autopopulate: true,
 	},
 	fri: {
 		type: Schema.Types.ObjectId,
-		ref: Daily,
+		ref: "Daily",
 		required: false,
+		autopopulate: true,
 	},
 	sat: {
 		type: Schema.Types.ObjectId,
-		ref: Daily,
+		ref: "Daily",
 		required: false,
+		autopopulate: true,
 	},
 	sun: {
 		type: Schema.Types.ObjectId,
-		ref: Daily,
+		ref: "Daily",
 		required: false,
+		autopopulate: true,
 	},
 });
+
+HoursSchema.plugin(require("mongoose-autopopulate"));
 
 export default models?.Hours || model<HoursInterface>("Hours", HoursSchema);

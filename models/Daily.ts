@@ -1,19 +1,19 @@
 import { Schema, models, model } from "mongoose";
 export interface DailyHoursInterface {
-	open: number;
-	close: number;
+	open: string;
+	close: string;
 }
 
 const DailySchema = new Schema<DailyHoursInterface>({
 	open: {
-		type: Number,
+		type: String,
 		required: true,
 	},
 	close: {
-		type: Number,
+		type: String,
 		required: true,
 	},
 });
 
-export const Daily =
-	models?.Daily || model<DailyHoursInterface>("Daily", DailySchema);
+export default models?.Daily ||
+	model<DailyHoursInterface>("Daily", DailySchema);

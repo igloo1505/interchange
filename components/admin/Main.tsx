@@ -63,7 +63,7 @@ const App = () => {
 				icon={MarkunreadMailboxIcon}
 			/>
 			<Resource
-				name="hours"
+				name="schedule"
 				list={HoursList}
 				show={HoursShow}
 				create={HoursCreate}
