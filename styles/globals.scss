@@ -167,6 +167,13 @@ $drawer-close-transition: 0.35s ease-in-out;
 	}
 }
 
+.navbar-item:hover {
+	a {
+		color: #ea580c;
+		transition: color 0.3s ease-in-out;
+	}
+}
+
 @import "./animations.scss";
 @import "./mediaQueries/md.scss";
 @import "./mediaQueries/sm.scss";

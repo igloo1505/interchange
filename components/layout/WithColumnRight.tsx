@@ -52,7 +52,7 @@ const WithColumnRight = connector(
 				style={{
 					gridTemplateColumns: isOpen ? size.open : size.closed,
 					height: isOpen
-						? `calc(100vh - ${dimensions.navbar.height}px)`
+						? `calc(100vh - ${dimensions.navbar.height + 16}px)`
 						: "100%",
 					overflowY: isOpen ? "hidden" : "auto",
 					overflowX: "hidden",

@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import initialState from "../../state/initialState";
 import gsap from "gsap";
 import dynamic from "next/dynamic";
 import { connect } from "react-redux";
 import { RootState } from "../../state/store";
+import info from "../../utils/infoDetails";
 // import Map from "../general/Map";
 const Map = dynamic(() => import("../general/Map"), { ssr: false });
 interface ColumnRightProps {
@@ -35,11 +36,20 @@ const ColumnRight = connector(
 							? `${dimensions.viewport.height - dimensions.navbar.height}px`
 							: "100%",
 					height: isOpen
-						? `calc(100vh - ${dimensions.navbar.height}px)`
+						? `calc(100vh - ${dimensions.navbar.height + 16}px)`
 						: "100%",
 				}}
 			>
 				<Map />
+				{!isOpen && (
+					<Fragment>
+						<div className="w-full text-center text-white">
+							{info.address.main.pantry}
+						</div>
+						<div className="w-full text-center text-white">{`${info.city}, ${info.state}`}</div>
+						<div className="w-full text-center text-white">{info.zip}</div>
+					</Fragment>
+				)}
 			</div>
 		);
 	}

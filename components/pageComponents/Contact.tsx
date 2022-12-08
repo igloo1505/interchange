@@ -121,7 +121,7 @@ const Contact = ({}: ContactProps) => {
 					an electronic message for pantry director George Neureuther using the
 					form below.
 				</div>
-				<div>
+				<div className="opacity-0 contact-form-animate">
 					<div className="grid grid-cols-1 grid-rows-2 gap-2 mx-3 place-items-center md:mx-0 md:grid-rows-1 md:grid-cols-2">
 						<div className="flex flex-col items-start justify-center w-full">
 							<div className="flex flex-row items-start justify-start gap-2 mb-1">
@@ -196,7 +196,7 @@ const Contact = ({}: ContactProps) => {
 						/>
 					</div>
 				</div>
-				<div className="my-3">
+				<div className="my-3 opacity-0 contact-form-animate">
 					<div
 						className="px-3 py-2 text-white transition-all duration-300 shadow-md cursor-pointer bg-primary-700 w-fit shadow-slate-600 hover:shadow-md hover:shadow-slate-400 hover:scale-[0.99]"
 						onClick={formik.submitForm}
@@ -247,6 +247,16 @@ const animateEntrance = () => {
 			y: 0,
 			duration: 1,
 			ease: "elastic.out(1, 0.5)",
+		},
+		"-=1"
+	);
+	tl.to(
+		".contact-form-animate",
+		{
+			opacity: 1,
+			duration: 1,
+			stagger: 0.2,
+			ease: "power3.out",
 		},
 		"-=1"
 	);

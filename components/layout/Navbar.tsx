@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import gsap from "gsap";
 import { useAppDispatch } from "../../hooks/ReduxHooks";
 import Link from "next/link";
@@ -6,8 +6,8 @@ import { Url } from "url";
 import { connect } from "react-redux";
 import { RootState } from "../../state/store";
 import initialState from "../../state/initialState";
-import { HiBars3 } from "react-icons/hi2";
-import { toggleDrawer } from "../../state/actions";
+import IFPLogo from "../../public/assets/IFP-logo.png";
+import Image from "next/image";
 const connector = connect((state: RootState, props: any) => ({
 	dimensions: state.UI.dimensions,
 	props: props,
@@ -62,45 +62,53 @@ export const links: NavLink[] = [
 
 const Navbar = connector(({ dimensions, props }: NavbarProps) => {
 	const dispatch = useAppDispatch();
+	const [shouldAnimate, setShouldAnimate] = useState(false);
 	useEffect(() => {
-		if (typeof window === "undefined") {
-			return;
+		if (typeof window !== "undefined" && shouldAnimate) {
+			animateEntrance();
 		}
-		animateEntrance();
-	}, []);
+	}, [shouldAnimate]);
 
 	return (
 		<div
-			className="flex-row items-center justify-center hidden w-full gap-2 py-3 md:flex"
+			className="flex flex-col items-center justify-center w-screen max-w-screen"
 			id="navbar-outer-container"
 		>
-			{dimensions.viewport.width > 768 &&
-				links.map((l, i, a) => {
-					return (
-						<div
-							className="flex flex-col items-center justify-center navbar-item"
-							key={`navbar-link-${i}`}
-							onMouseEnter={() => animateHover(i)}
-							onMouseLeave={() => cancelAnimation(i)}
-						>
-							<Link
-								href={l.href}
-								onClick={l.onClick ? l.onClick() : null}
-								className="px-2 text-sm uppercase transition-all duration-200 text-primary-800 hover:text-secondary"
-								style={{
-									...(i < a.length - 1 && { borderRight: "1px solid #bae6fd" }),
-								}}
-								shallow={true}
-							>
-								{l.text}
-							</Link>
+			<Image src={IFPLogo} alt="Interchange Food Pantry Logo" height={80} />
+			<div className="flex-row items-center justify-center hidden w-full gap-2 py-3 md:flex">
+				{dimensions.viewport.width > 768 &&
+					links.map((l, i, a) => {
+						if (!shouldAnimate && i === a.length - 1) {
+							setShouldAnimate(true);
+						}
+						return (
 							<div
-								className="h-[4px] bg-sky-700 w-full navbar-underline"
-								id={`navbar-underline-${i}`}
-							/>
-						</div>
-					);
-				})}
+								className="flex flex-col items-center justify-center navbar-item"
+								key={`navbar-link-${i}`}
+								onMouseEnter={() => animateHover(i)}
+								onMouseLeave={() => cancelAnimation(i)}
+							>
+								<Link
+									href={l.href}
+									onClick={l.onClick ? l.onClick() : null}
+									className="px-2 text-sm uppercase transition-all duration-200 text-primary-800 "
+									style={{
+										...(i < a.length - 1 && {
+											borderRight: "1px solid #bae6fd",
+										}),
+									}}
+									shallow={true}
+								>
+									{l.text}
+								</Link>
+								<div
+									className="h-[4px] bg-sky-700 w-full navbar-underline"
+									id={`navbar-underline-${i}`}
+								/>
+							</div>
+						);
+					})}
+			</div>
 		</div>
 	);
 });

@@ -21,6 +21,10 @@ import PatronShow from "./dataHandlers/PatronShow";
 import ContactList from "./dataHandlers/contact/ContactList";
 import ContactShow from "./dataHandlers/contact/ContactShow";
 import MarkunreadMailboxIcon from "@mui/icons-material/MarkunreadMailbox";
+import HoursList from "./dataHandlers/hours/HoursList";
+import HoursShow from "./dataHandlers/hours/HoursShow";
+import ScheduleIcon from "@mui/icons-material/Schedule";
+import HoursCreate from "./dataHandlers/hours/HoursCreate";
 
 const App = () => {
 	return (
@@ -57,6 +61,14 @@ const App = () => {
 				show={ContactShow}
 				recordRepresentation={(r) => `${r.name}`}
 				icon={MarkunreadMailboxIcon}
+			/>
+			<Resource
+				name="hours"
+				list={HoursList}
+				show={HoursShow}
+				create={HoursCreate}
+				recordRepresentation={(r) => `${r.id}`}
+				icon={ScheduleIcon}
 			/>
 			<ReactQueryDevtools initialIsOpen={true} />
 		</Admin>

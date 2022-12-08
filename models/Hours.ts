@@ -1,9 +1,5 @@
 import { Schema, models, model } from "mongoose";
-
-export interface DailyHoursInterface {
-	opening: number;
-	closing: number;
-}
+import { DailyHoursInterface, Daily } from "./Daily";
 
 export enum Week {
 	monday = "mon",
@@ -14,20 +10,6 @@ export enum Week {
 	saturday = "sat",
 	sunday = "sun",
 }
-
-const DailySchema = new Schema({
-	opening: {
-		type: Number,
-		required: true,
-	},
-	closing: {
-		type: Number,
-		required: true,
-	},
-});
-
-export const Daily =
-	models?.DailySchema || model<DailyHoursInterface>("Daily", DailySchema);
 
 export interface HoursInterface {
 	mon: DailyHoursInterface;
@@ -77,5 +59,4 @@ const HoursSchema = new Schema<HoursInterface>({
 	},
 });
 
-export default models?.HoursSchema ||
-	model<HoursInterface>("Hours", HoursSchema);
+export default models?.Hours || model<HoursInterface>("Hours", HoursSchema);
