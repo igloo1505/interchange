@@ -5,6 +5,7 @@ import { useAppDispatch } from "../../hooks/ReduxHooks";
 import { RootState } from "../../state/store";
 import { toggleColumnRight } from "../../state/actions";
 import initialState from "../../state/initialState";
+import clsx from "clsx";
 
 const connector = connect((state: RootState, props: any) => ({
 	columnRight: state.UI.dimensions.columnRight.width,
@@ -66,14 +67,17 @@ const Map = connector(({ columnRight, isOpen, navbar, viewport }: MapProps) => {
 	return (
 		<div
 			style={currentSize}
-			className="grid mx-2 my-2 overflow-hidden transition-all duration-700"
+			className={clsx(
+				"relative grid mx-2 my-2 overflow-hidden transition-all duration-700 place-items-center",
+				isOpen && "mapContainerOuterOpen"
+			)}
 			onClick={toggleFullWidth}
 		>
 			<MapContainer
 				center={[43.0459852, -87.9121041]}
 				zoom={12}
 				scrollWheelZoom={false}
-				className="will-change-auto"
+				className={clsx("absolute will-change-auto mapContainer")}
 				style={sizes.open}
 			>
 				<TileLayer

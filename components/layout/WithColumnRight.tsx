@@ -3,6 +3,7 @@ import ColumnRight from "./ColumnRight";
 import { connect } from "react-redux";
 import { RootState } from "../../state/store";
 import initialState from "../../state/initialState";
+import clsx from "clsx";
 
 interface WithColumnRightProps {
 	children: JSX.Element | JSX.Element[] | string;
@@ -48,7 +49,14 @@ const WithColumnRight = connector(
 					gridTemplateColumns: isOpen ? size.open : size.closed,
 				}}
 			>
-				<div className="w-full h-full">{children}</div>
+				<div
+					className={clsx(
+						"w-full h-full columnLeft",
+						isOpen && "columnLeftOpen"
+					)}
+				>
+					{children}
+				</div>
 				<ColumnRight
 					dimensions={dimensions}
 					animationDelay={columnRightAnimationDelay}
