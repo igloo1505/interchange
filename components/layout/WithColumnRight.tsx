@@ -64,6 +64,7 @@ const WithColumnRight = connector(
 						? `calc(100vh - ${dimensions.navbar.height + 16}px)`
 						: "calc(100% - 1rem)",
 					// height: `calc(100vh - ${dimensions.navbar.height + 16}px)`,
+					// overflowY: isOpen ? "hidden" : "auto",
 					overflowY: isOpen ? "hidden" : "auto",
 					overflowX: "hidden",
 					width: `calc(100vw - ${scrollbar ? scrollbar : 16}px)`,

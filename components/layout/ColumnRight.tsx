@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import initialState from "../../state/initialState";
 import gsap from "gsap";
 import dynamic from "next/dynamic";
@@ -19,10 +19,20 @@ const connector = connect((state: RootState, props) => ({
 
 const ColumnRight = connector(
 	({ dimensions, animationDelay, isOpen }: ColumnRightProps) => {
+		const [showBottomContent, setShowBottomContent] = useState(false);
 		useEffect(() => {
 			let _delay = animationDelay || 0;
 			setTimeout(animateEntrance, _delay);
 		}, []);
+		useEffect(() => {
+			if (!isOpen) {
+				setTimeout(() => setShowBottomContent(true), 750);
+			}
+			if (isOpen) {
+				setShowBottomContent(false);
+			}
+		}, [isOpen]);
+
 		return (
 			<div
 				className="flex flex-col items-center justify-start w-full bg-primary-900"
@@ -33,17 +43,17 @@ const ColumnRight = connector(
 					minHeight:
 						!Number.isNaN(parseInt(`${dimensions.navbar.height}`)) &&
 						dimensions.viewport.height
-							? `${
-									dimensions.viewport.height - dimensions.navbar.height - 16
-							  }px`
+							? `max(${
+									dimensions.viewport.height - dimensions.navbar.height
+							  }px, 100%)`
 							: "100%",
 					height: isOpen
 						? `calc(100vh - ${dimensions.navbar.height + 16}px)`
-						: "100%",
+						: `calc(100vh - ${dimensions.navbar.height}px)`,
 				}}
 			>
 				<Map />
-				{!isOpen && (
+				{showBottomContent && (
 					<Fragment>
 						<div className="w-full text-center text-white">
 							{info.address.main.pantry}

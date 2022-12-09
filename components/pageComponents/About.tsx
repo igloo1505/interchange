@@ -74,9 +74,9 @@ const About = ({}: AboutProps) => {
 				content="In May of 2018, the IFP expanded our services from a neighborhood pantry (lower East Side) to serving the city of Milwaukee. Reasons for our decision:"
 			/>
 			<ul
-				className="flex flex-col items-start justify-center gap-1 mx-5 my-4"
+				className="flex flex-col items-start justify-center gap-1 mx-5 my-4 colored-list-bullet"
 				style={{
-					listStyle: "outside",
+					listStyle: "none",
 				}}
 			>
 				{bulletPoints.map((b, i) => (
@@ -89,9 +89,9 @@ const About = ({}: AboutProps) => {
 			<Section content="The IFP began in 1971. Supporting institutions include founding congregations plus organizations that have joined Interchange over the years. Our members are Cathedral Church of All Saints, First Unitarian Society of Milwaukee, Immanuel Presbyterian Church, North Shore Presbyterian Church, St. Paul’s Episcopal Church, Summerfield Methodist Church and Village Church (ELCA)." />
 			<Section content="Your support for Interchange will make a difference in the lives of people struggling with hunger and nutritional needs in Milwaukee. We invite you to get involved in Interchange in a number of ways:" />
 			<ul
-				className="flex flex-col items-start justify-center gap-1 mx-6 mt-4"
+				className="flex flex-col items-start justify-center gap-1 mx-6 mt-4 colored-list-bullet"
 				style={{
-					listStyle: "outside",
+					listStyle: "none",
 				}}
 			>
 				{getInvolved.map((g, i) => {

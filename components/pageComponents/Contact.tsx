@@ -227,7 +227,7 @@ const animateEntrance = () => {
 		{
 			x: 0,
 			stagger: 0.1,
-			duration: 0.35,
+			duration: 0.75,
 			ease: "elastic.out(1, 0.8)",
 		},
 		"-=2"

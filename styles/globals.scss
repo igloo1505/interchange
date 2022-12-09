@@ -173,6 +173,15 @@ $drawer-close-transition: 0.35s ease-in-out;
 		transition: color 0.3s ease-in-out;
 	}
 }
+.colored-list-bullet {
+	li::before {
+		content: "•";
+		color: #0369a1;
+		margin-right: 0.25rem;
+		// font-size: 1.3rem;
+		// line-height: 1;
+	}
+}
 
 @import "./animations.scss";
 @import "./mediaQueries/md.scss";
