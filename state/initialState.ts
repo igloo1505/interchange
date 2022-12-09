@@ -6,6 +6,7 @@ const initialState = {
 		drawer: {
 			isOpen: false,
 			columnRightOpen: false,
+			hideColumnRight: true,
 		},
 		dimensions: {
 			navbar: {
@@ -25,6 +26,42 @@ const initialState = {
 		isLoading: false,
 		error: null,
 	},
+	global: {
+		hours: {},
+	},
 };
 
 export default initialState;
+
+export interface globalDataInterface {
+	hours: {
+		mon?: {
+			open: string;
+			close: string;
+		};
+		tue?: {
+			open: string;
+			close: string;
+		};
+		wed?: {
+			open: string;
+			close: string;
+		};
+		thur?: {
+			open: string;
+			close: string;
+		};
+		fri?: {
+			open: string;
+			close: string;
+		};
+		sat?: {
+			open: string;
+			close: string;
+		};
+		sun?: {
+			open: string;
+			close: string;
+		};
+	};
+}

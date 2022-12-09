@@ -12,7 +12,7 @@ const connector = connect((state: RootState, props: any) => ({
 	navbar: state.UI.dimensions.navbar.height,
 	viewport: state.UI.dimensions.viewport,
 	isOpen: state.UI.drawer.columnRightOpen,
-	scrollbar: state.UI.scrollbar,
+	scrollbar: state.UI.dimensions.scrollbar,
 }));
 interface MapProps {
 	columnRight: number | undefined;

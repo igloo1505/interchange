@@ -2,10 +2,8 @@
 // import { RootState } from "./store";
 // import { AnyAction } from "redux";
 import * as Types from "./ReduxTypes";
-import { PayloadAction } from "@reduxjs/toolkit";
 import { createReducer } from "@reduxjs/toolkit";
 import initState from "./initialState";
-import ToastConfig from "../types/ToastConfig";
 const initialState = initState.UI;
 
 const UIReducer = createReducer(initialState, (builder) => {
@@ -46,6 +44,21 @@ const UIReducer = createReducer(initialState, (builder) => {
 			},
 		};
 	});
+	builder.addCase(
+		"SET_HIDE_COLUMN_RIGHT",
+		(state, action: Types.SET_HIDE_COLUMN_RIGHT) => {
+			return {
+				...state,
+				drawer: {
+					...state.drawer,
+					hideColumnRight:
+						typeof action?.payload === "boolean"
+							? action?.payload
+							: !state.drawer.hideColumnRight,
+				},
+			};
+		}
+	);
 });
 
 export default UIReducer;

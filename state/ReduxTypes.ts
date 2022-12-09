@@ -1,3 +1,4 @@
+import { globalDataInterface } from "./initialState";
 import ToastConfig from "../types/ToastConfig";
 
 export type SHOW_TOAST = { type: "SHOW_TOAST"; payload: ToastConfig };
@@ -7,6 +8,11 @@ export type TOGGLE_DRAWER = { type: "TOGGLE_DRAWER"; payload?: boolean };
 export type HIDE_TOAST = { type: "HIDE_TOAST" };
 
 export type SET_IS_LOADING = { type: "SET_IS_LOADING"; payload?: boolean };
+
+export type SET_HIDE_COLUMN_RIGHT = {
+	type: "SET_HIDE_COLUMN_RIGHT";
+	payload?: boolean;
+};
 
 export interface dimensionsInterface {
 	navbar: {
@@ -19,7 +25,7 @@ export interface dimensionsInterface {
 	columnRight: {
 		width: number;
 	};
-	scrollbars: number;
+	scrollbar: number;
 }
 
 export type SET_DIMENSIONS = {
@@ -38,4 +44,10 @@ export type SUBMIT_NEW_CONTACT = {
 export type SUBMIT_NEW_FAIL = {
 	type: "SUBMIT_NEW_FAIL";
 	payload: any;
+};
+
+// Populate
+export type POPULATE_GLOBAL_DATA = {
+	type: "POPULATE_GLOBAL_DATA";
+	payload: globalDataInterface;
 };

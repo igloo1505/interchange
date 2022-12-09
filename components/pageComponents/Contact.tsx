@@ -78,7 +78,7 @@ const Contact = ({}: ContactProps) => {
 		});
 	};
 	return (
-		<div className="mx-4 my-3">
+		<div className="mx-4 mt-3 mb-8">
 			<PageTitle
 				title="Contact"
 				id_underline="contact-form-underline"
@@ -196,7 +196,7 @@ const Contact = ({}: ContactProps) => {
 						/>
 					</div>
 				</div>
-				<div className="my-3 opacity-0 contact-form-animate">
+				<div className="flex flex-row items-center justify-end my-5 opacity-0 contact-form-animate">
 					<div
 						className="px-3 py-2 text-white transition-all duration-300 shadow-md cursor-pointer bg-primary-700 w-fit shadow-slate-600 hover:shadow-md hover:shadow-slate-400 hover:scale-[0.99]"
 						onClick={formik.submitForm}

@@ -4,6 +4,7 @@ import store from "./store";
 import * as Types from "./ReduxTypes";
 import { Action } from "@reduxjs/toolkit";
 import { ContactInterface } from "../models/Contact";
+import { globalDataInterface } from "./initialState";
 
 // export const showToast = (): Types.SHOW_TOAST => ({
 // 	type: "SHOW_TOAST",
@@ -19,6 +20,12 @@ export const toggleColumnRight = (
 
 export const toggleDrawer = (shouldShow?: boolean): Types.TOGGLE_DRAWER => ({
 	type: "TOGGLE_DRAWER",
+	payload: shouldShow,
+});
+export const setHideRightColumn = (
+	shouldShow?: boolean
+): Types.SET_HIDE_COLUMN_RIGHT => ({
+	type: "SET_HIDE_COLUMN_RIGHT",
 	payload: shouldShow,
 });
 
@@ -72,3 +79,10 @@ export const toggleRead = async (id: string, value: boolean) => {
 		return false;
 	}
 };
+
+export const populateGlobal = (
+	data: globalDataInterface
+): Types.POPULATE_GLOBAL_DATA => ({
+	type: "POPULATE_GLOBAL_DATA",
+	payload: data,
+});

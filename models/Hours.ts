@@ -1,6 +1,7 @@
 import { Schema, models, model } from "mongoose";
-import { DailyHoursInterface } from "./Daily";
-
+import Daily, { DailyHoursInterface } from "./Daily";
+import { dayKeys } from "../utils/utilityFunctions";
+import { ObjectId } from "mongodb";
 export enum Week {
 	monday = "mon",
 	tuesday = "tue",
@@ -21,50 +22,67 @@ export interface HoursInterface {
 	sun: DailyHoursInterface;
 }
 
-const HoursSchema = new Schema<HoursInterface>({
-	mon: {
-		type: Schema.Types.ObjectId,
-		ref: "Daily",
-		required: false,
-		autopopulate: true,
+const HoursSchema = new Schema<HoursInterface>(
+	{
+		mon: {
+			type: Schema.Types.ObjectId,
+			ref: "Daily",
+			required: false,
+			autopopulate: true,
+		},
+		tue: {
+			type: Schema.Types.ObjectId,
+			ref: "Daily",
+			required: false,
+			autopopulate: true,
+		},
+		wed: {
+			type: Schema.Types.ObjectId,
+			ref: "Daily",
+			required: false,
+			autopopulate: true,
+		},
+		thur: {
+			type: Schema.Types.ObjectId,
+			ref: "Daily",
+			required: false,
+			autopopulate: true,
+		},
+		fri: {
+			type: Schema.Types.ObjectId,
+			ref: "Daily",
+			required: false,
+			autopopulate: true,
+		},
+		sat: {
+			type: Schema.Types.ObjectId,
+			ref: "Daily",
+			required: false,
+			autopopulate: true,
+		},
+		sun: {
+			type: Schema.Types.ObjectId,
+			ref: "Daily",
+			required: false,
+			autopopulate: true,
+		},
 	},
-	tue: {
-		type: Schema.Types.ObjectId,
-		ref: "Daily",
-		required: false,
-		autopopulate: true,
-	},
-	wed: {
-		type: Schema.Types.ObjectId,
-		ref: "Daily",
-		required: false,
-		autopopulate: true,
-	},
-	thur: {
-		type: Schema.Types.ObjectId,
-		ref: "Daily",
-		required: false,
-		autopopulate: true,
-	},
-	fri: {
-		type: Schema.Types.ObjectId,
-		ref: "Daily",
-		required: false,
-		autopopulate: true,
-	},
-	sat: {
-		type: Schema.Types.ObjectId,
-		ref: "Daily",
-		required: false,
-		autopopulate: true,
-	},
-	sun: {
-		type: Schema.Types.ObjectId,
-		ref: "Daily",
-		required: false,
-		autopopulate: true,
-	},
-});
+	{
+		timestamps: true,
+		methods: {
+			async clearSubdocs() {
+				for (let i = 0; i < dayKeys.length; i++) {
+					const k = dayKeys[i];
+					console.log("this[k]: ", this[k]);
+					debugger;
+					if (this[k]) {
+						await Daily.findByIdAndRemove(this[k]._id || this[k]);
+					}
+				}
+			},
+		},
+	}
+);
 
 HoursSchema.plugin(require("mongoose-autopopulate"));
 

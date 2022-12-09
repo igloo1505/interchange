@@ -3,12 +3,14 @@ import UIReducer from "./UIReducer";
 import initialState from "./initialState";
 import appReducer from "./appReducer";
 import toastReducer from "./toastReducer";
+import globalDataReducer from "./globalDataReducer";
 
 const store = configureStore({
 	reducer: {
 		UI: UIReducer,
 		toast: toastReducer,
 		app: appReducer,
+		global: globalDataReducer,
 	},
 	devTools: process.env.NODE_ENV !== "production" || true,
 	preloadedState: initialState,

@@ -4,6 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { ErrorResponse, sendError } from "../../../types/ErrorResponse";
 import connectDB from "../../../utils/connectMongo";
 import "colors";
+import { ObjectId } from "mongodb";
 
 const handler = nc();
 
@@ -35,9 +36,17 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 			};
 			return sendError(errorResponse, res);
 		}
-		await hours.forEach(
-			async (v) => await Hours.findByIdAndRemove(v.id || v._id)
-		);
+		// await hours.forEach(
+
+		// );
+		for (let i = 0; i < hours.length; i++) {
+			const h = hours[i];
+			// await h.clearSubdocs();
+			let _h = await Hours.findById(h.id);
+			await _h.clearSubdocs();
+			// await Hours.findByIdAndRemove(h.id || h._id);
+			await _h.remove();
+		}
 
 		let response = {
 			response: hours,

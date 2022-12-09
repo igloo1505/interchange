@@ -71,11 +71,11 @@ const Navbar = connector(({ dimensions, props }: NavbarProps) => {
 
 	return (
 		<div
-			className="flex flex-col items-center justify-center w-screen max-w-screen"
+			className="flex-col items-center justify-center hidden w-screen md:flex max-w-screen"
 			id="navbar-outer-container"
 		>
 			<Image src={IFPLogo} alt="Interchange Food Pantry Logo" height={80} />
-			<div className="flex-row items-center justify-center hidden w-full gap-2 py-3 md:flex">
+			<div className="flex-row items-center justify-center w-full gap-2 py-3 md:flex">
 				{dimensions.viewport.width > 768 &&
 					links.map((l, i, a) => {
 						if (!shouldAnimate && i === a.length - 1) {

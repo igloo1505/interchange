@@ -7,9 +7,8 @@ import Listeners from "../components/layout/Listeners";
 import store from "../state/store";
 import { Raleway } from "@next/font/google";
 
-
 const raleway = Raleway({
-	weight: ["200", "400", "600"],
+	weight: ["200", "400", "500", "600"],
 	style: ["normal", "italic"],
 	// subsets: ["latin"],
 	variable: "--font-raleway",

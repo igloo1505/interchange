@@ -33,7 +33,9 @@ const ColumnRight = connector(
 					minHeight:
 						!Number.isNaN(parseInt(`${dimensions.navbar.height}`)) &&
 						dimensions.viewport.height
-							? `${dimensions.viewport.height - dimensions.navbar.height}px`
+							? `${
+									dimensions.viewport.height - dimensions.navbar.height - 16
+							  }px`
 							: "100%",
 					height: isOpen
 						? `calc(100vh - ${dimensions.navbar.height + 16}px)`

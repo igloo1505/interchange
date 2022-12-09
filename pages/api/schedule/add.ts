@@ -42,12 +42,17 @@ handler.post(async (req: NextApiRequest | any, res: NextApiResponse | any) => {
 				!Number.isNaN(c.getHours()) &&
 				!Number.isNaN(c.getMinutes())
 			) {
-				let _o = `${
-					o.getHours() > 12 ? o.getHours() - 12 : o.getHours()
-				}:${o.getHours()} ${o.getHours() > 12 ? "pm" : "am"}`;
-				let _c = `${
-					c.getHours() > 12 ? c.getHours() - 12 : c.getHours()
-				}:${c.getHours()} ${c.getHours() > 12 ? "pm" : "am"}`;
+				debugger;
+				let _o = `${o.getHours() > 12 ? o.getHours() - 12 : o.getHours()}:${
+					`${o.getMinutes()}`.length === 1
+						? `0${o.getMinutes()}`
+						: `${o.getMinutes()}`
+				} ${o.getHours() > 12 ? "pm" : "am"}`;
+				let _c = `${c.getHours() > 12 ? c.getHours() - 12 : c.getHours()}:${
+					`${c.getMinutes()}`.length === 1
+						? `0${c.getMinutes()}`
+						: `${c.getMinutes()}`
+				} ${c.getHours() > 12 ? "pm" : "am"}`;
 				let newDaily = new Daily({
 					open: _o,
 					close: _c,

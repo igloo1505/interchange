@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { RootState } from "../../state/store";
 import initialState from "../../state/initialState";
 import clsx from "clsx";
+import { useRouter } from "next/router";
 
 interface WithColumnRightProps {
 	children: JSX.Element | JSX.Element[] | string;
@@ -11,6 +12,7 @@ interface WithColumnRightProps {
 	columnRightAnimationDelay?: number | undefined | null;
 	isOpen: boolean | null;
 	scrollbar: number;
+	hideColumnRight: boolean;
 }
 
 const connector = connect((state: RootState, props: any) => ({
@@ -18,6 +20,7 @@ const connector = connect((state: RootState, props: any) => ({
 	isOpen: state.UI.drawer.columnRightOpen,
 	props: props,
 	scrollbar: state.UI.dimensions.scrollbar,
+	hideColumnRight: state.UI.drawer.hideColumnRight,
 }));
 
 const WithColumnRight = connector(
@@ -27,7 +30,9 @@ const WithColumnRight = connector(
 		isOpen,
 		columnRightAnimationDelay,
 		scrollbar,
+		hideColumnRight,
 	}: WithColumnRightProps) => {
+		const router = useRouter();
 		const [size, setSizes] = useState({
 			open: "10vw 1fr",
 			closed: "1fr 200px",
@@ -48,15 +53,24 @@ const WithColumnRight = connector(
 		}, [dimensions]);
 		return (
 			<div
-				className="flex transition-all duration-700 md:grid will-change-auto"
+				className="transition-all duration-700 will-change-auto"
 				style={{
-					gridTemplateColumns: isOpen ? size.open : size.closed,
+					gridTemplateColumns: hideColumnRight
+						? "1fr"
+						: isOpen
+						? size.open
+						: size.closed,
 					height: isOpen
 						? `calc(100vh - ${dimensions.navbar.height + 16}px)`
-						: "100%",
+						: "calc(100% - 1rem)",
+					// height: `calc(100vh - ${dimensions.navbar.height + 16}px)`,
 					overflowY: isOpen ? "hidden" : "auto",
 					overflowX: "hidden",
 					width: `calc(100vw - ${scrollbar ? scrollbar : 16}px)`,
+					display:
+						dimensions.viewport.width < 768 || hideColumnRight
+							? "flex"
+							: "grid",
 				}}
 			>
 				<div
@@ -67,12 +81,14 @@ const WithColumnRight = connector(
 				>
 					{children}
 				</div>
-				{dimensions.viewport.width >= 768 && (
-					<ColumnRight
-						dimensions={dimensions}
-						animationDelay={columnRightAnimationDelay}
-					/>
-				)}
+				{dimensions.viewport.width >= 768 &&
+					!hideColumnRight &&
+					router.asPath !== "/HoursAndLocation" && (
+						<ColumnRight
+							dimensions={dimensions}
+							animationDelay={columnRightAnimationDelay}
+						/>
+					)}
 			</div>
 		);
 	}
