@@ -73,6 +73,7 @@ const Map = connector(
 			console.log("navbar: ", sizes);
 		}, [columnRight, navbar]);
 		const toggleFullWidth = () => {
+			if (isOpen) return;
 			dispatch(toggleColumnRight());
 		};
 		return (
@@ -87,7 +88,7 @@ const Map = connector(
 				// 	height: "200px",
 				// }}
 				className={clsx(
-					"relative grid my-2 overflow-hidden transition-all duration-700 place-items-center",
+					"relative grid my-2 overflow-hidden transition-all duration-700 place-items-center cursor-pointer",
 					isOpen && "mapContainerOuterOpen"
 				)}
 				onClick={toggleFullWidth}
@@ -95,8 +96,11 @@ const Map = connector(
 				<MapContainer
 					center={[43.0459852, -87.9121041]}
 					zoom={15}
-					scrollWheelZoom={false}
-					className={clsx("absolute will-change-auto mapContainer")}
+					scrollWheelZoom={true}
+					doubleClickZoom={true}
+					className={clsx(
+						"absolute will-change-auto mapContainer cursor-pointer"
+					)}
 					style={sizes.open}
 				>
 					<TileLayer

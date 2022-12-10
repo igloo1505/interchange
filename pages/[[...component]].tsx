@@ -19,6 +19,7 @@ import { connectServerSide } from "../utils/connectMongo";
 import { populateGlobal } from "../state/actions";
 import { useAppDispatch } from "../hooks/ReduxHooks";
 import { globalDataInterface } from "../state/initialState";
+import ColumnRight from "../components/layout/ColumnRight";
 
 interface ComponentSwitcherInterface {
 	path: pageEnum | string | undefined;
@@ -66,6 +67,7 @@ const Landing = ({ data }: LandingProps) => {
 			<Drawer />
 			<Navbar />
 			<Navbar_mobile />
+			<ColumnRight />
 			<WithColumnRight>
 				<ComponentSwitcher path={_component as string} />
 			</WithColumnRight>

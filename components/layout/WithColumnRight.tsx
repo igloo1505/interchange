@@ -81,14 +81,6 @@ const WithColumnRight = connector(
 				>
 					{children}
 				</div>
-				{dimensions.viewport.width >= 768 &&
-					!hideColumnRight &&
-					router.asPath !== "/HoursAndLocation" && (
-						<ColumnRight
-							dimensions={dimensions}
-							animationDelay={columnRightAnimationDelay}
-						/>
-					)}
 			</div>
 		);
 	}

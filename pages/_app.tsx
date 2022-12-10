@@ -1,7 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import "../styles/globals.scss";
 import type { AppProps } from "next/app";
-
 import { Provider } from "react-redux";
 import Listeners from "../components/layout/Listeners";
 import store from "../state/store";
