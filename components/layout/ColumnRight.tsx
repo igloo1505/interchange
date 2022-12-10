@@ -66,11 +66,12 @@ const ColumnRight = connector(
 		return (
 			<Fragment>
 				<div
-					className="fixed flex flex-col items-center justify-start w-full bg-primary-900 z-[500] transition-all duration-700"
+					className="hidden md:flex flex-col items-center justify-start w-full bg-primary-900 z-[500] transition-all duration-700 fixed"
 					id="column-right-container"
 					style={{
 						transform: "translateX(100%)",
 						right: 0,
+						top: `${dimensions.navbar.height}x`,
 						height: isOpen
 							? `calc(100vh - ${dimensions.navbar.height + 32}px)`
 							: `calc(100vh - ${dimensions.navbar.height}px)`,
