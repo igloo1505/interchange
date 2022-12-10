@@ -61,7 +61,7 @@ const Toast = ({ config }: ToastProps) => {
 	return (
 		<div
 			className={clsx(
-				`w-max absolute top-[8px] left-[50%] z-[900] grid gap-2 py-3 px-3 bg-primary-700 toast-container rounded toast-container-${config.type}`,
+				`w-max fixed top-[8px] left-[50%] z-[900] grid gap-2 py-3 px-3 bg-primary-700 toast-container rounded toast-container-${config.type}`,
 				isShown ? "toastShow" : "toastHide"
 			)}
 			id="main-toast-container"

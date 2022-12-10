@@ -23,7 +23,7 @@ const defaultOptions: { value: number; display: string }[] = [
 interface DonationCardProps {}
 const activeButtonClasses = "donateButtonActive text-white";
 const buttonClasses =
-	"border border-primary-400 text-xl text-center px-8 py-5 relative cursor-pointer";
+	"border border-primary-800 text-xl text-center px-8 py-5 relative cursor-pointer text-primary-800";
 const DonationCard = ({}: DonationCardProps) => {
 	const dispatch = useAppDispatch();
 	const [formData, setFormData] = useState({
