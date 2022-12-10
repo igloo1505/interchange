@@ -83,7 +83,7 @@ const Navbar = connector(({ dimensions, props }: NavbarProps) => {
 						}
 						return (
 							<div
-								className="flex flex-col items-center justify-center navbar-item"
+								className="flex flex-col items-center justify-center navbar-item cursor-pointer"
 								key={`navbar-link-${i}`}
 								onMouseEnter={() => animateHover(i)}
 								onMouseLeave={() => cancelAnimation(i)}

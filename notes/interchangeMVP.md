@@ -41,17 +41,10 @@
   - [ ] Donation tracker, at least with those obtained through website, if payment portal is something that they like.
 
 
-
-
 ## Dates and To-dos:
 ### 12-03-22
 - Started today around 1pm. Took a while to get comfortable with React-Admin but now things are going smoothly.
 #### Resume by:
-1. Volunteer page.
-2. Donation page 
-   1. Psuedo back-end for now
-3. Check to make sure date is editable in all models. Change section in notes appropriately.
-4. Image key added to volunteer and all related routes
-    - Remove image on model delete
-    - Remove old image on update
+1. Check to make sure date is editable in all models. Change section in notes appropriately.
+
 

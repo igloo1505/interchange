@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import Listeners from "../components/layout/Listeners";
 import store from "../state/store";
 import { Raleway } from "@next/font/google";
-
+import LockBodyListener from "../components/layout/LockBodyListener";
 const raleway = Raleway({
 	weight: ["200", "400", "500", "600"],
 	style: ["normal", "italic"],
@@ -18,6 +18,7 @@ export default function App({ Component, pageProps }: AppProps) {
 		<main className={`${raleway.variable} font-sans`}>
 			<Provider store={store}>
 				<Listeners />
+				<LockBodyListener />
 				<Component {...pageProps} />
 			</Provider>
 		</main>
