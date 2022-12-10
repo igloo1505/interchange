@@ -5,7 +5,7 @@ import * as Types from "./ReduxTypes";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { createReducer } from "@reduxjs/toolkit";
 import initState from "./initialState";
-import ToastConfig from "../types/ToastConfig";
+import ToastConfig, { toastConfig } from "../types/ToastConfig";
 const initialState = initState.UI.toast;
 
 const UIReducer = createReducer(initialState, (builder) => {
@@ -31,11 +31,32 @@ const UIReducer = createReducer(initialState, (builder) => {
 			let _toast = new ToastConfig(
 				"success",
 				"Thank you. Someone will be in touch.",
-				500000
+				5000
 			);
 			return {
 				...state,
-				_toast,
+				..._toast,
+			};
+		}
+	);
+	builder.addCase(
+		"SHOW_DONATION_DEMO_TOAST",
+		(state: typeof initialState, action: Types.SHOW_DONATION_DEMO_TOAST) => {
+			// let _toast = new ToastConfig(
+			// 	"success",
+
+			// 	5000
+			// );
+			let _toast: toastConfig = {
+				type: "success",
+				message:
+					"Currently donation functionality is only for demonstration purposes.",
+				delay: 5000,
+			};
+			// let _t = new ToastConfig()
+			return {
+				...state,
+				..._toast,
 			};
 		}
 	);

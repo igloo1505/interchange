@@ -51,3 +51,8 @@ export type POPULATE_GLOBAL_DATA = {
 	type: "POPULATE_GLOBAL_DATA";
 	payload: globalDataInterface;
 };
+
+export type SHOW_DONATION_DEMO_TOAST = {
+	type: "SHOW_DONATION_DEMO_TOAST";
+	payload: number;
+};

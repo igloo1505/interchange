@@ -33,6 +33,7 @@
 
 
 ## Bug Fixes: 
+- [ ] Disallow scrolling when map is open
 - [ ] Fix map pop-up in both locations. Current modal is random, and maybe unneeded.
 - [ ] Remove images on deletion of model or update.
 

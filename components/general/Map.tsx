@@ -74,6 +74,13 @@ const Map = connector(
 		}, [columnRight, navbar]);
 		const toggleFullWidth = () => {
 			if (isOpen) return;
+			if (typeof window === "undefined") {
+				return;
+			}
+			// document.body.scrollTop = 0;
+			// document.documentElement.scrollTop = 0;
+			// setTimeout(() => {
+			// }, 500);
 			dispatch(toggleColumnRight());
 		};
 		return (

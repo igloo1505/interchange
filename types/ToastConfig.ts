@@ -7,11 +7,11 @@ export enum ToastType {
 
 type stringEnum = keyof typeof ToastType;
 
-// type ToastConfig = {
-// 	type: stringEnum;
-// 	message: string;
-// 	delay?: number;
-// };
+export type toastConfig = {
+	type: stringEnum;
+	message: string;
+	delay?: number;
+};
 
 class ToastConfig {
 	constructor(

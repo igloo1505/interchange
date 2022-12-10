@@ -8,7 +8,7 @@ import { useAppDispatch } from "../../hooks/ReduxHooks";
 import { hideToast } from "../../state/actions";
 
 const connector = connect((state: RootState, props: any) => ({
-	config: state.UI.toast,
+	config: state.toast,
 	props: props,
 }));
 
@@ -55,14 +55,13 @@ const Toast = ({ config }: ToastProps) => {
 				?.classList.add(`bg-toast_${config.type}`);
 			setIsShown(true);
 			closeToast(true);
-			console.log("__timeout: ", __timeout);
 		}
 	}, [config]);
 
 	return (
 		<div
 			className={clsx(
-				`w-max absolute top-[8px] left-[50%] z-[900] grid gap-2 py-3 px-3 bg-primary-700 toast-container  toast-container-${config.type}`,
+				`w-max absolute top-[8px] left-[50%] z-[900] grid gap-2 py-3 px-3 bg-primary-700 toast-container rounded toast-container-${config.type}`,
 				isShown ? "toastShow" : "toastHide"
 			)}
 			id="main-toast-container"

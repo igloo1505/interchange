@@ -7,7 +7,7 @@ import { RootState } from "../../state/store";
 import info from "../../utils/infoDetails";
 import { useAppDispatch } from "../../hooks/ReduxHooks";
 import { toggleColumnRight } from "../../state/actions";
-// import Map from "../general/Map";
+import { useRouter } from "next/router";
 const Map = dynamic(() => import("../general/Map"), { ssr: false });
 
 interface ColumnRightProps {
@@ -19,11 +19,14 @@ interface ColumnRightProps {
 const connector = connect((state: RootState, props) => ({
 	isOpen: state.UI.drawer.columnRightOpen,
 	dimensions: state.UI.dimensions,
+	props: props,
 }));
 
 const ColumnRight = connector(
 	({ dimensions, animationDelay, isOpen }: ColumnRightProps) => {
 		const dispatch = useAppDispatch();
+		const [listenerKey, setListenerKey] = useState(false);
+		const router = useRouter();
 		const toggleOpen = (val?: boolean) => {
 			dispatch(toggleColumnRight(val));
 		};
@@ -32,10 +35,19 @@ const ColumnRight = connector(
 			closed: "200px",
 			open: "80vw",
 		});
+		const [scrollStyles, setScrollStyles] = useState({
+			height: `${dimensions.viewport.height - dimensions.navbar.height - 16}px`,
+			top: `${dimensions.navbar.height}px`,
+		});
 		useEffect(() => {
 			let _delay = animationDelay || 0;
-			setTimeout(animateEntrance, _delay);
-		}, []);
+			if (router.asPath !== "/HoursAndLocation") {
+				setTimeout(animateEntrance, _delay);
+			}
+			if (router.asPath === "/HoursAndLocation") {
+				hideColumn();
+			}
+		}, [router.asPath]);
 		const handleWidth = () => {
 			if (typeof window === "undefined") {
 				return;
@@ -47,13 +59,42 @@ const ColumnRight = connector(
 				open: `${w * 0.8}px`,
 			});
 		};
+		const handleScroll = () => {
+			if (typeof window === "undefined") {
+				return;
+			}
+			let em = document.getElementById("navbar-outer-container");
+			if (!em) return;
+			let em2 = document.getElementById("column-right-container");
+			if (em2) {
+				em2.style.transition = "unset";
+			}
+			let v = em.getBoundingClientRect().height - scrollY;
+			let _styles = {
+				top: v > 0 ? `${v}px` : `${0}px`,
+				height: `${window.innerHeight - v}px`,
+			};
+			if (em2) {
+				em2.style.transition = "all 0.7s cubic-bezier(0.4, 0, 0.2, 1)";
+			}
+			setScrollStyles(_styles);
+			if (!listenerKey) {
+				setListenerKey(true);
+			}
+		};
 		useEffect(() => {
 			if (typeof window === "undefined") {
 				return;
 			}
 			handleWidth();
-			window.addEventListener("resize", handleWidth);
-		}, []);
+			handleScroll();
+			// window.addEventListener("resize", handleWidth);
+			// if (!listenerKey) {
+			// }
+			if (!listenerKey) {
+				window.addEventListener("scroll", handleScroll);
+			}
+		}, [dimensions]);
 
 		useEffect(() => {
 			if (!isOpen) {
@@ -66,16 +107,17 @@ const ColumnRight = connector(
 		return (
 			<Fragment>
 				<div
-					className="hidden md:flex flex-col items-center justify-start w-full bg-primary-900 z-[500] transition-all duration-700 fixed"
+					className="hidden md:flex flex-col items-center justify-start bg-primary-900 z-[500] transition-all duration-700 fixed"
 					id="column-right-container"
 					style={{
 						transform: "translateX(100%)",
 						right: 0,
-						top: `${dimensions.navbar.height}x`,
-						height: isOpen
-							? `calc(100vh - ${dimensions.navbar.height + 32}px)`
-							: `calc(100vh - ${dimensions.navbar.height}px)`,
+						// top: `${dimensions.navbar.height}x`,
+						// height: isOpen
+						// 	? `calc(100vh - ${dimensions.navbar.height + 32}px)`
+						// 	: `calc(100vh - ${dimensions.navbar.height}px)`,
 						width: isOpen ? width.open : width.closed,
+						...scrollStyles,
 					}}
 				>
 					<Map />
@@ -107,10 +149,28 @@ export default ColumnRight;
 
 const animateEntrance = () => {
 	console.log("animateEntrance");
-	let tl = gsap.timeline();
+	// let em = document.getElementById("column-right-container");
+	// if (!em) return;
+	// em.style.transition = "all 0.4s ease-in-out";
+	let tl = gsap.timeline({
+		// onComplete: () => {
+		// 	let em = document.getElementById("column-right-container");
+		// 	if (!em) return;
+		// 	em.style.transition = "unset";
+		// },
+	});
 	tl.to("#column-right-container", {
 		x: 0,
 		duration: 0.5,
 		ease: "Power3.out",
 	});
+};
+
+const hideColumn = () => {
+	if (typeof window === "undefined") {
+		return;
+	}
+	let em = document.getElementById("column-right-container");
+	if (!em) return;
+	em.style.transform = "translateX(100%)";
 };
