@@ -63,12 +63,10 @@ const WithColumnRight = connector(
 					height: isOpen
 						? `calc(100vh - ${dimensions.navbar.height + 16}px)`
 						: "calc(100% - 1rem)",
-					// height: `calc(100vh - ${dimensions.navbar.height + 16}px)`,
-					// overflowY: isOpen ? "hidden" : "auto",
 					overflowY: isOpen ? "hidden" : "auto",
 					overflowX: "hidden",
-					// width: `calc(100vw - ${scrollbar ? scrollbar : 16}px)`,
-					width: `100vw`,
+					width: `calc(100vw - ${scrollbar ? scrollbar : 0}px)`,
+					// width: `100vw`,
 					display:
 						dimensions.viewport.width < 768 || hideColumnRight
 							? "flex"
