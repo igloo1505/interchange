@@ -24,6 +24,23 @@ const ImageShow = () => {
 					/>
 				</div>
 			)}
+			{showContext?.record?.images && (
+				<div>
+				{showContext?.record?.images.map((img: string) => {
+					return (
+						<div className="relative w-[200px] h-[200px]">
+							<Image
+								src={`/uploads/${img}`}
+								alt="Event Image"
+								fill
+								className="object-contain"
+								/>
+						</div>
+					);
+				})}
+				</div>
+				)
+			}
 		</Fragment>
 	);
 };

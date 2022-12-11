@@ -1,5 +1,5 @@
 import nc from "next-connect";
-import Patron from "../../../models/Patron";
+import Featured from "../../../models/Featured";
 import { NextApiRequest, NextApiResponse } from "next";
 import { ErrorResponse, sendError } from "../../../types/ErrorResponse";
 import connectDB from "../../../utils/connectMongo";
@@ -9,7 +9,7 @@ const handler = nc();
 
 handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 	try {
-		let patrons = [];
+		let featureds = [];
 		let ids = req.body.id
 			? [req.body.id]
 			: req.body.ids
@@ -17,27 +17,27 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 			: [];
 		console.log("ids: ".red, ids);
 		for (var i = 0; i < ids.length; i++) {
-			let patron = await Patron.findById(ids[i]);
-			patrons.push(patron);
+			let featured = await Featured.findById(ids[i]);
+			featureds.push(featured);
 		}
-		if (patrons.length === 0) {
+		if (featureds.length === 0) {
 			let errorResponse: ErrorResponse = {
-				error: "Patron not found",
-				displayMessage: `Patron${
+				error: "Featured event not found",
+				displayMessage: `Featured event${
 					ids.length > 1 && "s"
 				} was not found. It may have already been deleted.`,
 				statusCode: 500,
 			};
 			return sendError(errorResponse, res);
 		}
-		for (let i = 0; i < patrons.length; i++) {
-			const v = patrons[i];
+		for (let i = 0; i < featureds.length; i++) {
+			const v = featureds[i];
 			await v.clearImages();
 			await v.findByIdAndRemove(v.id || v._id);
 		}
 
 		let response = {
-			response: patrons.forEach((v) =>
+			response: featureds.forEach((v) =>
 				v.toObject({
 					getters: true,
 					virtuals: true,

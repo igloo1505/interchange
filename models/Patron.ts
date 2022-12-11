@@ -1,5 +1,5 @@
 import { Schema, models, model } from "mongoose";
-
+import { removeImage } from "../utils/imageHandler";
 export interface PatronInterface {
 	datePosted?: Date | (() => Date) | string;
 	description: string;
@@ -20,66 +20,77 @@ export interface PatronInterface {
 	id?: Schema.Types.ObjectId;
 }
 
-const PatronSchema = new Schema<PatronInterface>({
-	name: {
-		first: {
+const PatronSchema = new Schema<PatronInterface>(
+	{
+		name: {
+			first: {
+				type: String,
+				required: false,
+			},
+			last: {
+				type: String,
+				required: false,
+			},
+		},
+		email: {
 			type: String,
 			required: false,
 		},
-		last: {
-			type: String,
-			required: false,
-		},
-	},
-	email: {
-		type: String,
-		required: false,
-	},
-	phone: {
-		type: Number,
-		required: false,
-	},
-	regularJob: {
-		type: String,
-		required: false,
-	},
-	description: {
-		type: String,
-		required: true,
-	},
-	image: {
-		type: String,
-		required: false,
-	},
-	quote: {
-		string: {
-			type: String,
-			required: false,
-		},
-		index: {
+		phone: {
 			type: Number,
-			// BUG: change this to using default only if quote.string exists.
-			required: () => {
-				/// @ts-ignore
-				return Boolean(this?.quote?.string);
+			required: false,
+		},
+		regularJob: {
+			type: String,
+			required: false,
+		},
+		description: {
+			type: String,
+			required: true,
+		},
+		image: {
+			type: String,
+			required: false,
+		},
+		quote: {
+			string: {
+				type: String,
+				required: false,
 			},
+			index: {
+				type: Number,
+				// BUG: change this to using default only if quote.string exists.
+				required: () => {
+					/// @ts-ignore
+					return Boolean(this?.quote?.string);
+				},
+				default: () => {
+					/// @ts-ignore
+					return this?.quote?.string ? 1 : null;
+				},
+			},
+		},
+		datePosted: {
+			type: Date,
+			// required: false,
 			default: () => {
-				/// @ts-ignore
-				return this?.quote?.string ? 1 : null;
+				let d = new Date().toLocaleString("en-US", {
+					timeZone: "America/Chicago",
+				});
+				return d;
 			},
 		},
 	},
-	datePosted: {
-		type: Date,
-		// required: false,
-		default: () => {
-			let d = new Date().toLocaleString("en-US", {
-				timeZone: "America/Chicago",
-			});
-			return d;
+	{
+		methods: {
+			async clearImages() {
+				if (this.image) {
+					await removeImage(this.image);
+				}
+			},
 		},
-	},
-});
+	}
+);
 
 PatronSchema.alias("_id", "id");
 

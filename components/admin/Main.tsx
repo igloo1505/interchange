@@ -21,10 +21,14 @@ import PatronShow from "./dataHandlers/PatronShow";
 import ContactList from "./dataHandlers/contact/ContactList";
 import ContactShow from "./dataHandlers/contact/ContactShow";
 import MarkunreadMailboxIcon from "@mui/icons-material/MarkunreadMailbox";
+import ArticleIcon from "@mui/icons-material/Article";
 import HoursList from "./dataHandlers/hours/HoursList";
 import HoursShow from "./dataHandlers/hours/HoursShow";
 import ScheduleIcon from "@mui/icons-material/Schedule";
 import HoursCreate from "./dataHandlers/hours/HoursCreate";
+import FeaturedList from "./dataHandlers/featured/FeaturedList";
+import FeaturedCreate from "./dataHandlers/featured/FeaturedCreate";
+import FeaturedEventShow from "./dataHandlers/featured/FeaturedShow";
 
 const App = () => {
 	return (
@@ -69,6 +73,14 @@ const App = () => {
 				create={HoursCreate}
 				recordRepresentation={(r) => `${r.id}`}
 				icon={ScheduleIcon}
+			/>
+			<Resource
+				name="featured"
+				list={FeaturedList}
+				create={FeaturedCreate}
+				show={FeaturedEventShow}
+				recordRepresentation={(r) => `${r.title}`}
+				icon={ArticleIcon}
 			/>
 			<ReactQueryDevtools initialIsOpen={true} />
 		</Admin>

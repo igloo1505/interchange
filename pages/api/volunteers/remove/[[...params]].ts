@@ -4,7 +4,6 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { ErrorResponse, sendError } from "../../../../types/ErrorResponse";
 import connectDB from "../../../../utils/connectMongo";
 import "colors";
-import { parse } from "querystring";
 
 const handler = nc();
 
@@ -19,12 +18,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 		console.log("ids: ".red, ids);
 		for (var i = 0; i < ids.length; i++) {
 			let volunteer = await Volunteer.findById(ids[i]);
-			volunteers.push(
-				volunteer.toObject({
-					getters: true,
-					virtuals: true,
-				})
-			);
+			volunteers.push(volunteer);
 		}
 		if (volunteers.length === 0) {
 			let errorResponse: ErrorResponse = {
@@ -36,12 +30,19 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 			};
 			return sendError(errorResponse, res);
 		}
-		await volunteers.forEach(
-			async (v) => await Volunteer.findByIdAndRemove(v.id || v._id)
-		);
+		for (let i = 0; i < volunteers.length; i++) {
+			const v = volunteers[i];
+			await v.clearImages();
+			await v.findByIdAndRemove(v.id || v._id);
+		}
 
 		let response = {
-			response: volunteers,
+			response: volunteers.forEach((v) =>
+				v.toObject({
+					getters: true,
+					virtuals: true,
+				})
+			),
 			success: true,
 		};
 		console.log("response: ", response);
