@@ -22,34 +22,35 @@ const FeaturedEventShow = () => {
 				<Box display={{ xs: "block", sm: "flex", width: "100%", mt: "1rem" }}>
 					<Box flex={1} mr={{ xs: 0, sm: "0.5em" }}>
 						<Labeled>
-							<TextField source="name.first" label="First Name" fullWidth />
+							<TextField source="title" label="Title" fullWidth />
 						</Labeled>
 					</Box>
 					<Box flex={1} ml={{ xs: 0, sm: "0.5em" }}>
 						<Labeled>
-							<TextField source="name.last" label="Last Name" fullWidth />
+							<TextField source="url" label="Url" fullWidth />
 						</Labeled>
 					</Box>
 				</Box>
-				<Box display={{ xs: "block", sm: "flex", width: "100%", mt: "1rem" }}>
+				<Labeled>
+					<TextField source="location" label="Location" fullWidth />
+				</Labeled>
+				<RichTextField source="description" fullWidth />
+				<Box display={{ xs: "block", sm: "flex", width: "100%" }}>
 					<Box flex={1} mr={{ xs: 0, sm: "0.5em" }}>
 						<Labeled>
-							<EmailField source="email" fullWidth />
+							<DateField
+								label="Expires On"
+								source="autoExpire"
+								emptyText="Never"
+							/>
 						</Labeled>
 					</Box>
 					<Box flex={1} ml={{ xs: 0, sm: "0.5em" }}>
 						<Labeled>
-							<PhoneFunctionField source="phone" label="Phone" fullWidth />
+							<DateField label="Posted Date" source="datePosted" />
 						</Labeled>
 					</Box>
 				</Box>
-				<QuoteField
-					source="quote.string"
-					label="Something Meaningful"
-					fullWidth
-				/>
-				<RichTextField source="description" fullWidth />
-				<DateField label="Posted Date" source="datePosted" />
 			</SimpleShowLayout>
 		</Show>
 	);

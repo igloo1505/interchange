@@ -4,42 +4,22 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { ErrorResponse, sendError } from "../../../../types/ErrorResponse";
 import connectDB from "../../../../utils/connectMongo";
 import "colors";
-import { multerUpload } from "../../../../utils/imageHandler";
-import { NextFunction } from "express-serve-static-core";
-import multiparty from "multiparty";
-import path from "path";
-import { parsePhone } from "../../../../utils/utilityFunctions";
 
+import { parsePhone } from "../../../../utils/utilityFunctions";
+import {
+	multerUpload_middleware,
+	multerFileType,
+} from "../../../../utils/imageHandler";
 const handler = nc();
-// const upload = uploadMiddleware("Volunteer");
-// handler.use(upload);
+handler.use(multerUpload_middleware.any());
 
 handler.post(async (req: NextApiRequest | any, res: NextApiResponse | any) => {
 	try {
-		const nextFunc: NextFunction = (err) => {
-			if (err) {
-				console.log("There was an error uploading the image.");
-			}
-			console.log("Upload success!".bgMagenta.white);
+		let images = req.files?.map((f: multerFileType) => `${f.filename}`);
+		let props = {
+			...req.body,
+			images: images,
 		};
-		let imageUrl = await multerUpload(req, res, nextFunc);
-		console.log("imageUrl: ", imageUrl);
-		const form = new multiparty.Form();
-		const data: any = await new Promise((resolve, reject) => {
-			form.parse(req, function (err, fields, files) {
-				if (err) reject({ err });
-				resolve({ fields, files });
-			});
-		});
-		let _ext = path.extname(data.fields["image[title]"][0]);
-		if (_ext) imageUrl = `${imageUrl}${_ext}`;
-		let props =
-			req.body?.image && imageUrl
-				? {
-						...req.body,
-						image: imageUrl,
-				  }
-				: { ...req.body };
 		if (props.phone) {
 			let parsedPhone = parsePhone(props.phone);
 			console.log("parsedPhone: ", parsedPhone);

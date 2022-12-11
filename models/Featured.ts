@@ -49,10 +49,18 @@ const FeaturedSchema = new Schema<FeaturedInterface>(
 	},
 	{
 		methods: {
-			async clearImages() {
-				for (let i = 0; i < this.images.length; i++) {
-					const fileName = this.images[i];
-					await removeImage(fileName);
+			async clearImages(filename: string | null) {
+				debugger;
+				let imgs = filename ? [filename] : this.images;
+				for (let i = 0; i < imgs.length; i++) {
+					const fileName: string = imgs[i];
+					try {
+						debugger;
+						await removeImage(fileName);
+						this.images = this.images.filter((f: string) => f !== fileName);
+					} catch (error) {
+						console.log("error: ", error);
+					}
 				}
 			},
 		},

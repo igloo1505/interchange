@@ -1,5 +1,4 @@
 import {
-	fetchUtils,
 	GetListParams,
 	GetOneParams,
 	GetManyParams,
@@ -12,10 +11,8 @@ import {
 	DataProvider,
 } from "react-admin";
 import { stringify } from "query-string";
-// import axios, { useAxios } from "axios";
 import { VolunteerInterface } from "../../../models/Volunteer";
 import axios, { methodEnum } from "../../../utils/useAxios";
-import QueryString from "qs";
 
 const dataProvider: DataProvider = {
 	getList: async (resource: string, params: GetListParams) => {
@@ -27,9 +24,7 @@ const dataProvider: DataProvider = {
 			sortField: params.sort.field,
 			sortOrder: params.sort.order,
 			filter:
-				Object.keys(params.filter).length > 0
-					? QueryString.stringify(params.filter)
-					: "",
+				Object.keys(params.filter).length > 0 ? stringify(params.filter) : "",
 			meta:
 				typeof params.meta !== "undefined" &&
 				Object.keys(params.meta).length > 0
@@ -102,9 +97,7 @@ const dataProvider: DataProvider = {
 			sortField: params.sort.field,
 			sortOrder: params.sort.order,
 			filter:
-				Object.keys(params.filter).length > 0
-					? QueryString.stringify(params.filter)
-					: "",
+				Object.keys(params.filter).length > 0 ? stringify(params.filter) : "",
 			meta:
 				typeof params.meta !== "undefined" &&
 				Object.keys(params.meta).length > 0
@@ -184,7 +177,11 @@ const dataProvider: DataProvider = {
 			},
 		});
 		// TODO: change r: VolunteerInterface to VolunteerInterface | PatronInterface...
-		return { data: res.data.response.map((r: VolunteerInterface) => r.id) };
+		return {
+			data: Array.isArray(res.data.response)
+				? res.data.response.map((r: any) => r.id)
+				: [],
+		};
 	},
 };
 

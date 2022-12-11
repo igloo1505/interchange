@@ -21,10 +21,12 @@
   - [x] Update patrons
 - [x] Contact submission form
 - [x] View and manage contact submissions in React-admin
-- [ ] Edit text on main page
-- [ ] Edit image(s) on main page
+- [x] Edit text on main page
+- [x] Edit image(s) on main page
 - [x] Edit hours
-- [ ] Create Special events
+- [x] Create Special events
+- [ ] Create 'general post' with images, title, description, link and whatnot.
+- [ ] Set one image as primary and allow to be set in image for models with images.
   - [ ] Time automated special events, remove without further input with actual deletion from database.
 - [ ] 'Featured' events that display in banner on main page.
   - [ ] Featured events editable.

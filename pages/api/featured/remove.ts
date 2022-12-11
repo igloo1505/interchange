@@ -4,7 +4,6 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { ErrorResponse, sendError } from "../../../types/ErrorResponse";
 import connectDB from "../../../utils/connectMongo";
 import "colors";
-
 const handler = nc();
 
 handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
@@ -22,18 +21,19 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 		}
 		if (featureds.length === 0) {
 			let errorResponse: ErrorResponse = {
-				error: "Featured event not found",
-				displayMessage: `Featured event${
-					ids.length > 1 && "s"
-				} was not found. It may have already been deleted.`,
+				error: "Featured Event not found",
+				displayMessage: `Featured Event${
+					ids.length > 1 ? "s were" : " was"
+				} not found. It may have already been deleted.`,
 				statusCode: 500,
 			};
 			return sendError(errorResponse, res);
 		}
 		for (let i = 0; i < featureds.length; i++) {
 			const v = featureds[i];
+			debugger;
 			await v.clearImages();
-			await v.findByIdAndRemove(v.id || v._id);
+			await Featured.findByIdAndDelete(v.id || v._id);
 		}
 
 		let response = {

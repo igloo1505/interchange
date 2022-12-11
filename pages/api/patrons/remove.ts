@@ -33,11 +33,11 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 		for (let i = 0; i < patrons.length; i++) {
 			const v = patrons[i];
 			await v.clearImages();
-			await v.findByIdAndRemove(v.id || v._id);
+			await Patron.findByIdAndRemove(v.id || v._id);
 		}
 
 		let response = {
-			response: patrons.forEach((v) =>
+			response: patrons.map((v) =>
 				v.toObject({
 					getters: true,
 					virtuals: true,

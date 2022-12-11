@@ -8,11 +8,13 @@ import connectDB from "../../utils/connectMongo";
 import "colors";
 import fs from "fs";
 import path from "path";
+import Featured from "../../models/Featured";
 
 const handler = nc();
 let modelMap = {
 	volunteers: Volunteer,
 	patrons: Patron,
+	featured: Featured,
 };
 
 handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
@@ -29,7 +31,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 			};
 			return sendError(_e, res);
 		}
-		if (!x.image) {
+		if (!x.image && !x.images) {
 			let _e: ErrorResponse = {
 				error: "Model does not have an image",
 				consoleMessage: `Current model does not have image path resource=${resource} id=${id}`,
@@ -37,11 +39,16 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 			};
 			return sendError(_e, res);
 		}
-		fs.unlinkSync(`./public/uploads/${x.image}`);
+		let images = x.images ? x.images : [x.image];
+		for (let i = 0; i < images.length; i++) {
+			const img = images[i];
+			fs.unlinkSync(`./public/uploads/${img}`);
+		}
 		let updated = await m.findByIdAndUpdate(
 			id,
 			{
-				image: null,
+				...(x.image && { image: null }),
+				...(x.images && { images: null }),
 			},
 			{
 				new: true,

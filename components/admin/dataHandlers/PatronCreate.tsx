@@ -70,7 +70,7 @@ const PatronCreate = () => {
 					source="image"
 					label="Photo"
 					accept={[".jpeg", ".jpg", ".png"]}
-					multiple={false}
+					multiple={true}
 					name="image"
 				>
 					<ImageField source="src" title="filename" />

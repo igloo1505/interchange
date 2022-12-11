@@ -14,7 +14,7 @@ export interface VolunteerInterface {
 		// NOTE: Make sure to account for indexs that are out of range. If index is above maximum possible, place at end of last paragraph. If no index, place after first paragraph.
 		index?: number;
 	};
-	image?: string;
+	images?: string[];
 	phone?: number | string | undefined;
 	regularJob?: string;
 	id?: Schema.Types.ObjectId;
@@ -48,8 +48,8 @@ const VolunteerSchema = new Schema<VolunteerInterface>(
 			type: String,
 			required: true,
 		},
-		image: {
-			type: String,
+		images: {
+			type: [String],
 			required: false,
 		},
 		quote: {
@@ -83,9 +83,16 @@ const VolunteerSchema = new Schema<VolunteerInterface>(
 	},
 	{
 		methods: {
-			async clearImages() {
-				if (this.image) {
-					await removeImage(this.image);
+			async clearImages(filename: string | null) {
+				let imgs = filename ? [filename] : this.images;
+				for (let i = 0; i < imgs.length; i++) {
+					const fileName: string = imgs[i];
+					try {
+						await removeImage(fileName);
+						this.images = this.images.filter((f: string) => f !== fileName);
+					} catch (error) {
+						console.log("error: ", error);
+					}
 				}
 			},
 		},

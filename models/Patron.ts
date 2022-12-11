@@ -14,7 +14,7 @@ export interface PatronInterface {
 		// NOTE: Make sure to account for indexs that are out of range. If index is above maximum possible, place at end of last paragraph. If no index, place after first paragraph.
 		index?: number;
 	};
-	image?: string;
+	image?: string[];
 	phone?: number | string | undefined;
 	regularJob?: string;
 	id?: Schema.Types.ObjectId;
@@ -48,8 +48,8 @@ const PatronSchema = new Schema<PatronInterface>(
 			type: String,
 			required: true,
 		},
-		image: {
-			type: String,
+		images: {
+			type: [String],
 			required: false,
 		},
 		quote: {
@@ -85,7 +85,12 @@ const PatronSchema = new Schema<PatronInterface>(
 		methods: {
 			async clearImages() {
 				if (this.image) {
-					await removeImage(this.image);
+					try {
+						await removeImage(this.image);
+						this.image = undefined;
+					} catch (error) {
+						console.log("error: ", error);
+					}
 				}
 			},
 		},

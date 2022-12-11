@@ -25,22 +25,27 @@ const ImageShow = () => {
 				</div>
 			)}
 			{showContext?.record?.images && (
-				<div>
-				{showContext?.record?.images.map((img: string) => {
-					return (
-						<div className="relative w-[200px] h-[200px]">
-							<Image
-								src={`/uploads/${img}`}
-								alt="Event Image"
-								fill
-								className="object-contain"
+				<div
+					className="grid"
+					style={{
+						gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+						placeItems: "center",
+					}}
+				>
+					{showContext?.record?.images.map((img: string) => {
+						return (
+							<div className="relative w-[150px] h-[150px]">
+								<Image
+									src={`/uploads/${img}`}
+									alt="Event Image"
+									fill
+									className="object-contain"
 								/>
-						</div>
-					);
-				})}
+							</div>
+						);
+					})}
 				</div>
-				)
-			}
+			)}
 		</Fragment>
 	);
 };

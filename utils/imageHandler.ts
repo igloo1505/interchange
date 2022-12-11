@@ -5,11 +5,6 @@ import { uuid } from "uuidv4";
 import path from "path";
 import { NextFunction } from "express-serve-static-core";
 import fs from "fs";
-import { OutgoingMessage, IncomingMessage } from "http";
-
-// const fileBuffer = await sharp(file.buffer)
-// 	.resize({ height: 1920, width: 1080, fit: "contain" })
-// 	.toBuffer();
 
 export interface CustomFileResult extends Partial<Multer> {
 	image: string;
@@ -75,3 +70,14 @@ export interface multerFileType {
 	path: string;
 	size: number;
 }
+
+export const removeImage = async (filename: string) => {
+	debugger;
+	let p = `./public/uploads/${filename}`;
+	console.log("p: ", p);
+	console.log("fs.existsSync(p): ", fs.existsSync(p));
+	if (fs.existsSync(p)) {
+		await fs.unlink(p, (err) => console.log("error", err));
+	}
+	return;
+};

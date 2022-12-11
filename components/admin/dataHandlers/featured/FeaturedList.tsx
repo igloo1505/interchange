@@ -49,7 +49,7 @@ const FeaturedList = () => {
 				<TextField source="url" label="URL" />
 				<DateField source="autoExpire" locales="cst" label="Auto-Expire" />
 				{viewport && viewport > 850 && (
-					<TextField source="datePosted" label="Date Posted" />
+					<DateField source="datePosted" label="Date Posted" />
 				)}
 			</Datagrid>
 		</List>

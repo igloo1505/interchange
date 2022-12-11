@@ -33,11 +33,11 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 		for (let i = 0; i < volunteers.length; i++) {
 			const v = volunteers[i];
 			await v.clearImages();
-			await v.findByIdAndRemove(v.id || v._id);
+			await Volunteer.findByIdAndRemove(v.id || v._id);
 		}
 
 		let response = {
-			response: volunteers.forEach((v) =>
+			response: volunteers.map((v) =>
 				v.toObject({
 					getters: true,
 					virtuals: true,

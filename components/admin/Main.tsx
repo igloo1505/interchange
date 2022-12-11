@@ -1,11 +1,5 @@
 import * as React from "react";
-import {
-	Admin,
-	Resource,
-	ListGuesser,
-	SortButton,
-	AddItemButton,
-} from "react-admin";
+import { Admin, Resource } from "react-admin";
 import { ReactQueryDevtools } from "react-query/devtools";
 import dataProvider from "./dataHandlers/dataProvider";
 import VolunteerList from "./dataHandlers/VolunteerList";
@@ -45,6 +39,9 @@ const App = () => {
 					} ${Boolean(!r.name.first && !r.name.last && r.email) ? r.email : ""}`
 				}
 				icon={DirectionsRunIcon}
+				options={{
+					label: "Volunteers",
+				}}
 			/>
 			<Resource
 				name="patrons"
@@ -58,6 +55,9 @@ const App = () => {
 					} ${Boolean(!r.name.first && !r.name.last && r.email) ? r.email : ""}`
 				}
 				icon={BlindIcon}
+				options={{
+					label: "Patrons",
+				}}
 			/>
 			<Resource
 				name="contact"
@@ -65,6 +65,9 @@ const App = () => {
 				show={ContactShow}
 				recordRepresentation={(r) => `${r.name}`}
 				icon={MarkunreadMailboxIcon}
+				options={{
+					label: "Contact Submissions",
+				}}
 			/>
 			<Resource
 				name="schedule"
@@ -73,6 +76,9 @@ const App = () => {
 				create={HoursCreate}
 				recordRepresentation={(r) => `${r.id}`}
 				icon={ScheduleIcon}
+				options={{
+					label: "Schedules",
+				}}
 			/>
 			<Resource
 				name="featured"
@@ -81,6 +87,9 @@ const App = () => {
 				show={FeaturedEventShow}
 				recordRepresentation={(r) => `${r.title}`}
 				icon={ArticleIcon}
+				options={{
+					label: "Featured Events",
+				}}
 			/>
 			<ReactQueryDevtools initialIsOpen={true} />
 		</Admin>
