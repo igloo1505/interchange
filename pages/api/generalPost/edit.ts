@@ -1,15 +1,17 @@
 import nc from "next-connect";
-import Patron from "../../../models/Patron";
+import GeneralPost from "../../../models/GeneralPost";
 import { NextApiRequest, NextApiResponse } from "next";
 import { ErrorResponse, sendError } from "../../../types/ErrorResponse";
 import connectDB from "../../../utils/connectMongo";
 import "colors";
-import { multerUpload_middleware } from "../../../utils/imageHandler";
-import multiparty from "multiparty";
-import path from "path";
+import {
+	multerUpload_middleware,
+	multerFileType,
+} from "../../../utils/imageHandler";
 
 const handler = nc();
 handler.use(multerUpload_middleware.any());
+
 handler.put(async (req: NextApiRequest, res: NextApiResponse) => {
 	// console.log(`req.body: ${req.body}`.bgGreen.black);
 	try {
@@ -40,27 +42,15 @@ handler.put(async (req: NextApiRequest, res: NextApiResponse) => {
 			};
 			return sendError(errorResponse, res);
 		}
-		let updatedPatrons: any[] = [];
+		let updateGeneralPosts: any[] = [];
 
 		for (const _id of ids) {
-			let _patron = await Patron.findById(_id);
-			let __v = await Patron.findByIdAndUpdate(
-				_id,
-				{
-					...props,
-					images: _patron?.images
-						? [..._patron.images, ...props.images]
-						: [...props.images],
-				},
-				{
-					new: true,
-				}
-			);
-			updatedPatrons.push(__v);
+			let _general = await GeneralPost.findByIdAndUpdate(_id, props, {
+				new: true,
+			});
+			updateGeneralPosts.push(_general);
 		}
-
-		console.log("updatedPatrons: ", ids);
-		let returnData = updatedPatrons.map((v) => {
+		let returnData = updateGeneralPosts.map((v) => {
 			return v.toObject({ getters: true, virtuals: true });
 		});
 		res.json({ response: returnData, success: true });

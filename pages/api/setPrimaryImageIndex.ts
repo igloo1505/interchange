@@ -7,6 +7,7 @@ import { ErrorResponse, sendError } from "../../types/ErrorResponse";
 import connectDB from "../../utils/connectMongo";
 import "colors";
 import fs from "fs";
+
 import Featured from "../../models/Featured";
 
 const handler = nc();
@@ -19,7 +20,7 @@ let modelMap = {
 handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 	// console.log(`req.body: ${req.body}`.bgGreen.black);
 	try {
-		let { id, resource, filename } = req.body;
+		let { id, resource, index } = req.body;
 		let m: any = modelMap[resource];
 		let x = await m.findById(id);
 		if (!x) {
@@ -30,31 +31,11 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 			};
 			return sendError(_e, res);
 		}
-		if (!x.image && !x.images) {
-			let _e: ErrorResponse = {
-				error: "Model does not have an image",
-				consoleMessage: `Current model does not have image path resource=${resource} id=${id}`,
-				statusCode: 500,
-			};
-			return sendError(_e, res);
-		}
 
-		let __path = `/public/uploads/${filename}`;
-		console.log("__path: ", __path);
-		console.log("fs.existsSync(__path): ", fs.existsSync(__path));
-		if (!fs.existsSync(__path)) {
-			let _e: ErrorResponse = {
-				error: "Image file not found on server",
-				consoleMessage: `fs.exists() = false resource=${resource} id=${id} filename=${filename}`,
-				statusCode: 500,
-			};
-			return sendError(_e, res);
-		}
-		fs.unlinkSync(__path);
 		let updated = await m.findByIdAndUpdate(
 			id,
 			{
-				images: m.images.filter((z) => z !== filename),
+				primaryImageIndex: index,
 			},
 			{
 				new: true,

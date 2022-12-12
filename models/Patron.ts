@@ -8,7 +8,8 @@ export interface PatronInterface {
 		first?: string;
 		last?: string;
 	};
-	quote: {
+	primaryImageIndex?: number;
+	quote?: {
 		string?: string;
 		// Use index to allow Interchange to define after which paragraph quote will appear.
 		// NOTE: Make sure to account for indexs that are out of range. If index is above maximum possible, place at end of last paragraph. If no index, place after first paragraph.
@@ -51,6 +52,18 @@ const PatronSchema = new Schema<PatronInterface>(
 		images: {
 			type: [String],
 			required: false,
+		},
+		primaryImageIndex: {
+			type: Number,
+			required: () => {
+				return this?.images?.length >= 1 ? true : false;
+			},
+			default: () => {
+				return this?.images?.length >= 1 ? 1 : undefined;
+			},
+			validate: () => {
+				return this?.primaryImageIndex < this?.images?.length ? true : false;
+			},
 		},
 		quote: {
 			string: {

@@ -21,6 +21,6 @@
 		"**/*.tsx",
 		"tailwind.config.js",
 		"postcss.config.js"
-	],
+, "seed/generalPosts.js", "seed/patrons.ts", "seed/volunteers.ts", "seed/seeder.ts"	],
 	"exclude": ["node_modules"]
 }

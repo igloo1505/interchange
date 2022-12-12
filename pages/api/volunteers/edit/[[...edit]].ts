@@ -8,8 +8,6 @@ import {
 	multerFileType,
 	multerUpload_middleware,
 } from "../../../../utils/imageHandler";
-import multiparty from "multiparty";
-import path from "path";
 
 const handler = nc();
 handler.use(multerUpload_middleware.any());
@@ -46,9 +44,20 @@ handler.put(async (req: NextApiRequest, res: NextApiResponse) => {
 		let updatedVolunteers: any[] = [];
 
 		for (const _id of ids) {
-			let _volunteer = await Volunteer.findByIdAndUpdate(_id, props, {
-				new: true,
-			});
+			let __v = await Volunteer.findById(_id);
+			debugger;
+			let _volunteer = await Volunteer.findByIdAndUpdate(
+				_id,
+				{
+					...props,
+					images: __v?.images
+						? [...__v.images, ...props.images]
+						: [...props.images],
+				},
+				{
+					new: true,
+				}
+			);
 			updatedVolunteers.push(_volunteer);
 		}
 

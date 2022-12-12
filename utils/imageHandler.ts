@@ -1,9 +1,7 @@
-import { NextApiRequest, NextApiResponse } from "next";
 // import { db } from "./initFirebase";
-import multer, { DiskStorageOptions, Multer, MulterError } from "multer";
+import multer, { Multer } from "multer";
 import { uuid } from "uuidv4";
 import path from "path";
-import { NextFunction } from "express-serve-static-core";
 import fs from "fs";
 
 export interface CustomFileResult extends Partial<Multer> {
@@ -11,28 +9,6 @@ export interface CustomFileResult extends Partial<Multer> {
 	placeholder: string;
 	bucket?: string;
 }
-
-export const multerUpload = async (
-	req: NextApiRequest | any,
-	res: NextApiResponse | any,
-	cb: NextFunction
-) => {
-	let filename = `${uuid()}`;
-	let options: DiskStorageOptions = {
-		destination: function (req, file, cb) {
-			cb(null, "./public/uploads/");
-		},
-		filename: function (req, file, cb) {
-			cb(null, `${filename}${path.extname(file.originalname)}`);
-		},
-	};
-	const upload = multer({
-		storage: multer.diskStorage(options),
-	});
-	const uploader = await upload.single("image[rawFile]");
-	await uploader(req, res, cb);
-	return filename;
-};
 
 export const acceptMimeTypes = [
 	"image/png",

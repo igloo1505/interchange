@@ -1,13 +1,14 @@
 import { Schema, models, model } from "mongoose";
 import { removeImage } from "../utils/imageHandler";
-interface GeneralPostInterface {
+
+export interface GeneralPostInterface {
 	description: string;
 	location?: string;
 	url?: string;
 	title: string;
-	images: string[];
+	images?: string[];
 	autoExpire?: (() => Date) | Date | string;
-	datePosted: () => Date;
+	datePosted?: () => Date;
 }
 
 const GeneralPostSchema = new Schema<GeneralPostInterface>(

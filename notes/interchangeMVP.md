@@ -33,6 +33,10 @@
 - [ ] 'Admin' user's with access to admin panel.
     - [ ] Make one 'Admin' model incapable of being deleted.
 
+## Other To-Dos
+- [ ] next-pwa
+- [ ] next-seo
+
 
 ## Bug Fixes: 
 - [ ] Disallow scrolling when map is open

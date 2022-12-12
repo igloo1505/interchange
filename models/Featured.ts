@@ -1,8 +1,10 @@
 import { Schema, models, model } from "mongoose";
 import { removeImage } from "../utils/imageHandler";
+
 interface FeaturedInterface {
 	description: string;
 	location?: string;
+	primaryImageIndex?: number;
 	url?: string;
 	title: string;
 	images: string[];
@@ -31,6 +33,18 @@ const FeaturedSchema = new Schema<FeaturedInterface>(
 		images: {
 			type: [String],
 			required: true,
+		},
+		primaryImageIndex: {
+			type: Number,
+			required: () => {
+				return this?.images?.length >= 1 ? true : false;
+			},
+			default: () => {
+				return this?.images?.length >= 1 ? 1 : undefined;
+			},
+			validate: () => {
+				return this?.primaryImageIndex < this?.images?.length ? true : false;
+			},
 		},
 		autoExpire: {
 			type: Date,

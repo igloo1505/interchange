@@ -4,39 +4,23 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { ErrorResponse, sendError } from "../../../types/ErrorResponse";
 import connectDB from "../../../utils/connectMongo";
 import "colors";
-import { multerUpload } from "../../../utils/imageHandler";
-import multiparty from "multiparty";
-import path from "path";
+import {
+	multerUpload_middleware,
+	multerFileType,
+} from "../../../utils/imageHandler";
 
 const handler = nc();
+handler.use(multerUpload_middleware.any());
 
 handler.put(async (req: NextApiRequest, res: NextApiResponse) => {
 	// console.log(`req.body: ${req.body}`.bgGreen.black);
 	try {
 		/// @ts-ignore
-		const nextFunc: NextFunction = (err) => {
-			if (err) {
-				console.log("There was an error uploading the image.");
-			}
-			console.log("Upload success!".bgMagenta.white);
+		let images = req.files?.map((f: multerFileType) => `${f.filename}`);
+		let props = {
+			...req.body,
+			images: images,
 		};
-		let imageUrl = await multerUpload(req, res, nextFunc);
-		const form = new multiparty.Form();
-		const _data: any = await new Promise((resolve, reject) => {
-			form.parse(req, function (err, fields, files) {
-				if (err) reject({ err });
-				resolve({ fields, files });
-			});
-		});
-		let _ext = path.extname(_data.fields["image[title]"][0]);
-		if (_ext) imageUrl = `${imageUrl}${_ext}`;
-		let props =
-			req.body?.image && imageUrl
-				? {
-						...req.body,
-						image: imageUrl,
-				  }
-				: { ...req.body };
 		console.log("Props", props);
 		let ids: any[] = props?.ids ? props.ids : [props.id];
 		console.log("ids: ", ids);
@@ -61,10 +45,20 @@ handler.put(async (req: NextApiRequest, res: NextApiResponse) => {
 		let updatedFeatureds: any[] = [];
 
 		for (const _id of ids) {
-			let _featured = await Featured.findByIdAndUpdate(_id, props, {
-				new: true,
-			});
-			updatedFeatureds.push(_featured);
+			let _featured = await Featured.findById(_id);
+			let __f = await Featured.findByIdAndUpdate(
+				_id,
+				{
+					...props,
+					images: _featured?.images
+						? [..._featured.images, ...props.images]
+						: [...props.images],
+				},
+				{
+					new: true,
+				}
+			);
+			updatedFeatureds.push(__f);
 		}
 
 		console.log("updatedPatrons: ", ids);

@@ -10,13 +10,78 @@ import React, { useState, useEffect, Fragment } from "react";
 import Image from "next/image";
 import { HiOutlineXMark } from "react-icons/hi2";
 import { VolunteerInterface } from "../../models/Volunteer";
-import { clearImage } from "../../utils/clearImage";
+import { clearImage, setPrimaryImageIndex } from "../../utils/clearImage";
+import clsx from "clsx";
 interface ImageEditFieldProps {
 	source: string;
 	label: string;
 	resource: string;
 	fullWidth?: boolean;
 }
+
+const ImageWrapper = ({
+	filename,
+	record,
+	label,
+	resource,
+	_index,
+}: {
+	filename: string;
+	label: string;
+	resource: string;
+	record: any;
+	_index: number;
+}) => {
+	const refresh = useRefresh();
+	const handleClearImage = async () => {
+		let res = await clearImage({
+			id: record.id,
+			resource: resource,
+			filename: filename,
+		});
+		console.log("res: ", res);
+		if (res.data.success) {
+			refresh();
+		}
+	};
+	const handleImageIndex = async () => {
+		let res = await setPrimaryImageIndex({
+			id: record.id,
+			resource: resource,
+			index: _index,
+		});
+		console.log("res: ", res);
+		if (res.data.success) {
+			refresh();
+		}
+	};
+	return (
+		<div className="flex flex-col justify-center items-center">
+			<div className="w-[150px] h-[150px] relative editImageContainer flex justify-start items-start flex-col">
+				<Image
+					src={`/uploads/${filename}`}
+					alt={"Person"}
+					fill
+					className="z-50 object-contain"
+				/>
+			</div>
+			<div className="grid grid-cols-2 w-full gap-3">
+				<div
+					className="bg-red-700 text-white text-center px-3 py-2 cursor-pointer"
+					onClick={handleClearImage}
+				>
+					Delete
+				</div>
+				<div
+					className="bg-blue-700 text-white text-center px-3 py-2 cursor-pointer"
+					onClick={handleImageIndex}
+				>
+					Make Primary
+				</div>
+			</div>
+		</div>
+	);
+};
 
 const ImageEditField = ({
 	source,
@@ -25,20 +90,7 @@ const ImageEditField = ({
 	fullWidth = false,
 }: ImageEditFieldProps) => {
 	const { record: _record } = useEditContext();
-	const refresh = useRefresh();
-	const handleClearImage = async () => {
-		let _data = {
-			id: _record.id,
-			data: { image: false },
-			previousData: _record,
-		};
-		console.log(JSON.stringify(_data, null, 2));
-		let res = await clearImage({ id: _record.id, resource: resource });
-		console.log("res: ", res);
-		if (res.data.success) {
-			refresh();
-		}
-	};
+	console.log("record: ", _record);
 
 	return (
 		<Fragment>
@@ -46,35 +98,43 @@ const ImageEditField = ({
 				label="author"
 				render={(record) => {
 					return (
-						<div>
-							{record.image ? (
-								<div className="w-[200px] h-[200px] object-contain relative editImageContainer">
-									<Image
-										src={`/uploads/${record.image}`}
-										alt={"Person"}
-										fill
-										className="z-50"
-									/>
-									<div className="h-100% w-100% z-[1000] absolute">
-										<HiOutlineXMark
-											className="relative cursor-pointer"
-											style={{ zIndex: 1000 }}
-											onClick={handleClearImage}
-										/>
-									</div>
-								</div>
-							) : (
+						<div className="w-full flex flex-col justify-center items-center gap-2">
+							<div
+								className={clsx(
+									"w-full",
+									record?.images?.length >= 1 ? "grid" : "flex"
+								)}
+								style={{
+									gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+									placeItems: "center",
+								}}
+							>
+								{record?.images?.length &&
+									record.images?.length >= 1 &&
+									record.images.map((img: string, index: number) => {
+										return (
+											<ImageWrapper
+												filename={img}
+												record={_record}
+												label={label}
+												resource={resource}
+												_index={index}
+											/>
+										);
+									})}
+							</div>
+							<div>
 								<ImageInput
 									source={source}
-									label={label}
+									label={false}
 									accept={[".jpeg", ".jpg", ".png"]}
-									multiple={false}
+									multiple={true}
 									name="image"
 									fullWidth={fullWidth}
 								>
 									<ImageField source="src" title="filename" />
 								</ImageInput>
-							)}
+							</div>
 						</div>
 					);
 				}}
