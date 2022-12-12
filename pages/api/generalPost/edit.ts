@@ -7,6 +7,7 @@ import "colors";
 import {
 	multerUpload_middleware,
 	multerFileType,
+	getImageFromReq
 } from "../../../utils/imageHandler";
 
 const handler = nc();
@@ -16,7 +17,7 @@ handler.put(async (req: NextApiRequest, res: NextApiResponse) => {
 	// console.log(`req.body: ${req.body}`.bgGreen.black);
 	try {
 		/// @ts-ignore
-		let images = req.files?.map((f: multerFileType) => `${f.filename}`);
+		let images = await getImageFromReq(req, "GeneralPost")
 		let props = {
 			...req.body,
 			images: images,

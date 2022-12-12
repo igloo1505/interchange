@@ -2,10 +2,6 @@ import React, { Fragment } from "react";
 import Image from "next/image";
 import { useShowContext } from "react-admin";
 
-// interface ImageShowProps {
-
-// }
-
 const ImageShow = () => {
 	const showContext = useShowContext();
 	let w =
@@ -14,16 +10,6 @@ const ImageShow = () => {
 			: 400;
 	return (
 		<Fragment>
-			{showContext?.record?.image && (
-				<div className="relative w-[200px] h-[200px]">
-					<Image
-						src={`/uploads/${showContext.record.image}`}
-						alt="Volunteer Image"
-						fill
-						className="object-contain"
-					/>
-				</div>
-			)}
 			{showContext?.record?.images && (
 				<div
 					className="grid"
@@ -32,18 +18,22 @@ const ImageShow = () => {
 						placeItems: "center",
 					}}
 				>
-					{showContext?.record?.images.map((img: string) => {
-						return (
-							<div className="relative w-[150px] h-[150px]">
-								<Image
-									src={`/uploads/${img}`}
-									alt="Event Image"
-									fill
-									className="object-contain"
-								/>
-							</div>
-						);
-					})}
+					{showContext?.record?.images.map(
+						(img: { path: string; publicUrl: string }) => {
+							return (
+								<div className="relative w-[150px] h-[150px]">
+									{img.publicUrl && (
+										<Image
+											src={`${img.publicUrl}`}
+											alt="Event Image"
+											fill
+											className="object-contain"
+										/>
+									)}
+								</div>
+							);
+						}
+					)}
 				</div>
 			)}
 		</Fragment>

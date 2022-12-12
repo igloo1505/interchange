@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 import { NextApiRequest, NextApiResponse, NextApiHandler } from "next";
 import "colors";
 import { IncomingMessage, OutgoingMessage } from "http";
+import * as firebase from "./initFirebase";
 
 const connectDB =
 	(handler: NextApiHandler) =>

@@ -15,7 +15,7 @@ export interface PatronInterface {
 		// NOTE: Make sure to account for indexs that are out of range. If index is above maximum possible, place at end of last paragraph. If no index, place after first paragraph.
 		index?: number;
 	};
-	image?: string[];
+	images?: { path: string; publicUrl: string }[];
 	phone?: number | string | undefined;
 	regularJob?: string;
 	id?: Schema.Types.ObjectId;
@@ -50,7 +50,12 @@ const PatronSchema = new Schema<PatronInterface>(
 			required: true,
 		},
 		images: {
-			type: [String],
+			type: [
+				{
+					path: String,
+					publicUrl: String,
+				},
+			],
 			required: false,
 		},
 		primaryImageIndex: {

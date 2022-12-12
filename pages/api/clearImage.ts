@@ -6,8 +6,11 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { ErrorResponse, sendError } from "../../types/ErrorResponse";
 import connectDB from "../../utils/connectMongo";
 import "colors";
-import fs from "fs";
 import Featured from "../../models/Featured";
+import { initFirebase } from "../../utils/initFirebase";
+import { Storage } from "firebase-admin/lib/storage/storage";
+import * as admin from "firebase-admin";
+import { ImageInterface } from "../../utils/imageHandler";
 
 const handler = nc();
 let modelMap = {
@@ -19,7 +22,8 @@ let modelMap = {
 handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 	// console.log(`req.body: ${req.body}`.bgGreen.black);
 	try {
-		let { id, resource, filename } = req.body;
+		let { id, resource, filename, path } = req.body;
+		console.log("path: ", path);
 		let m: any = modelMap[resource];
 		let x = await m.findById(id);
 		if (!x) {
@@ -38,31 +42,34 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 			};
 			return sendError(_e, res);
 		}
-
-		let __path = `/public/uploads/${filename}`;
-		console.log("__path: ", __path);
-		console.log("fs.existsSync(__path): ", fs.existsSync(__path));
-		if (!fs.existsSync(__path)) {
+		debugger;
+		const storage = await initFirebase();
+		if (!storage) {
 			let _e: ErrorResponse = {
-				error: "Image file not found on server",
-				consoleMessage: `fs.exists() = false resource=${resource} id=${id} filename=${filename}`,
+				error: "Storage object not found",
+				consoleMessage: "Storage not found",
 				statusCode: 500,
 			};
 			return sendError(_e, res);
 		}
-		fs.unlinkSync(__path);
+		let file = storage.bucket().file(path);
+		console.log("file: ", file);
+		await file.delete();
 		let updated = await m.findByIdAndUpdate(
 			id,
 			{
-				images: m.images.filter((z) => z !== filename),
+				images: x.images.filter((z: ImageInterface) => z.path !== path),
 			},
 			{
 				new: true,
 			}
 		);
+		console.log("data: ${data}".cyan);
+		// await deleteObject(imgRef);
 
 		res.json({ response: updated, success: true });
 	} catch (error) {
+		console.log("error: ", error);
 		let errorResponse: ErrorResponse = {
 			error: error,
 			displayMessage: "Something went wrong updating that volunteer.",

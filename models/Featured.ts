@@ -7,7 +7,7 @@ interface FeaturedInterface {
 	primaryImageIndex?: number;
 	url?: string;
 	title: string;
-	images: string[];
+	image?: { path: string; publicUrl: string }[];
 	autoExpire?: (() => Date) | Date | string;
 	datePosted: () => Date;
 }
@@ -31,7 +31,12 @@ const FeaturedSchema = new Schema<FeaturedInterface>(
 			required: true,
 		},
 		images: {
-			type: [String],
+			type: [
+				{
+					path: String,
+					publicUrl: String,
+				},
+			],
 			required: true,
 		},
 		primaryImageIndex: {

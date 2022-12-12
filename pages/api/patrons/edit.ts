@@ -4,9 +4,10 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { ErrorResponse, sendError } from "../../../types/ErrorResponse";
 import connectDB from "../../../utils/connectMongo";
 import "colors";
-import { multerUpload_middleware } from "../../../utils/imageHandler";
-import multiparty from "multiparty";
-import path from "path";
+import {
+	multerUpload_middleware,
+	getImageFromReq,
+} from "../../../utils/imageHandler";
 
 const handler = nc();
 handler.use(multerUpload_middleware.any());
@@ -14,7 +15,7 @@ handler.put(async (req: NextApiRequest, res: NextApiResponse) => {
 	// console.log(`req.body: ${req.body}`.bgGreen.black);
 	try {
 		/// @ts-ignore
-		let images = req.files?.map((f: multerFileType) => `${f.filename}`);
+		let images = await getImageFromReq(req, "Patron");
 		let props = {
 			...req.body,
 			images: images,
@@ -48,9 +49,6 @@ handler.put(async (req: NextApiRequest, res: NextApiResponse) => {
 				_id,
 				{
 					...props,
-					images: _patron?.images
-						? [..._patron.images, ...props.images]
-						: [...props.images],
 				},
 				{
 					new: true,

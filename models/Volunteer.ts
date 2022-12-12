@@ -15,7 +15,7 @@ export interface VolunteerInterface {
 		// NOTE: Make sure to account for indexs that are out of range. If index is above maximum possible, place at end of last paragraph. If no index, place after first paragraph.
 		index?: number;
 	};
-	images?: string[];
+	images?: { path: string; publicUrl: string }[];
 	phone?: number | string | undefined;
 	regularJob?: string;
 	id?: Schema.Types.ObjectId;
@@ -50,7 +50,12 @@ const VolunteerSchema = new Schema<VolunteerInterface>(
 			required: true,
 		},
 		images: {
-			type: [String],
+			type: [
+				{
+					path: String,
+					publicUrl: String,
+				},
+			],
 			required: false,
 		},
 		primaryImageIndex: {

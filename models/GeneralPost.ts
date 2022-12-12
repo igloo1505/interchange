@@ -6,7 +6,7 @@ export interface GeneralPostInterface {
 	location?: string;
 	url?: string;
 	title: string;
-	images?: string[];
+	images?: { path: string; publicUrl: string }[];
 	autoExpire?: (() => Date) | Date | string;
 	datePosted?: () => Date;
 }
@@ -30,7 +30,12 @@ const GeneralPostSchema = new Schema<GeneralPostInterface>(
 			required: true,
 		},
 		images: {
-			type: [String],
+			type: [
+				{
+					path: String,
+					publicUrl: String,
+				},
+			],
 			required: true,
 		},
 		autoExpire: {

@@ -25,12 +25,14 @@ const ImageWrapper = ({
 	label,
 	resource,
 	_index,
+	path,
 }: {
 	filename: string;
 	label: string;
 	resource: string;
 	record: any;
 	_index: number;
+	path: string;
 }) => {
 	const refresh = useRefresh();
 	const handleClearImage = async () => {
@@ -38,6 +40,7 @@ const ImageWrapper = ({
 			id: record.id,
 			resource: resource,
 			filename: filename,
+			path: path,
 		});
 		console.log("res: ", res);
 		if (res.data.success) {
@@ -49,6 +52,7 @@ const ImageWrapper = ({
 			id: record.id,
 			resource: resource,
 			index: _index,
+			path: path,
 		});
 		console.log("res: ", res);
 		if (res.data.success) {
@@ -59,7 +63,7 @@ const ImageWrapper = ({
 		<div className="flex flex-col justify-center items-center">
 			<div className="w-[150px] h-[150px] relative editImageContainer flex justify-start items-start flex-col">
 				<Image
-					src={`/uploads/${filename}`}
+					src={filename}
 					alt={"Person"}
 					fill
 					className="z-50 object-contain"
@@ -111,17 +115,25 @@ const ImageEditField = ({
 							>
 								{record?.images?.length &&
 									record.images?.length >= 1 &&
-									record.images.map((img: string, index: number) => {
-										return (
-											<ImageWrapper
-												filename={img}
-												record={_record}
-												label={label}
-												resource={resource}
-												_index={index}
-											/>
-										);
-									})}
+									record.images.map(
+										(
+											img: { publicUrl: string; path: string },
+											index: number
+										) => {
+											if (img?.publicUrl) {
+												return (
+													<ImageWrapper
+														filename={img?.publicUrl}
+														record={_record}
+														label={label}
+														resource={resource}
+														_index={index}
+														path={img.path}
+													/>
+												);
+											}
+										}
+									)}
 							</div>
 							<div>
 								<ImageInput
