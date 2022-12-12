@@ -1,5 +1,5 @@
 import { Schema, models, model } from "mongoose";
-import { removeImage } from "../utils/imageHandler";
+import { removeImage, clearAllImages } from "../utils/imageHandler";
 export interface VolunteerInterface {
 	datePosted?: Date | (() => Date) | string;
 	description: string;
@@ -60,15 +60,7 @@ const VolunteerSchema = new Schema<VolunteerInterface>(
 		},
 		primaryImageIndex: {
 			type: Number,
-			required: () => {
-				return this?.images?.length >= 1 ? true : false;
-			},
-			default: () => {
-				return this?.images?.length >= 1 ? 1 : undefined;
-			},
-			validate: () => {
-				return this?.primaryImageIndex < this?.images?.length ? true : false;
-			},
+			default: 1,
 		},
 		quote: {
 			string: {
@@ -101,17 +93,8 @@ const VolunteerSchema = new Schema<VolunteerInterface>(
 	},
 	{
 		methods: {
-			async clearImages(filename: string | null) {
-				let imgs = filename ? [filename] : this.images;
-				for (let i = 0; i < imgs.length; i++) {
-					const fileName: string = imgs[i];
-					try {
-						await removeImage(fileName);
-						this.images = this.images.filter((f: string) => f !== fileName);
-					} catch (error) {
-						console.log("error: ", error);
-					}
-				}
+			async clearImages() {
+				await clearAllImages(this);
 			},
 		},
 	}

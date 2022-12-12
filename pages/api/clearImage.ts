@@ -42,7 +42,6 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 			};
 			return sendError(_e, res);
 		}
-		debugger;
 		const storage = await initFirebase();
 		if (!storage) {
 			let _e: ErrorResponse = {

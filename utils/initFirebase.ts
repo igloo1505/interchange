@@ -27,7 +27,6 @@ export const initFirebase = () => {
 		});
 	}
 	/// @ts-ignore
-	debugger;
 	let _storage =
 		admin.apps?.length >= 1 ? admin.storage(admin?.apps[0]) : undefined;
 	return _storage;

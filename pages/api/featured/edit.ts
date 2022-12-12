@@ -6,8 +6,7 @@ import connectDB from "../../../utils/connectMongo";
 import "colors";
 import {
 	multerUpload_middleware,
-	multerFileType,
-	getImageFromReq,
+	handleUpdateWithImage,
 } from "../../../utils/imageHandler";
 
 const handler = nc();
@@ -16,14 +15,7 @@ handler.use(multerUpload_middleware.any());
 handler.put(async (req: NextApiRequest, res: NextApiResponse) => {
 	// console.log(`req.body: ${req.body}`.bgGreen.black);
 	try {
-		/// @ts-ignore
-		let images = await getImageFromReq(req, "FeaturedPost");
-		let props = {
-			...req.body,
-			images: images,
-		};
-		console.log("Props", props);
-		let ids: any[] = props?.ids ? props.ids : [props.id];
+		let ids: any[] = req.body?.ids ? req.body.ids : [req.body.id];
 		console.log("ids: ", ids);
 		if (!ids) {
 			let errorResponse: ErrorResponse = {
@@ -33,28 +25,10 @@ handler.put(async (req: NextApiRequest, res: NextApiResponse) => {
 			};
 			return sendError(errorResponse, res);
 		}
-
-		// let data: any = req.body.data;
-		if (!props) {
-			let errorResponse: ErrorResponse = {
-				error: "No data passed to update",
-				displayMessage: "Something went wrong updating that volunteer.",
-				statusCode: 500,
-			};
-			return sendError(errorResponse, res);
-		}
 		let updatedFeatureds: any[] = [];
 
 		for (const _id of ids) {
-			let __f = await Featured.findByIdAndUpdate(
-				_id,
-				{
-					...props,
-				},
-				{
-					new: true,
-				}
-			);
+			let __f = await handleUpdateWithImage(req, "FeaturedPost");
 			updatedFeatureds.push(__f);
 		}
 

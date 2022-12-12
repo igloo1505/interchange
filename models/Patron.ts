@@ -1,5 +1,5 @@
 import { Schema, models, model } from "mongoose";
-import { removeImage } from "../utils/imageHandler";
+import { clearAllImages, removeImage } from "../utils/imageHandler";
 export interface PatronInterface {
 	datePosted?: Date | (() => Date) | string;
 	description: string;
@@ -60,15 +60,7 @@ const PatronSchema = new Schema<PatronInterface>(
 		},
 		primaryImageIndex: {
 			type: Number,
-			required: () => {
-				return this?.images?.length >= 1 ? true : false;
-			},
-			default: () => {
-				return this?.images?.length >= 1 ? 1 : undefined;
-			},
-			validate: () => {
-				return this?.primaryImageIndex < this?.images?.length ? true : false;
-			},
+			default: 1,
 		},
 		quote: {
 			string: {
@@ -102,14 +94,7 @@ const PatronSchema = new Schema<PatronInterface>(
 	{
 		methods: {
 			async clearImages() {
-				if (this.image) {
-					try {
-						await removeImage(this.image);
-						this.image = undefined;
-					} catch (error) {
-						console.log("error: ", error);
-					}
-				}
+				await clearAllImages(this);
 			},
 		},
 	}

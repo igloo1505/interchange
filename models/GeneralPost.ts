@@ -1,5 +1,5 @@
 import { Schema, models, model } from "mongoose";
-import { removeImage } from "../utils/imageHandler";
+import { removeImage, clearAllImages } from "../utils/imageHandler";
 
 export interface GeneralPostInterface {
 	description: string;
@@ -7,6 +7,7 @@ export interface GeneralPostInterface {
 	url?: string;
 	title: string;
 	images?: { path: string; publicUrl: string }[];
+	primaryImageIndex?: number;
 	autoExpire?: (() => Date) | Date | string;
 	datePosted?: () => Date;
 }
@@ -38,6 +39,10 @@ const GeneralPostSchema = new Schema<GeneralPostInterface>(
 			],
 			required: true,
 		},
+		primaryImageIndex: {
+			type: Number,
+			default: 1,
+		},
 		autoExpire: {
 			type: Date,
 			required: false,
@@ -55,19 +60,8 @@ const GeneralPostSchema = new Schema<GeneralPostInterface>(
 	},
 	{
 		methods: {
-			async clearImages(filename: string | null) {
-				debugger;
-				let imgs = filename ? [filename] : this.images;
-				for (let i = 0; i < imgs.length; i++) {
-					const fileName: string = imgs[i];
-					try {
-						debugger;
-						await removeImage(fileName);
-						this.images = this.images.filter((f: string) => f !== fileName);
-					} catch (error) {
-						console.log("error: ", error);
-					}
-				}
+			async clearImages() {
+				await clearAllImages(this);
 			},
 		},
 	}

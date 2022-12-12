@@ -6,6 +6,8 @@ import Volunteer from "../models/Volunteer";
 import Patron from "../models/Patron";
 import Featured from "../models/Featured";
 import GeneralPost from "../models/GeneralPost";
+import { NextApiRequest } from "next";
+import { initFirebase } from "./initFirebase";
 
 export interface ImageInterface {
 	publicUrl: string;
@@ -85,7 +87,11 @@ export const removeImage = async (filename: string) => {
 	return;
 };
 
-export const getImageFromReq = async (req: any, model?: string) => {
+export const getImageFromReq = async (
+	req: any,
+	model?: string,
+	returnModel: boolean = false
+) => {
 	let modelMap = {
 		["Volunteer"]: Volunteer,
 		["Patron"]: Patron,
@@ -103,6 +109,52 @@ export const getImageFromReq = async (req: any, model?: string) => {
 	if (isInMap && req.body?.id) {
 		let m = await modelMap[model].findById(req.body.id);
 		if (!m) return images;
-		return Array.isArray(m?.images) ? [...m.images, ...images] : images;
+		let val = Array.isArray(m?.images) ? [...m.images, ...images] : images;
+		if (returnModel) {
+			return { images: val, model: m };
+		}
+		return val;
+	}
+};
+
+export const handleUpdateWithImage = async (
+	req: NextApiRequest,
+	model: string
+): any => {
+	debugger;
+	let modelMap = {
+		["Volunteer"]: Volunteer,
+		["Patron"]: Patron,
+		["GeneralPost"]: GeneralPost,
+		["FeaturedPost"]: Featured,
+	};
+	let _m = modelMap[model];
+	let body = req?.body;
+	let { images, model: _model } = await getImageFromReq(req, model, true);
+	let props = {
+		...body,
+		images: images,
+	};
+	debugger;
+	let _x = await _m.findByIdAndUpdate(
+		req.body?.id || req.body?._id || _model._id,
+		{
+			...props,
+		},
+		{
+			new: true,
+		}
+	);
+	return _x;
+};
+
+export const clearAllImages = async (model: any) => {
+	let storage = initFirebase();
+	if (!storage) return;
+	for (let i = 0; i < model.images.length; i++) {
+		const path = model.images[i].path;
+
+		let file = storage.bucket().file(path);
+		await file.delete();
 	}
 };

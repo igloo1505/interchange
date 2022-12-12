@@ -226,6 +226,24 @@ $drawer-close-transition: 0.35s ease-in-out;
 	-moz-box-shadow: 2px 3px 15px 3px rgba(0, 0, 0, 0.51);
 }
 
+.imageShow {
+	border-radius: 6px;
+}
+.imageShow-primary {
+	border: 5px solid #0369a1;
+	border-radius: 6px;
+}
+
+.imageShow-card {
+	border: 3px solid transparent;
+}
+
+.imageShow-card-primary {
+	border: 3px solid #0369a1;
+}
+.show-page {
+	padding: 0 0.75rem 3rem 0.75rem;
+}
 @import "./animations.scss";
 @import "./mediaQueries/md.scss";
 @import "./mediaQueries/sm.scss";

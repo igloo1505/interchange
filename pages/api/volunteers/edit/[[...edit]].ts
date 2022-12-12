@@ -1,13 +1,11 @@
 import nc from "next-connect";
-import Volunteer from "../../../../models/Volunteer";
 import { NextApiRequest, NextApiResponse } from "next";
 import { ErrorResponse, sendError } from "../../../../types/ErrorResponse";
 import connectDB from "../../../../utils/connectMongo";
 import "colors";
 import {
-	multerFileType,
 	multerUpload_middleware,
-	getImageFromReq,
+	handleUpdateWithImage,
 } from "../../../../utils/imageHandler";
 
 const handler = nc();
@@ -16,14 +14,7 @@ handler.use(multerUpload_middleware.any());
 handler.put(async (req: NextApiRequest, res: NextApiResponse) => {
 	// console.log(`req.body: ${req.body}`.bgGreen.black);
 	try {
-		let images = await getImageFromReq(req, "Volunteer");
-		let props = {
-			...req.body,
-			images: images,
-		};
-		console.log("Props", props);
-		let ids: any[] = props?.ids ? props.ids : [props.id];
-		console.log("ids: ", ids);
+		let ids: any[] = req.body?.ids ? req.body.ids : [req.body.id];
 		if (!ids) {
 			let errorResponse: ErrorResponse = {
 				error: "No ids passed to update",
@@ -32,37 +23,12 @@ handler.put(async (req: NextApiRequest, res: NextApiResponse) => {
 			};
 			return sendError(errorResponse, res);
 		}
-
-		// let data: any = req.body.data;
-		if (!props) {
-			let errorResponse: ErrorResponse = {
-				error: "No data passed to update",
-				displayMessage: "Something went wrong updating that volunteer.",
-				statusCode: 500,
-			};
-			return sendError(errorResponse, res);
-		}
 		let updatedVolunteers: any[] = [];
-
 		for (const _id of ids) {
-			let __v = await Volunteer.findById(_id);
-			debugger;
-			let _volunteer = await Volunteer.findByIdAndUpdate(
-				_id,
-				{
-					...props,
-					images: __v?.images
-						? [...__v.images, ...props.images]
-						: [...props.images],
-				},
-				{
-					new: true,
-				}
-			);
+			let _volunteer = await handleUpdateWithImage(req, "Volunteer");
 			updatedVolunteers.push(_volunteer);
 		}
 
-		console.log("updatedVolunteers: ", ids);
 		let returnData = updatedVolunteers.map((v) => {
 			return v.toObject({ getters: true, virtuals: true });
 		});

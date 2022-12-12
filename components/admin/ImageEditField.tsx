@@ -1,15 +1,12 @@
 import {
 	ImageInput,
 	ImageField,
-	useShowContext,
 	WithRecord,
 	useEditContext,
 	useRefresh,
 } from "react-admin";
 import React, { useState, useEffect, Fragment } from "react";
 import Image from "next/image";
-import { HiOutlineXMark } from "react-icons/hi2";
-import { VolunteerInterface } from "../../models/Volunteer";
 import { clearImage, setPrimaryImageIndex } from "../../utils/clearImage";
 import clsx from "clsx";
 interface ImageEditFieldProps {
@@ -35,6 +32,8 @@ const ImageWrapper = ({
 	path: string;
 }) => {
 	const refresh = useRefresh();
+	let currentImageIndex = record.primaryImageIndex || 0;
+	let isPrimary = currentImageIndex === _index;
 	const handleClearImage = async () => {
 		let res = await clearImage({
 			id: record.id,
@@ -59,29 +58,45 @@ const ImageWrapper = ({
 			refresh();
 		}
 	};
+
 	return (
-		<div className="flex flex-col justify-center items-center">
-			<div className="w-[150px] h-[150px] relative editImageContainer flex justify-start items-start flex-col">
+		<div
+			className={clsx(
+				"flex flex-col justify-between items-center px-2 py-2 rounded border border-sky-200 shadow-md bg-gray-100 gap-2 h-full",
+				isPrimary && "imageShow-card-primary"
+			)}
+			// style={{
+			// 	border: "1px solid #0369a1",
+			// }}
+		>
+			<div className="w-auto max-h-[150px] relative editImageContainer flex justify-center items-center flex-col flex-grow">
 				<Image
 					src={filename}
 					alt={"Person"}
-					fill
-					className="z-50 object-contain"
+					width={150}
+					height={150}
+					className={clsx("z-50 object-contain imageShow w-auto max-h-[150px]")}
 				/>
 			</div>
 			<div className="grid grid-cols-2 w-full gap-3">
 				<div
-					className="bg-red-700 text-white text-center px-3 py-2 cursor-pointer"
+					className="bg-red-700 text-white text-center px-2 py-2 cursor-pointer flex flex-col justify-center items-center tracking-tighter leading-tight"
 					onClick={handleClearImage}
 				>
 					Delete
 				</div>
-				<div
-					className="bg-blue-700 text-white text-center px-3 py-2 cursor-pointer"
-					onClick={handleImageIndex}
-				>
-					Make Primary
-				</div>
+				{isPrimary ? (
+					<div className="text-sky-700 px-2 py-2 flex flex-col justify-center items-center tracking-tighter leading-tight text-center select-none">
+						Primary Image
+					</div>
+				) : (
+					<div
+						className="bg-sky-700 text-white text-center px-2 py-2 flex flex-col justify-center items-center tracking-tighter leading-tight cursor-pointer"
+						onClick={handleImageIndex}
+					>
+						Make Primary
+					</div>
+				)}
 			</div>
 		</div>
 	);
@@ -105,16 +120,17 @@ const ImageEditField = ({
 						<div className="w-full flex flex-col justify-center items-center gap-2">
 							<div
 								className={clsx(
-									"w-full",
+									"w-full gap-2",
 									record?.images?.length >= 1 ? "grid" : "flex"
 								)}
 								style={{
-									gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+									gridTemplateColumns: "repeat(auto-fit, minmax(175px, 1fr))",
 									placeItems: "center",
 								}}
 							>
-								{record?.images?.length &&
-									record.images?.length >= 1 &&
+								{Boolean(
+									record?.images?.length && record.images?.length >= 1
+								) &&
 									record.images.map(
 										(
 											img: { publicUrl: string; path: string },

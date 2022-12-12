@@ -1,5 +1,5 @@
 import { Schema, models, model } from "mongoose";
-import { removeImage } from "../utils/imageHandler";
+import { removeImage, clearAllImages } from "../utils/imageHandler";
 
 interface FeaturedInterface {
 	description: string;
@@ -41,15 +41,7 @@ const FeaturedSchema = new Schema<FeaturedInterface>(
 		},
 		primaryImageIndex: {
 			type: Number,
-			required: () => {
-				return this?.images?.length >= 1 ? true : false;
-			},
-			default: () => {
-				return this?.images?.length >= 1 ? 1 : undefined;
-			},
-			validate: () => {
-				return this?.primaryImageIndex < this?.images?.length ? true : false;
-			},
+			default: 1,
 		},
 		autoExpire: {
 			type: Date,
@@ -68,19 +60,8 @@ const FeaturedSchema = new Schema<FeaturedInterface>(
 	},
 	{
 		methods: {
-			async clearImages(filename: string | null) {
-				debugger;
-				let imgs = filename ? [filename] : this.images;
-				for (let i = 0; i < imgs.length; i++) {
-					const fileName: string = imgs[i];
-					try {
-						debugger;
-						await removeImage(fileName);
-						this.images = this.images.filter((f: string) => f !== fileName);
-					} catch (error) {
-						console.log("error: ", error);
-					}
-				}
+			async clearImages() {
+				await clearAllImages(this);
 			},
 		},
 	}
