@@ -5,6 +5,7 @@ import { ErrorResponse, sendError } from "../../../types/ErrorResponse";
 import connectDB from "../../../utils/connectMongo";
 import "colors";
 import handleFilter from "../../../utils/handleFilter";
+import { filterInvalid } from "../../../utils/checkIsValid";
 
 const handler = nc();
 
@@ -15,6 +16,7 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
 	try {
 		let generalPosts: any[] = [];
 		const filter = handleFilter(req);
+		let total = await GeneralPost.count();
 		if (!req?.query.id) {
 			generalPosts = await GeneralPost.find(filter)
 				/// @ts-ignore
@@ -41,12 +43,16 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
 				generalPosts.push(x);
 			});
 		}
-		let total = await GeneralPost.count();
-
-		let data = generalPosts.map((v) => {
+		let { _data, deleteCount } = await filterInvalid(generalPosts);
+		let data = _data.map((v) => {
 			return v.toObject({ getters: true, virtuals: true });
 		});
-		let result = { response: data, total: total, success: true };
+
+		let result = {
+			response: data,
+			total: total - deleteCount,
+			success: true,
+		};
 		console.log(`returning: ${JSON.stringify(result, null, 2)}`.bgBlue.white);
 		res.json(result);
 	} catch (error) {

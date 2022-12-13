@@ -7,6 +7,7 @@ import "colors";
 import {
 	multerUpload_middleware,
 	multerFileType,
+	getImageFromReq,
 } from "../../../utils/imageHandler";
 import { NextFunction } from "express-serve-static-core";
 import multiparty from "multiparty";
@@ -19,7 +20,7 @@ handler.use(multerUpload_middleware.any());
 
 handler.post(async (req: NextApiRequest | any, res: NextApiResponse | any) => {
 	try {
-		let images = req.files?.map((f: multerFileType) => `${f.filename}`);
+		let images = await getImageFromReq(req, "Patron");
 		let props = {
 			...req.body,
 			images: images,

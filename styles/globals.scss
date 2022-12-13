@@ -1,7 +1,7 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
-
+@import "~react-image-gallery/styles/scss/image-gallery.scss";
 * {
 	box-sizing: border-box;
 	scrollbar-width: thin;

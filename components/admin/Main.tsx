@@ -16,6 +16,7 @@ import ContactList from "./dataHandlers/contact/ContactList";
 import ContactShow from "./dataHandlers/contact/ContactShow";
 import MarkunreadMailboxIcon from "@mui/icons-material/MarkunreadMailbox";
 import ArticleIcon from "@mui/icons-material/Article";
+import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import HoursList from "./dataHandlers/hours/HoursList";
 import HoursShow from "./dataHandlers/hours/HoursShow";
 import ScheduleIcon from "@mui/icons-material/Schedule";
@@ -23,6 +24,11 @@ import HoursCreate from "./dataHandlers/hours/HoursCreate";
 import FeaturedList from "./dataHandlers/featured/FeaturedList";
 import FeaturedCreate from "./dataHandlers/featured/FeaturedCreate";
 import FeaturedEventShow from "./dataHandlers/featured/FeaturedShow";
+import GeneralPostList from "./dataHandlers/generalPost/GeneralPostList";
+import GeneralPostCreate from "./dataHandlers/generalPost/GeneralPostCreate";
+import GeneralPostShow from "./dataHandlers/generalPost/GeneralPostShow";
+import GeneralPostEdit from "./dataHandlers/generalPost/GeneralPostEdit";
+import FeaturedEdit from "./dataHandlers/featured/FeaturedEdit";
 
 const App = () => {
 	return (
@@ -85,10 +91,23 @@ const App = () => {
 				list={FeaturedList}
 				create={FeaturedCreate}
 				show={FeaturedEventShow}
+				edit={FeaturedEdit}
 				recordRepresentation={(r) => `${r.title}`}
 				icon={ArticleIcon}
 				options={{
 					label: "Featured Events",
+				}}
+			/>
+			<Resource
+				name="generalPost"
+				list={GeneralPostList}
+				create={GeneralPostCreate}
+				show={GeneralPostShow}
+				edit={GeneralPostEdit}
+				recordRepresentation={(r) => `${r.title}`}
+				icon={AutoStoriesIcon}
+				options={{
+					label: "General Posts",
 				}}
 			/>
 			<ReactQueryDevtools initialIsOpen={true} />

@@ -116,7 +116,7 @@ const Map = connector(
 					/>
 					<Marker position={[43.0459852, -87.9121041]}>
 						<Popup>
-							A pretty CSS3 popup. <br /> Easily customizable.
+							130 E. Juneau Ave. <br /> Just off Water & Juneau
 						</Popup>
 					</Marker>
 				</MapContainer>

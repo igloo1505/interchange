@@ -1,5 +1,6 @@
 import { Schema, models, model } from "mongoose";
 import { clearAllImages, removeImage } from "../utils/imageHandler";
+import checkIsValid from "../utils/checkIsValid";
 export interface PatronInterface {
 	datePosted?: Date | (() => Date) | string;
 	description: string;
@@ -60,7 +61,7 @@ const PatronSchema = new Schema<PatronInterface>(
 		},
 		primaryImageIndex: {
 			type: Number,
-			default: 1,
+			default: 0,
 		},
 		quote: {
 			string: {
@@ -95,6 +96,9 @@ const PatronSchema = new Schema<PatronInterface>(
 		methods: {
 			async clearImages() {
 				await clearAllImages(this);
+			},
+			checkValid() {
+				return checkIsValid(this);
 			},
 		},
 	}

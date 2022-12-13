@@ -1,7 +1,7 @@
 import { Schema, models, model } from "mongoose";
-import { removeImage, clearAllImages } from "../utils/imageHandler";
-
-interface FeaturedInterface {
+import { clearAllImages } from "../utils/imageHandler";
+import checkIsValid from "../utils/checkIsValid";
+export interface FeaturedInterface {
 	description: string;
 	location?: string;
 	primaryImageIndex?: number;
@@ -41,7 +41,7 @@ const FeaturedSchema = new Schema<FeaturedInterface>(
 		},
 		primaryImageIndex: {
 			type: Number,
-			default: 1,
+			default: 0,
 		},
 		autoExpire: {
 			type: Date,
@@ -62,6 +62,9 @@ const FeaturedSchema = new Schema<FeaturedInterface>(
 		methods: {
 			async clearImages() {
 				await clearAllImages(this);
+			},
+			checkValid() {
+				return checkIsValid(this);
 			},
 		},
 	}

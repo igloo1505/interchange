@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {
-	Edit,
-	SimpleForm,
-	TextInput,
-	DateInput,
-	NumberInput,
-} from "react-admin";
+import { Edit, SimpleForm, TextInput, DateInput, required } from "react-admin";
 import RichText from "../RichText";
 import Box from "@mui/material/Box";
-import { numberOnlyKeyDown } from "../../../../utils/utilityFunctions";
 import ImageEditField from "../../ImageEditField";
 
 const FeaturedEdit = () => {
@@ -42,7 +35,7 @@ const FeaturedEdit = () => {
 				<ImageEditField
 					source="image"
 					label="Photo"
-					resource="patrons"
+					resource="featured"
 					fullWidth={true}
 				/>
 				<TextInput
@@ -53,62 +46,19 @@ const FeaturedEdit = () => {
 						width: viewport && viewport > 600 ? "50%" : "100%",
 					}}
 				/>
+				<TextInput source="title" validate={required()} fullWidth />
 				<Box display={{ xs: "block", sm: "flex", width: "100%" }}>
 					<Box flex={1} mr={{ xs: 0, sm: "0.5em" }}>
-						<TextInput
-							source="name.first"
-							// validate={required()}
-							fullWidth
-						/>
+						<TextInput source="location" fullWidth />
 					</Box>
 					<Box flex={1} ml={{ xs: 0, sm: "0.5em" }}>
-						<TextInput
-							source="name.last"
-							fullWidth
-							// validate={required()}
-						/>
+						<TextInput source="url" fullWidth />
 					</Box>
 				</Box>
+				<RichText label="Content" source="description" />
 				<Box display={{ xs: "block", sm: "flex", width: "100%" }}>
 					<Box flex={1} mr={{ xs: 0, sm: "0.5em" }}>
-						<TextInput
-							source="email"
-							fullWidth
-							// validate={required()}
-						/>
-					</Box>
-					<Box flex={1} ml={{ xs: 0, sm: "0.5em" }}>
-						<TextInput
-							source="phone"
-							label="Phone"
-							fullWidth
-							onKeyDown={numberOnlyKeyDown(["-"])}
-						/>
-					</Box>
-				</Box>
-				<TextInput source="regularJob" label="Day Job" fullWidth multiline />
-
-				<TextInput
-					source="quote.string"
-					label="Quote"
-					fullWidth
-					multiline
-					// validate={required()}
-				/>
-				<RichText
-					source="description"
-					label="Their Story"
-					// validate={required()}
-				/>
-				<Box display={{ xs: "block", sm: "flex", width: "100%" }}>
-					<Box flex={1} mr={{ xs: 0, sm: "0.5em" }}>
-						<NumberInput
-							source="quote.index"
-							label="Quote Index"
-							onKeyDown={numberOnlyKeyDown([])}
-							// validate={required()}
-							fullWidth
-						/>
+						<DateInput label="Auto Expire" source="autoExpire" fullWidth />
 					</Box>
 					<Box flex={1} ml={{ xs: 0, sm: "0.5em" }}>
 						<DateInput label="Date Posted" source="datePosted" fullWidth />

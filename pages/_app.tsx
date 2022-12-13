@@ -6,6 +6,9 @@ import Listeners from "../components/layout/Listeners";
 import store from "../state/store";
 import { Raleway } from "@next/font/google";
 import LockBodyListener from "../components/layout/LockBodyListener";
+// TODO: Add SEO in before pushing to production
+// import Seo from '../components/layout/Seo';
+
 const raleway = Raleway({
 	weight: ["200", "400", "500", "600"],
 	style: ["normal", "italic"],

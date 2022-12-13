@@ -1,5 +1,6 @@
 import { Schema, models, model } from "mongoose";
 import { removeImage, clearAllImages } from "../utils/imageHandler";
+import checkIsValid from "../utils/checkIsValid";
 export interface VolunteerInterface {
 	datePosted?: Date | (() => Date) | string;
 	description: string;
@@ -60,7 +61,7 @@ const VolunteerSchema = new Schema<VolunteerInterface>(
 		},
 		primaryImageIndex: {
 			type: Number,
-			default: 1,
+			default: 0,
 		},
 		quote: {
 			string: {
@@ -95,6 +96,9 @@ const VolunteerSchema = new Schema<VolunteerInterface>(
 		methods: {
 			async clearImages() {
 				await clearAllImages(this);
+			},
+			checkValid() {
+				return checkIsValid(this);
 			},
 		},
 	}

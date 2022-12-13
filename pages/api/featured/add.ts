@@ -7,6 +7,7 @@ import "colors";
 import {
 	multerUpload_middleware,
 	multerFileType,
+	getImageFromReq,
 } from "../../../utils/imageHandler";
 
 const handler = nc();
@@ -16,7 +17,7 @@ handler.post(async (req: NextApiRequest | any, res: NextApiResponse | any) => {
 	try {
 		console.log(`req: ${req}`.red);
 		debugger;
-		let images = req.files?.map((f: multerFileType) => `${f.filename}`);
+		let images = await getImageFromReq(req, "FeaturedPost");
 		let featured = new Featured({
 			...req.body,
 			images: images,

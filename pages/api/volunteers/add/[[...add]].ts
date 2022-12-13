@@ -4,18 +4,17 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { ErrorResponse, sendError } from "../../../../types/ErrorResponse";
 import connectDB from "../../../../utils/connectMongo";
 import "colors";
-
 import { parsePhone } from "../../../../utils/utilityFunctions";
 import {
 	multerUpload_middleware,
-	multerFileType,
+	getImageFromReq,
 } from "../../../../utils/imageHandler";
 const handler = nc();
 handler.use(multerUpload_middleware.any());
 
 handler.post(async (req: NextApiRequest | any, res: NextApiResponse | any) => {
 	try {
-		let images = req.files?.map((f: multerFileType) => `${f.filename}`);
+		let images = await getImageFromReq(req, "Volunteer");
 		let props = {
 			...req.body,
 			images: images,

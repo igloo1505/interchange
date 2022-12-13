@@ -44,9 +44,14 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
 		}
 		let total = await Volunteer.count();
 
-		let data = volunteers.map((v) => {
-			return v.toObject({ getters: true, virtuals: true });
-		});
+		// let data = volunteers.map((v) => {
+		// 	return v.toObject({ getters: true, virtuals: true });
+		// });
+		let data = volunteers
+			.filter((p) => p.checkValid())
+			.map((v) => {
+				return v.toObject({ getters: true, virtuals: true });
+			});
 		let result = { response: data, total: total, success: true };
 		console.log(`returning: ${JSON.stringify(result, null, 2)}`.bgBlue.white);
 		res.json(result);

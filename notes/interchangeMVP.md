@@ -32,20 +32,27 @@
   - [ ] Featured events editable.
 - [ ] 'Admin' user's with access to admin panel.
     - [ ] Make one 'Admin' model incapable of being deleted.
+- [ ] Add 'preview' button to rich-text input component once css added to main global scss.
 
 ## Other To-Dos
-- [ ] next-pwa
+- [x] next-pwa
 - [ ] next-seo
 
 
 ## Bug Fixes: 
-- [ ] Disallow scrolling when map is open
+- [x] Disallow scrolling when map is open
+- [ ] Make sure Upload with images works, rather than just Update on all models.
 - [ ] Fix map pop-up in both locations. Current modal is random, and maybe unneeded.
 - [ ] Remove images on deletion of model or update.
 
 ### V2 - Demo only for now.
   - [ ] Donation tracker, at least with those obtained through website, if payment portal is something that they like.
 
+
+
+### Pushing to production:
+- [ ] Add SEO to _app.tsx
+- [ ] sitemap.xml & robots.txt
 
 ## Dates and To-dos:
 ### 12-03-22

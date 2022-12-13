@@ -8,13 +8,10 @@ import {
 	// EmailField,
 } from "react-admin";
 import Box from "@mui/material/Box";
-import PhoneFunctionField from "../../PhoneFunctionField";
-import EmailField from "../../EmailField";
-import QuoteField from "../../QuoteField";
 import ImageShow from "../ImageShow";
 // import {RichTextField} from 'ra-input-rich-text'
 
-const FeaturedEventShow = () => {
+const GeneralPostShow = () => {
 	return (
 		<Show emptyWhileLoading>
 			<SimpleShowLayout>
@@ -56,4 +53,4 @@ const FeaturedEventShow = () => {
 	);
 };
 
-export default FeaturedEventShow;
+export default GeneralPostShow;

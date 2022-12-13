@@ -44,9 +44,13 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
 		}
 		let total = await Patron.count();
 
-		let data = patrons.map((v) => {
-			return v.toObject({ getters: true, virtuals: true });
-		});
+		// let data = patrons.map((v) => {
+		// 	return v.toObject({ getters: true, virtuals: true });
+		// });
+		let data = patrons
+			.map((v) => {
+				return v.toObject({ getters: true, virtuals: true });
+			});
 		let result = { response: data, total: total, success: true };
 		console.log(`returning: ${JSON.stringify(result, null, 2)}`.bgBlue.white);
 		res.json(result);

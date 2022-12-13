@@ -28,7 +28,7 @@ const postFilters = [
 	<TextInput label="Email" source="email" />,
 ];
 
-const FeaturedList = () => {
+const GeneralPostList = () => {
 	const [viewport, setViewport] = useState<number | undefined>();
 	const handleViewport = () => {
 		if (typeof window === "undefined") {
@@ -56,4 +56,4 @@ const FeaturedList = () => {
 	);
 };
 
-export default FeaturedList;
+export default GeneralPostList;

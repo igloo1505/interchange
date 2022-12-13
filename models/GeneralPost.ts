@@ -1,6 +1,6 @@
 import { Schema, models, model } from "mongoose";
 import { removeImage, clearAllImages } from "../utils/imageHandler";
-
+import checkIsValid from "../utils/checkIsValid";
 export interface GeneralPostInterface {
 	description: string;
 	location?: string;
@@ -41,7 +41,7 @@ const GeneralPostSchema = new Schema<GeneralPostInterface>(
 		},
 		primaryImageIndex: {
 			type: Number,
-			default: 1,
+			default: 0,
 		},
 		autoExpire: {
 			type: Date,
@@ -62,6 +62,10 @@ const GeneralPostSchema = new Schema<GeneralPostInterface>(
 		methods: {
 			async clearImages() {
 				await clearAllImages(this);
+			},
+			checkValid() {
+				debugger;
+				return checkIsValid(this);
 			},
 		},
 	}

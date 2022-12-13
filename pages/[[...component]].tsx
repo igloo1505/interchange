@@ -20,6 +20,10 @@ import { populateGlobal } from "../state/actions";
 import { useAppDispatch } from "../hooks/ReduxHooks";
 import { globalDataInterface } from "../state/initialState";
 import ColumnRight from "../components/layout/ColumnRight";
+import Featured from "../models/Featured";
+import GeneralPost from "../models/GeneralPost";
+import Volunteers from "../models/Volunteer";
+import Patron from "../models/Patron";
 
 interface ComponentSwitcherInterface {
 	path: pageEnum | string | undefined;
@@ -97,13 +101,31 @@ export const getServerSideProps: GetServerSideProps<{
 			};
 		}
 	}
+	let featuredPosts = await Featured.find().sort({
+		createdAt: "asc",
+	});
+	let generalPosts = await GeneralPost.find().sort({
+		createdAt: "asc",
+	});
+	let volunteers = await Volunteers.find().sort({
+		createdAt: "asc",
+	});
+	let patrons = await Patron.find().sort({
+		createdAt: "asc",
+	});
 	console.log("_hours", _hours);
-	let data = {
+	let data: globalDataInterface = {
 		hours: _hours
 			? Array.isArray(_hours)
 				? JSON.parse(JSON.stringify(_hours[0]))
 				: JSON.parse(JSON.stringify(_hours))
 			: null,
+		featuredPosts: featuredPosts
+			? JSON.parse(JSON.stringify(featuredPosts))
+			: [],
+		generalPosts: generalPosts ? JSON.parse(JSON.stringify(generalPosts)) : [],
+		volunteers: volunteers ? JSON.parse(JSON.stringify(volunteers)) : [],
+		patrons: patrons ? JSON.parse(JSON.stringify(patrons)) : [],
 	};
 	return {
 		props: { data },

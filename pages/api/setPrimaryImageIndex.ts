@@ -9,12 +9,14 @@ import "colors";
 import fs from "fs";
 
 import Featured from "../../models/Featured";
+import GeneralPost from "../../models/GeneralPost";
 
 const handler = nc();
 let modelMap = {
 	volunteers: Volunteer,
 	patrons: Patron,
 	featured: Featured,
+	generalPost: GeneralPost,
 };
 
 handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
