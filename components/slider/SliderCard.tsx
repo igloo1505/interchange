@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FeaturedInterface } from "../../models/Featured";
 import gsap from "gsap";
+import clsx from "clsx";
 
 export interface SliderCardProps {
 	activeIndex: number;
@@ -9,6 +10,8 @@ export interface SliderCardProps {
 	count: number;
 	isAnimating: boolean;
 	setIsAnimating: (val: boolean) => void;
+	isHovered: boolean;
+	setIsHovered: (val: boolean) => void;
 }
 
 const SliderCard = ({
@@ -17,7 +20,9 @@ const SliderCard = ({
 	children,
 	count,
 	setIsAnimating,
+	isHovered,
 	isAnimating,
+	setIsHovered,
 }: SliderCardProps) => {
 	// const [isActive, setIsActive] = useState(false);
 	const [lastActiveIndex, setLastActiveIndex] = useState(activeIndex);
@@ -62,11 +67,16 @@ const SliderCard = ({
 	}, [activeIndex, index]);
 	return (
 		<div
-			className="w-full h-full bg-primary-700 absolute"
+			className={clsx(
+				"w-full h-full bg-primary-700 absolute",
+				isHovered && "sliderCard-hovered"
+			)}
 			style={{
 				transform: `translateX(${index >= 0 ? "100%" : "0"})`,
 			}}
 			id={_id}
+			onMouseEnter={() => setIsHovered(true)}
+			onMouseLeave={() => setIsHovered(false)}
 		>
 			{children}
 		</div>

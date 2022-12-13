@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import SliderCard, { SliderCardProps } from "./SliderCard";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import clsx from "clsx";
 
 interface SliderProps {
 	cards: JSX.Element[];
@@ -13,6 +14,7 @@ interface SliderProps {
 const Slider = ({ cards, infinite = true, maxWidth }: SliderProps) => {
 	const [activeIndex, setActiveIndex] = useState(0);
 	const [isAnimating, setIsAnimating] = useState(false);
+	const [isHovered, setIsHovered] = useState(false);
 	const handleArrowClick = (type: string) => {
 		if (isAnimating) return;
 		if (!infinite) {
@@ -37,7 +39,10 @@ const Slider = ({ cards, infinite = true, maxWidth }: SliderProps) => {
 	}, [activeIndex]);
 	return (
 		<div
-			className="w-full overflow-hidden relative"
+			className={clsx(
+				"w-full overflow-hidden relative",
+				isHovered && "slider-hovered"
+			)}
 			style={{
 				maxWidth: maxWidth,
 			}}
@@ -58,13 +63,15 @@ const Slider = ({ cards, infinite = true, maxWidth }: SliderProps) => {
 								count={a.length}
 								isAnimating={isAnimating}
 								setIsAnimating={setIsAnimating}
+								isHovered={isHovered}
+								setIsHovered={setIsHovered}
 							>
 								{Card}
 							</SliderCard>
 						);
 					})}
 				<ArrowBackIosIcon
-					className="absolute cursor-pointer fill-primary-200"
+					className="absolute cursor-pointer slider-left-arrow"
 					style={{
 						top: "50%",
 						left: "8px",
@@ -73,7 +80,7 @@ const Slider = ({ cards, infinite = true, maxWidth }: SliderProps) => {
 					onClick={() => handleArrowClick("backward")}
 				/>
 				<ArrowForwardIosIcon
-					className="absolute cursor-pointer fill-primary-200"
+					className="absolute cursor-pointer slider-right-arrow"
 					style={{
 						top: "50%",
 						right: "8px",

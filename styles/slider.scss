@@ -1,0 +1,30 @@
+.slider-right-arrow {
+	fill: #38bdf8;
+	transition: all 0.5s ease-in-out;
+}
+.slider-left-arrow {
+	fill: #38bdf8;
+	transition: all 0.5s ease-in-out;
+}
+.slider-backdrop {
+	background-color: #000;
+	opacity: 0.5;
+}
+
+.sliderCard-hovered {
+	.slider-backdrop {
+		background-color: #0c4a6e;
+		opacity: 0.85;
+	}
+}
+
+.slider-hovered {
+	.slider-right-arrow {
+		// fill: #bae6fd;
+		fill: #fff;
+	}
+	.slider-left-arrow {
+		// fill: #bae6fd;
+		fill: #fff;
+	}
+}

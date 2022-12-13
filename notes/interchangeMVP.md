@@ -41,6 +41,7 @@
 
 ## Bug Fixes: 
 - [x] Disallow scrolling when map is open
+- [ ] Adjust image index on deleting of image.
 - [ ] Make sure Upload with images works, rather than just Update on all models.
 - [ ] Fix map pop-up in both locations. Current modal is random, and maybe unneeded.
 - [ ] Remove images on deletion of model or update.

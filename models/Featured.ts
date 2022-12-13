@@ -9,6 +9,8 @@ export interface FeaturedInterface {
 	title: string;
 	image?: { path: string; publicUrl: string }[];
 	autoExpire?: (() => Date) | Date | string;
+	_id?: string;
+	id?: string;
 	datePosted: () => Date;
 }
 
