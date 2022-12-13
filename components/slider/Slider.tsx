@@ -7,9 +7,10 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 interface SliderProps {
 	cards: JSX.Element[];
 	infinite?: boolean;
+	maxWidth?: string;
 }
 
-const Slider = ({ cards, infinite = true }: SliderProps) => {
+const Slider = ({ cards, infinite = true, maxWidth }: SliderProps) => {
 	const [activeIndex, setActiveIndex] = useState(0);
 	const [isAnimating, setIsAnimating] = useState(false);
 	const handleArrowClick = (type: string) => {
@@ -35,7 +36,12 @@ const Slider = ({ cards, infinite = true }: SliderProps) => {
 		console.log("activeIndex: ", activeIndex, activeIndex % cards.length);
 	}, [activeIndex]);
 	return (
-		<div className="w-full overflow-hidden relative">
+		<div
+			className="w-full overflow-hidden relative"
+			style={{
+				maxWidth: maxWidth,
+			}}
+		>
 			<div
 				className="h-[400px] grid w-full"
 				// style={{

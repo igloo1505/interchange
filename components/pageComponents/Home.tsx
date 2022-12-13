@@ -16,6 +16,7 @@ const Home = connector(({ featureds }: { featureds: FeaturedInterface[] }) => {
 	return (
 		<div className="flex flex-col items-center justify-start w-full min-h-full">
 			<Slider
+				maxWidth={"max(600px, 80%)"}
 				cards={
 					featureds?.length
 						? featureds.map((f, inx) => (
