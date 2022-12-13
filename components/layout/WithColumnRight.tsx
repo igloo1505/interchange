@@ -46,9 +46,7 @@ const WithColumnRight = connector(
 			let rightClosed = 200;
 			setSizes({
 				open: `${leftOpen}px ${dimensions.viewport.width - leftOpen - 16}px`,
-				closed: `${
-					dimensions.viewport.width - rightClosed - 16
-				}px ${rightClosed}px`,
+				closed: `${dimensions.viewport.width - rightClosed}px ${rightClosed}px`,
 			});
 		}, [dimensions]);
 		return (
@@ -75,7 +73,7 @@ const WithColumnRight = connector(
 			>
 				<div
 					className={clsx(
-						"w-full h-full columnLeft",
+						"w-full h-full columnLeft px-4 py-4",
 						isOpen && "columnLeftOpen"
 					)}
 				>
