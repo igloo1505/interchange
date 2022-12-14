@@ -69,8 +69,6 @@ const Map = connector(
 					}px`,
 				},
 			});
-			console.log("isOpen: ", isOpen);
-			console.log("navbar: ", sizes);
 		}, [columnRight, navbar]);
 		const toggleFullWidth = () => {
 			if (isOpen) return;

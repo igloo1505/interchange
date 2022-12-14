@@ -68,6 +68,7 @@ const GeneralPostSchema = new Schema<GeneralPostInterface>(
 				return checkIsValid(this);
 			},
 		},
+		timestamps: true,
 	}
 );
 

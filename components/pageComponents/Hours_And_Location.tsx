@@ -20,7 +20,6 @@ const Map = dynamic(() => import("../general/Map_hoursAndLocation"), {
 });
 
 const Day = ({ dayKey, data }: { dayKey: string; data: any }) => {
-	console.log("data: ", data);
 	return (
 		<div className="flex flex-col items-start justify-start mt-1 ml-2 font-thin">
 			<div className="font-medium text-primary-800">

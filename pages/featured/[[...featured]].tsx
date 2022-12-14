@@ -22,8 +22,6 @@ interface FeaturedPageProps {
 }
 
 const FeaturedPage = ({ data }: FeaturedPageProps) => {
-	console.log("data: ", data);
-
 	return (
 		<Fragment>
 			<Navbar />
@@ -55,7 +53,6 @@ export const getServerSideProps: GetServerSideProps<{
 }> = async (context: GetServerSidePropsContext) => {
 	const { req, res } = connectServerSide(context.req, context.res);
 	let _id = context.query.featured;
-	console.log("context.query.featured: ", context.query.featured);
 	let featuredPost;
 	if (_id) {
 		featuredPost = await Featured.findById(_id);

@@ -101,6 +101,7 @@ const VolunteerSchema = new Schema<VolunteerInterface>(
 				return checkIsValid(this);
 			},
 		},
+		timestamps: true,
 	}
 );
 

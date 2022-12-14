@@ -16,6 +16,7 @@ import ContactList from "./dataHandlers/contact/ContactList";
 import ContactShow from "./dataHandlers/contact/ContactShow";
 import MarkunreadMailboxIcon from "@mui/icons-material/MarkunreadMailbox";
 import ArticleIcon from "@mui/icons-material/Article";
+import LockOpenIcon from "@mui/icons-material/LockOpen";
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import HoursList from "./dataHandlers/hours/HoursList";
 import HoursShow from "./dataHandlers/hours/HoursShow";
@@ -29,6 +30,10 @@ import GeneralPostCreate from "./dataHandlers/generalPost/GeneralPostCreate";
 import GeneralPostShow from "./dataHandlers/generalPost/GeneralPostShow";
 import GeneralPostEdit from "./dataHandlers/generalPost/GeneralPostEdit";
 import FeaturedEdit from "./dataHandlers/featured/FeaturedEdit";
+import AccessList from "./dataHandlers/access/AccessList";
+import AccessCreate from "./dataHandlers/access/AccessCreate";
+import AccessShow from "./dataHandlers/access/AccessShow";
+import AccessEdit from "./dataHandlers/access/AccessEdit";
 
 const App = () => {
 	return (
@@ -108,6 +113,18 @@ const App = () => {
 				icon={AutoStoriesIcon}
 				options={{
 					label: "General Posts",
+				}}
+			/>
+			<Resource
+				name="allow"
+				list={AccessList}
+				create={AccessCreate}
+				show={AccessShow}
+				edit={AccessEdit}
+				recordRepresentation={(r) => `${r.email}`}
+				icon={LockOpenIcon}
+				options={{
+					label: "Permissions Granted",
 				}}
 			/>
 			<ReactQueryDevtools initialIsOpen={true} />

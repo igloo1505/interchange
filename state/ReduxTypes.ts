@@ -1,4 +1,8 @@
 import { globalDataInterface } from "./initialState";
+import { VolunteerInterface } from "../models/Volunteer";
+import { PatronInterface } from "../models/Patron";
+import { FeaturedInterface } from "../models/Featured";
+import { GeneralPostInterface } from "../models/GeneralPost";
 import ToastConfig from "../types/ToastConfig";
 
 export type SHOW_TOAST = { type: "SHOW_TOAST"; payload: ToastConfig };
@@ -54,5 +58,22 @@ export type POPULATE_GLOBAL_DATA = {
 
 export type SHOW_DONATION_DEMO_TOAST = {
 	type: "SHOW_DONATION_DEMO_TOAST";
+	payload: number;
+};
+export type FILTER_FEED = {
+	type: "FILTER_FEED";
+	payload: {
+		data: Array<
+			| VolunteerInterface
+			| PatronInterface
+			| FeaturedInterface
+			| GeneralPostInterface
+		>;
+		page: number;
+	};
+};
+
+export type SET_FILTER_PAGE = {
+	type: "SET_FILTER_PAGE";
 	payload: number;
 };

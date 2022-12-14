@@ -9,9 +9,6 @@ import {
 	multerFileType,
 	getImageFromReq,
 } from "../../../utils/imageHandler";
-import { NextFunction } from "express-serve-static-core";
-import multiparty from "multiparty";
-import path from "path";
 import { parsePhone } from "../../../utils/utilityFunctions";
 
 const handler = nc();

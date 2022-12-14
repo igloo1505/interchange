@@ -63,7 +63,6 @@ const Contact = ({}: ContactProps) => {
 		},
 	});
 	const handleChange = (e: ChangeEvent) => {
-		console.log("Errors", formik.errors, formik.touched);
 		formik.setValues({
 			...formik.values,
 			/// @ts-ignore

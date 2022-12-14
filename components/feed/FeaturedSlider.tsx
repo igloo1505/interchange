@@ -28,9 +28,6 @@ const FeaturedSlider = connector(({ featureds }: FeaturedSliderProps) => {
 			);
 		}
 	};
-	useEffect(() => {
-		console.log("activeIndex: ", activeIndex);
-	}, [activeIndex]);
 	return (
 		<div className="w-full overflow-hidden relative">
 			<div

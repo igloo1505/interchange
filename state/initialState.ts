@@ -38,6 +38,15 @@ export interface globalDataInterface {
 	generalPosts: GeneralPostInterface[];
 	volunteers: VolunteerInterface[];
 	patrons: PatronInterface[];
+	feed: {
+		data: Array<
+			| PatronInterface
+			| VolunteerInterface
+			| FeaturedInterface
+			| GeneralPostInterface
+		>;
+		page: number;
+	};
 }
 
 const initialState = {
@@ -66,7 +75,12 @@ const initialState = {
 		isLoading: false,
 		error: null,
 	},
-	global: {} as globalDataInterface,
+	global: {
+		feed: {
+			data: [],
+			page: 1,
+		},
+	} as unknown as globalDataInterface,
 };
 
 export default initialState;

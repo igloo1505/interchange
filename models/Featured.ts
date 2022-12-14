@@ -69,6 +69,7 @@ const FeaturedSchema = new Schema<FeaturedInterface>(
 				return checkIsValid(this);
 			},
 		},
+		timestamps: true,
 	}
 );
 

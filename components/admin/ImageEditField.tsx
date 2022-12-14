@@ -41,7 +41,7 @@ const ImageWrapper = ({
 			filename: filename,
 			path: path,
 		});
-		console.log("res: ", res);
+
 		if (res.data.success) {
 			refresh();
 		}
@@ -53,7 +53,7 @@ const ImageWrapper = ({
 			index: _index,
 			path: path,
 		});
-		console.log("res: ", res);
+
 		if (res.data.success) {
 			refresh();
 		}
@@ -109,7 +109,6 @@ const ImageEditField = ({
 	fullWidth = false,
 }: ImageEditFieldProps) => {
 	const { record: _record } = useEditContext();
-	console.log("record: ", _record);
 
 	return (
 		<Fragment>

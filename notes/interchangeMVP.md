@@ -28,12 +28,13 @@
 - [ ] Create 'general post' with images, title, description, link and whatnot.
 - [ ] Set one image as primary and allow to be set in image for models with images.
   - [ ] Time automated special events, remove without further input with actual deletion from database.
-- [ ] 'Featured' events that display in banner on main page.
-  - [ ] Featured events editable.
-- [ ] 'Admin' user's with access to admin panel.
-    - [ ] Make one 'Admin' model incapable of being deleted.
+- [x] 'Featured' events that display in banner on main page.
+  - [x] Featured events editable.
+- [x] 'Admin' user's with access to admin panel.
+    - [x] Make one 'Admin' model incapable of being deleted.
 - [ ] Add 'preview' button to rich-text input component once css added to main global scss.
 - [ ] Share on social media buttons!
+    - [ ] Finish debugging these social buttons!
 
 ## Other To-Dos
 - [x] next-pwa

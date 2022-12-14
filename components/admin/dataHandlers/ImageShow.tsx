@@ -9,7 +9,7 @@ const ImageShow = () => {
 		window?.innerWidth && window?.innerWidth < 640
 			? window?.innerWidth * 0.8
 			: 400;
-	console.log("showContext: ", showContext);
+
 	let primaryIndex = showContext.record.primaryImageIndex || 0;
 	return (
 		<Fragment>

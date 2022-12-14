@@ -10,9 +10,7 @@ import { HiPhoneArrowUpRight } from "react-icons/hi2";
 const PhoneFunctionField = (props: Partial<FunctionFieldProps>) => {
 	const [_href, set_href] = useState<string | null>(null);
 	const showContext = useShowContext();
-	console.log("recordContext: in phoneFunction", showContext);
 	useEffect(() => {
-		console.log("showContext?.record?.phone: ", showContext?.record?.phone);
 		if (showContext?.record.phone) {
 			set_href(`tel:${showContext.record.phone}`);
 		}

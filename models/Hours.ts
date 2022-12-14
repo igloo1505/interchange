@@ -73,7 +73,6 @@ const HoursSchema = new Schema<HoursInterface>(
 			async clearSubdocs() {
 				for (let i = 0; i < dayKeys.length; i++) {
 					const k = dayKeys[i];
-					console.log("this[k]: ", this[k]);
 					debugger;
 					if (this[k]) {
 						await Daily.findByIdAndRemove(this[k]._id || this[k]);

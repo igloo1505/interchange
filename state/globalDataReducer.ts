@@ -13,6 +13,15 @@ const appReducer = createReducer(initialState, (builder) => {
 			};
 		}
 	);
+	builder.addCase("SET_FILTER_PAGE", (state, action: Types.SET_FILTER_PAGE) => {
+		return {
+			...state,
+			feed: {
+				...state.feed,
+				page: action.payload,
+			},
+		};
+	});
 });
 
 export default appReducer;

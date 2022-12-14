@@ -101,6 +101,7 @@ const PatronSchema = new Schema<PatronInterface>(
 				return checkIsValid(this);
 			},
 		},
+		timestamps: true,
 	}
 );
 

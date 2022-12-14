@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { RootState } from "../../state/store";
 import { FeaturedInterface } from "../../models/Featured";
 import FeaturedSliderCard from "../feed/FeaturedSliderCard";
+import Feed from "../feed/Feed";
 
 const connector = connect((state: RootState, props) => ({
 	featureds: state.global.featuredPosts,
@@ -25,6 +26,7 @@ const Home = connector(({ featureds }: { featureds: FeaturedInterface[] }) => {
 						: []
 				}
 			/>
+			<Feed />
 		</div>
 	);
 });

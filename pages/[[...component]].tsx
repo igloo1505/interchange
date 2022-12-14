@@ -57,7 +57,6 @@ interface LandingProps {
 }
 
 const Landing = ({ data }: LandingProps) => {
-	console.log("...props: ", data);
 	const dispatch = useAppDispatch();
 	useEffect(() => {
 		dispatch(populateGlobal(data));
@@ -113,7 +112,7 @@ export const getServerSideProps: GetServerSideProps<{
 	let patrons = await Patron.find().sort({
 		createdAt: "asc",
 	});
-	console.log("_hours", _hours);
+
 	let data: globalDataInterface = {
 		hours: _hours
 			? Array.isArray(_hours)

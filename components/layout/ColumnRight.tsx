@@ -148,17 +148,7 @@ const ColumnRight = connector(
 export default ColumnRight;
 
 const animateEntrance = () => {
-	console.log("animateEntrance");
-	// let em = document.getElementById("column-right-container");
-	// if (!em) return;
-	// em.style.transition = "all 0.4s ease-in-out";
-	let tl = gsap.timeline({
-		// onComplete: () => {
-		// 	let em = document.getElementById("column-right-container");
-		// 	if (!em) return;
-		// 	em.style.transition = "unset";
-		// },
-	});
+	let tl = gsap.timeline();
 	tl.to("#column-right-container", {
 		x: 0,
 		duration: 0.5,

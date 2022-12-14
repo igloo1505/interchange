@@ -86,3 +86,33 @@ export const populateGlobal = (
 	type: "POPULATE_GLOBAL_DATA",
 	payload: data,
 });
+
+export const filterFeed = async (query: string): Types.FILTER_FEED => {
+	let page = store.getState().global.feed.page;
+	let res = await axios({
+		method: methodEnum.post,
+		url: "/api/FilterFeed",
+		data: {
+			search: query,
+			page: page,
+			perPage: 10,
+		},
+	});
+	if (res.data.success) {
+		return store.dispatch({
+			type: "FILTER_FEED",
+			payload: res.data,
+		});
+	}
+	if (!res.data.success) {
+		console.log("Error");
+		console.log(res);
+	}
+};
+
+export const setFilterPage = (page: number): Types.SET_FILTER_PAGE => {
+	store.dispatch({
+		type: "SET_FILTER_PAGE",
+		payload: page,
+	});
+};

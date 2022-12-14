@@ -9,8 +9,6 @@ interface FeaturedSliderCardProps {
 }
 
 const FeaturedSliderCard = ({ featured, index }: FeaturedSliderCardProps) => {
-	console.log("featured: ", featured);
-	console.log("featured: ", featured.title);
 	const router = useRouter();
 	const navigateToFeatured = () => {
 		router.push(`/featured/${featured._id || featured.id}`);
