@@ -62,15 +62,12 @@ export type SHOW_DONATION_DEMO_TOAST = {
 };
 export type FILTER_FEED = {
 	type: "FILTER_FEED";
-	payload: {
-		data: Array<
-			| VolunteerInterface
-			| PatronInterface
-			| FeaturedInterface
-			| GeneralPostInterface
-		>;
-		page: number;
-	};
+	payload: Array<
+		| VolunteerInterface
+		| PatronInterface
+		| FeaturedInterface
+		| GeneralPostInterface
+	>;
 };
 
 export type SET_FILTER_PAGE = {

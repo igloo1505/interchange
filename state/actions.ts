@@ -101,7 +101,7 @@ export const filterFeed = async (query: string): Types.FILTER_FEED => {
 	if (res.data.success) {
 		return store.dispatch({
 			type: "FILTER_FEED",
-			payload: res.data,
+			payload: res.data?.results,
 		});
 	}
 	if (!res.data.success) {

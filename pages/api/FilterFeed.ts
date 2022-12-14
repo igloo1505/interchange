@@ -60,7 +60,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 			(a, b) => {
 				let _a = a.createdAt || a.datePosted;
 				let _b = b.createdAt || b.datePosted;
-				return _a - _b;
+				return _b - _a;
 			}
 		);
 		let start = (page - 1) * perPage;

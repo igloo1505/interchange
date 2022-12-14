@@ -24,6 +24,8 @@ import Featured from "../models/Featured";
 import GeneralPost from "../models/GeneralPost";
 import Volunteers from "../models/Volunteer";
 import Patron from "../models/Patron";
+import { populateEmptyFeed } from "../utils/populateEmptyFeed";
+import store from "../state/store";
 
 interface ComponentSwitcherInterface {
 	path: pageEnum | string | undefined;
@@ -59,7 +61,16 @@ interface LandingProps {
 const Landing = ({ data }: LandingProps) => {
 	const dispatch = useAppDispatch();
 	useEffect(() => {
-		dispatch(populateGlobal(data));
+		let hasFeed =
+			store.getState().global?.feed?.data?.length > 0 ? true : false;
+		console.log("hasFeed: ", hasFeed);
+		let feed = populateEmptyFeed(data);
+		dispatch(
+			populateGlobal({
+				...data,
+				...(!hasFeed && { feed: { data: feed, page: 1 } }),
+			})
+		);
 	}, [data]);
 	const router = useRouter();
 	const { component } = router.query;
