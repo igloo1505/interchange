@@ -9,9 +9,15 @@ interface SliderProps {
 	cards: JSX.Element[];
 	infinite?: boolean;
 	maxWidth?: string;
+	hideButtons?: boolean;
 }
 
-const Slider = ({ cards, infinite = true, maxWidth }: SliderProps) => {
+const Slider = ({
+	cards,
+	infinite = true,
+	maxWidth,
+	hideButtons = false,
+}: SliderProps) => {
 	const [activeIndex, setActiveIndex] = useState(0);
 	const [isAnimating, setIsAnimating] = useState(false);
 	const [isHovered, setIsHovered] = useState(false);
@@ -70,24 +76,28 @@ const Slider = ({ cards, infinite = true, maxWidth }: SliderProps) => {
 							</SliderCard>
 						);
 					})}
-				<ArrowBackIosIcon
-					className="absolute cursor-pointer slider-left-arrow"
-					style={{
-						top: "50%",
-						left: "8px",
-						transform: "translateY(-50%)",
-					}}
-					onClick={() => handleArrowClick("backward")}
-				/>
-				<ArrowForwardIosIcon
-					className="absolute cursor-pointer slider-right-arrow"
-					style={{
-						top: "50%",
-						right: "8px",
-						transform: "translateY(-50%)",
-					}}
-					onClick={() => handleArrowClick("forward")}
-				/>
+				{!hideButtons && (
+					<ArrowBackIosIcon
+						className="absolute cursor-pointer slider-left-arrow"
+						style={{
+							top: "50%",
+							left: "8px",
+							transform: "translateY(-50%)",
+						}}
+						onClick={() => handleArrowClick("backward")}
+					/>
+				)}
+				{!hideButtons && (
+					<ArrowForwardIosIcon
+						className="absolute cursor-pointer slider-right-arrow"
+						style={{
+							top: "50%",
+							right: "8px",
+							transform: "translateY(-50%)",
+						}}
+						onClick={() => handleArrowClick("forward")}
+					/>
+				)}
 			</div>
 		</div>
 	);

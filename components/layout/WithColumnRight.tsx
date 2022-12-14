@@ -53,7 +53,7 @@ const WithColumnRight = connector(
 		}, [dimensions]);
 		return (
 			<div
-				className="justify-between transition-all duration-700 will-change-auto"
+				className="justify-between transition-all duration-700 will-change-auto left-0 ml-0 mr-auto"
 				style={{
 					gridTemplateColumns: hideColumnRight
 						? "1fr"
@@ -65,7 +65,8 @@ const WithColumnRight = connector(
 						: "calc(100% - 1rem)",
 					overflowY: isOpen ? "hidden" : "auto",
 					overflowX: "hidden",
-					width: `calc(100vw - ${scrollbar ? scrollbar : 0}px)`,
+					// width: `calc(100vw - ${scrollbar ? scrollbar : 0}px)`,
+					width: `100vw`,
 					// width: `100vw`,
 					display:
 						dimensions.viewport.width < 768 || hideColumnRight

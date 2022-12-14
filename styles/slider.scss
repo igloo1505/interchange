@@ -1,9 +1,9 @@
 .slider-right-arrow {
-	fill: #38bdf8;
+	fill: #7dd3fc;
 	transition: all 0.5s ease-in-out;
 }
 .slider-left-arrow {
-	fill: #38bdf8;
+	fill: #7dd3fc;
 	transition: all 0.5s ease-in-out;
 }
 .slider-backdrop {
@@ -13,8 +13,9 @@
 
 .sliderCard-hovered {
 	.slider-backdrop {
-		background-color: #0c4a6e;
-		opacity: 0.85;
+		// background-color: #334155;
+		background-color: #000;
+		opacity: 0.75;
 	}
 }
 

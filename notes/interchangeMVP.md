@@ -33,6 +33,7 @@
 - [ ] 'Admin' user's with access to admin panel.
     - [ ] Make one 'Admin' model incapable of being deleted.
 - [ ] Add 'preview' button to rich-text input component once css added to main global scss.
+- [ ] Share on social media buttons!
 
 ## Other To-Dos
 - [x] next-pwa

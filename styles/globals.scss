@@ -256,7 +256,60 @@ $drawer-close-transition: 0.35s ease-in-out;
 	height: 100%;
 }
 
+.share-icon {
+	border-radius: 50%;
+	height: 4rem;
+	width: 4rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: all 0.35s ease-in-out;
+	box-shadow: 5px 5px 24px 8px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 5px 5px 24px 8px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 5px 5px 24px 8px rgba(0, 0, 0, 0.5);
+	#Pocket2 {
+		fill: #fff;
+		transition: all 0.05s ease-in-out;
+	}
+	#Pocket1 {
+		fill: transparent;
+		transition: all 0.35s ease-in-out;
+	}
+	svg {
+		transition: all 0.35s ease-in-out;
+		fill: #fff;
+	}
+	&:hover {
+		box-shadow: 5px 5px 24px 5px rgba(0, 0, 0, 0.5);
+		-webkit-box-shadow: 5px 5px 24px 5px rgba(0, 0, 0, 0.5);
+		-moz-box-shadow: 5px 5px 24px 5px rgba(0, 0, 0, 0.5);
+		background-color: #0ea5e9;
+		svg {
+			transition: all 0.35s ease-in-out;
+			// transform: rotateZ(360deg);
+			// fill: #475569;
+			// fill: #0ea5e9;
+		}
+		#Pocket2 {
+			// fill: #0ea5e9;
+		}
+	}
+}
+
+.share-icon.instagram {
+	background-color: #fff;
+	svg {
+		fill: #075985;
+	}
+	&:hover {
+		svg {
+			fill: #0ea5e9;
+		}
+	}
+}
+
 @import "./slider.scss";
+@import "./richText.scss";
 @import "./animations.scss";
 @import "./mediaQueries/md.scss";
 @import "./mediaQueries/sm.scss";

@@ -7,7 +7,7 @@ export interface FeaturedInterface {
 	primaryImageIndex?: number;
 	url?: string;
 	title: string;
-	image?: { path: string; publicUrl: string }[];
+	images?: { path: string; publicUrl: string }[];
 	autoExpire?: (() => Date) | Date | string;
 	_id?: string;
 	id?: string;

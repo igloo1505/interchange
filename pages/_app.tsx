@@ -10,7 +10,7 @@ import LockBodyListener from "../components/layout/LockBodyListener";
 // import Seo from '../components/layout/Seo';
 
 const raleway = Raleway({
-	weight: ["200", "400", "500", "600"],
+	weight: ["200", "400", "500", "600", "800"],
 	style: ["normal", "italic"],
 	// subsets: ["latin"],
 	variable: "--font-raleway",

@@ -36,3 +36,9 @@ const details: detailsInterface = {
 };
 
 export default details;
+
+export const socialInfo = {
+	twitter: {
+		related: [],
+	},
+};

@@ -68,7 +68,7 @@ const SliderCard = ({
 	return (
 		<div
 			className={clsx(
-				"w-full h-full bg-primary-700 absolute",
+				"w-full h-full bg-primary-700 absolute ",
 				isHovered && "sliderCard-hovered"
 			)}
 			style={{
