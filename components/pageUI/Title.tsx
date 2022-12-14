@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import gsap from "gsap";
+import { getIdFromString } from "../../utils/IdFromString";
 
 interface TitleProps {
 	text: string;
@@ -7,9 +8,7 @@ interface TitleProps {
 }
 
 const Title = ({ text, url }: TitleProps) => {
-	let _idBase = Array.from(text)
-		.map((l) => (l === " " ? "" : l))
-		.join("");
+	let _idBase = getIdFromString(text);
 	useEffect(() => {
 		setTimeout(() => {
 			let tl = gsap.timeline();
