@@ -1,7 +1,10 @@
 import * as Types from "./ReduxTypes";
 import { createReducer } from "@reduxjs/toolkit";
 import initState from "./initialState";
-import { populateEmptyFeed } from "../utils/populateEmptyFeed";
+import {
+	getFeedTotalLocally,
+	populateEmptyFeed,
+} from "../utils/populateEmptyFeed";
 const initialState = initState.global;
 
 const appReducer = createReducer(initialState, (builder) => {
@@ -19,7 +22,18 @@ const appReducer = createReducer(initialState, (builder) => {
 			...state,
 			feed: {
 				...state.feed,
-				data: action.payload,
+				data: action.payload.data,
+				total: action.payload.total,
+			},
+		};
+	});
+	builder.addCase("SET_FEED_INDEPENDENTLY", (state, action: any) => {
+		return {
+			...state,
+			feed: {
+				...state.feed,
+				data: action.payload.data,
+				total: action.payload.total,
 			},
 		};
 	});

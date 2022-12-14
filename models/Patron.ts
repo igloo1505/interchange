@@ -5,6 +5,7 @@ export interface PatronInterface {
 	datePosted?: Date | (() => Date) | string;
 	description: string;
 	email?: string;
+	_model?: string;
 	name: {
 		first?: string;
 		last?: string;
@@ -80,6 +81,10 @@ const PatronSchema = new Schema<PatronInterface>(
 					return this?.quote?.string ? 1 : null;
 				},
 			},
+		},
+		_model: {
+			type: String,
+			default: "patron",
 		},
 		datePosted: {
 			type: Date,

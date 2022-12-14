@@ -28,6 +28,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 				{ description: { $regex: search, $options: "ix" } },
 				{ location: { $regex: search, $options: "ix" } },
 				{ url: { $regex: search, $options: "ix" } },
+				{ _model: { $regex: search, $options: "ix" } },
 			],
 		});
 		let featureds = await Featured.find({
@@ -36,6 +37,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 				{ description: { $regex: search, $options: "ix" } },
 				{ location: { $regex: search, $options: "ix" } },
 				{ url: { $regex: search, $options: "ix" } },
+				{ _model: { $regex: search, $options: "ix" } },
 			],
 		});
 		let volunteers = await Volunteer.find({
@@ -44,6 +46,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 				{ "name.last": { $regex: search, $options: "ix" } },
 				{ regularJob: { $regex: search, $options: "ix" } },
 				{ description: { $regex: search, $options: "ix" } },
+				{ _model: { $regex: search, $options: "ix" } },
 			],
 		});
 		let patrons = await Patron.find({
@@ -53,6 +56,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 				{ quote: { $regex: search, $options: "ix" } },
 				{ regularJob: { $regex: search, $options: "ix" } },
 				{ description: { $regex: search, $options: "ix" } },
+				{ _model: { $regex: search, $options: "ix" } },
 			],
 		});
 		let total = getTotal([generalPosts, featureds, volunteers, patrons]);
@@ -70,6 +74,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 		console.log(`data: ${JSON.stringify(data, null, 2)}`.magenta);
 		res.json({
 			results: data,
+			total: total,
 			success: true,
 		});
 	} catch (error) {

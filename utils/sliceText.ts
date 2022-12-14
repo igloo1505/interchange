@@ -7,7 +7,7 @@ export const filterTags = ({
 }): string | string[] => {
 	// debugger;
 	if (!text) return;
-	let lineBreaks = ["</p>", "</div>", "</u>"];
+	let lineBreaks = ["</p>", "</div>", "</u>", "<br>"];
 	let _text = [""];
 	let a = Array.from(text);
 	let isOpen = false;

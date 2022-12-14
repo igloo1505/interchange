@@ -35,6 +35,7 @@
 - [ ] Add 'preview' button to rich-text input component once css added to main global scss.
 - [ ] Share on social media buttons!
     - [ ] Finish debugging these social buttons!
+- [ ] Pagination on feed!
 
 ## Other To-Dos
 - [x] next-pwa

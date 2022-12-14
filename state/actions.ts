@@ -5,6 +5,7 @@ import * as Types from "./ReduxTypes";
 import { Action } from "@reduxjs/toolkit";
 import { ContactInterface } from "../models/Contact";
 import { globalDataInterface } from "./initialState";
+import { populateEmptyFeed } from "../utils/populateEmptyFeed";
 
 // export const showToast = (): Types.SHOW_TOAST => ({
 // 	type: "SHOW_TOAST",
@@ -87,6 +88,14 @@ export const populateGlobal = (
 	payload: data,
 });
 
+export const setFeedDataIndependently = (data?: any[]) => {
+	let _data = data ? data : populateEmptyFeed(null, true);
+	store.dispatch({
+		type: "SET_FEED_INDEPENDENTLY",
+		payload: _data,
+	});
+};
+
 export const filterFeed = async (query: string): Types.FILTER_FEED => {
 	let page = store.getState().global.feed.page;
 	let res = await axios({
@@ -101,7 +110,7 @@ export const filterFeed = async (query: string): Types.FILTER_FEED => {
 	if (res.data.success) {
 		return store.dispatch({
 			type: "FILTER_FEED",
-			payload: res.data?.results,
+			payload: { data: res.data?.results, total: res.data?.total },
 		});
 	}
 	if (!res.data.success) {

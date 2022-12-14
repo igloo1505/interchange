@@ -3,6 +3,16 @@ import { GeneralPostInterface } from "../models/GeneralPost";
 import { PatronInterface } from "../models/Patron";
 import { VolunteerInterface } from "../models/Volunteer";
 import ToastConfig from "../types/ToastConfig";
+
+export interface FeedInterface {
+	data: Array<
+		| FeaturedInterface
+		| GeneralPostInterface
+		| PatronInterface
+		| VolunteerInterface
+	>;
+}
+
 export interface globalDataInterface {
 	hours: {
 		mon?: {
@@ -46,6 +56,7 @@ export interface globalDataInterface {
 			| GeneralPostInterface
 		>;
 		page: number;
+		total: number;
 	};
 }
 

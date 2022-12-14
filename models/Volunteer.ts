@@ -6,6 +6,7 @@ export interface VolunteerInterface {
 	description: string;
 	email?: string;
 	primaryImageIndex?: number;
+	_model?: string;
 	name: {
 		first?: string;
 		last?: string;
@@ -80,6 +81,10 @@ const VolunteerSchema = new Schema<VolunteerInterface>(
 					return this?.quote?.string ? 1 : null;
 				},
 			},
+		},
+		_model: {
+			type: String,
+			default: "volunteer",
 		},
 		datePosted: {
 			type: Date,

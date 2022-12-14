@@ -6,6 +6,7 @@ import { RootState } from "../../state/store";
 import { FeaturedInterface } from "../../models/Featured";
 import FeaturedSliderCard from "../feed/FeaturedSliderCard";
 import Feed from "../feed/Feed";
+import gsap from "gsap";
 
 const connector = connect((state: RootState, props) => ({
 	featureds: state.global.featuredPosts,
@@ -14,6 +15,26 @@ const connector = connect((state: RootState, props) => ({
 
 const Home = connector(({ featureds }: { featureds: FeaturedInterface[] }) => {
 	console.log("featureds: ", featureds);
+	const [animCancel, setAnimCancel] = useState(null);
+	useEffect(() => {
+		const interval = setInterval(() => {
+			let tl = gsap.timeline({
+				onComplete: () => {
+					if (animCancel) {
+						clearInterval(animCancel);
+					}
+				},
+			});
+			tl.to(`.feed-card-container`, {
+				x: 0,
+				duration: 1.75,
+				ease: "elastic.out(1, 0.9)",
+				stagger: 0.15,
+			});
+		}, 500);
+
+		setAnimCancel(interval);
+	}, []);
 	return (
 		<div className="flex flex-col items-center justify-start w-full min-h-full">
 			<Slider

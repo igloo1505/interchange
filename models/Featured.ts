@@ -4,6 +4,7 @@ import checkIsValid from "../utils/checkIsValid";
 export interface FeaturedInterface {
 	description: string;
 	location?: string;
+	_model?: string;
 	primaryImageIndex?: number;
 	url?: string;
 	title: string;
@@ -31,6 +32,10 @@ const FeaturedSchema = new Schema<FeaturedInterface>(
 		description: {
 			type: String,
 			required: true,
+		},
+		_model: {
+			type: String,
+			default: "featuredPost",
 		},
 		images: {
 			type: [

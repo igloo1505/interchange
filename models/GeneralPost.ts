@@ -4,6 +4,7 @@ import checkIsValid from "../utils/checkIsValid";
 export interface GeneralPostInterface {
 	description: string;
 	location?: string;
+	_model?: string;
 	url?: string;
 	title: string;
 	images?: { path: string; publicUrl: string }[];
@@ -29,6 +30,10 @@ const GeneralPostSchema = new Schema<GeneralPostInterface>(
 		description: {
 			type: String,
 			required: true,
+		},
+		_model: {
+			type: String,
+			default: "generalPost",
 		},
 		images: {
 			type: [
@@ -64,7 +69,7 @@ const GeneralPostSchema = new Schema<GeneralPostInterface>(
 				await clearAllImages(this);
 			},
 			checkValid() {
-				debugger;
+
 				return checkIsValid(this);
 			},
 		},

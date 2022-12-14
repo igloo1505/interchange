@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { FeaturedInterface } from "../../models/Featured";
 import { sliceText, filterTags } from "../../utils/sliceText";
 import Image from "next/image";
+import Link from "next/link";
 interface FeaturedSliderCardProps {
 	featured: FeaturedInterface;
 	index: number;
@@ -10,9 +11,7 @@ interface FeaturedSliderCardProps {
 
 const FeaturedSliderCard = ({ featured, index }: FeaturedSliderCardProps) => {
 	const router = useRouter();
-	const navigateToFeatured = () => {
-		router.push(`/featured/${featured._id || featured.id}`);
-	};
+
 	let imageIndex =
 		featured.primaryImageIndex && featured.primaryImageIndex < featured.images
 			? featured.primaryImageIndex
@@ -41,12 +40,11 @@ const FeaturedSliderCard = ({ featured, index }: FeaturedSliderCardProps) => {
 					gridArea: "buttons",
 				}}
 			>
-				<div
-					className="bg-primary-600 text-white rounded px-3 py-2 w-fit h-fit my-3 cursor-pointer shadow-sm z-[100]"
-					onClick={navigateToFeatured}
-				>
-					See More
-				</div>
+				<Link href={`/featured/${featured._id || featured.id}`}>
+					<div className="bg-primary-600 text-white rounded px-3 py-2 w-fit h-fit my-3 cursor-pointer shadow-sm z-[100]">
+						See More
+					</div>
+				</Link>
 			</div>
 			<div className="absolute h-full w-full bg-black z-[99] transition-all duration-500 slider-backdrop" />
 			<Image
