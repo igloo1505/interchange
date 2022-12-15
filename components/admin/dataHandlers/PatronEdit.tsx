@@ -12,9 +12,7 @@ import { numberOnlyKeyDown } from "../../../utils/utilityFunctions";
 import ImageEditField from "../ImageEditField";
 
 const PatronEdit = () => {
-	const [viewport, setViewport] = useState<number | undefined | any | null>(
-		null
-	);
+	const [viewport, setViewport] = useState<number | undefined | any | null>(0);
 	const handleViewport = () => {
 		if (typeof window === "undefined") {
 			return;
