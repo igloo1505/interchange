@@ -15,7 +15,10 @@ const FeedFilter = ({}: FeedFilterProps) => {
 	}, [formData]);
 
 	return (
-		<div className="w-full flex justify-center items-center">
+		<div
+			className="w-full flex justify-center items-center"
+			id="feed-filter-input-container"
+		>
 			<input
 				type="text"
 				className="w-full form-input"

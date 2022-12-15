@@ -70,6 +70,8 @@ export type FILTER_FEED = {
 			| GeneralPostInterface
 		>;
 		total: number;
+		query: string;
+		page: number;
 	};
 };
 

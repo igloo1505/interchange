@@ -57,6 +57,7 @@ export interface globalDataInterface {
 		>;
 		page: number;
 		total: number;
+		query: string;
 	};
 }
 
@@ -88,6 +89,7 @@ const initialState = {
 	},
 	global: {
 		feed: {
+			query: "",
 			data: [],
 			page: 1,
 		},

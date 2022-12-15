@@ -88,16 +88,23 @@ export const populateGlobal = (
 	payload: data,
 });
 
-export const setFeedDataIndependently = (data?: any[]) => {
-	let _data = data ? data : populateEmptyFeed(null, true);
+export const setFeedDataIndependently = (data?: {
+	data: { data: any[]; page: number };
+}) => {
+	let _data = data ? data : populateEmptyFeed(null, true, null);
 	store.dispatch({
 		type: "SET_FEED_INDEPENDENTLY",
-		payload: _data,
+		payload: {
+			..._data
+		},
 	});
 };
 
-export const filterFeed = async (query: string): Types.FILTER_FEED => {
-	let page = store.getState().global.feed.page;
+export const filterFeed = async (
+	query: string,
+	_page?: number
+): Types.FILTER_FEED => {
+	let page = _page || store.getState().global.feed.page;
 	let res = await axios({
 		method: methodEnum.post,
 		url: "/api/FilterFeed",
@@ -110,7 +117,12 @@ export const filterFeed = async (query: string): Types.FILTER_FEED => {
 	if (res.data.success) {
 		return store.dispatch({
 			type: "FILTER_FEED",
-			payload: { data: res.data?.results, total: res.data?.total },
+			payload: {
+				data: res.data?.results,
+				total: res.data?.total,
+				query: query,
+				page: _page,
+			},
 		});
 	}
 	if (!res.data.success) {

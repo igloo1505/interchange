@@ -102,7 +102,7 @@ const Navbar = connector(({ dimensions, props }: NavbarProps) => {
 									{l.text}
 								</Link>
 								<div
-									className="h-[4px] bg-sky-700 w-full navbar-underline"
+									className="h-[4px] bg-sky-700 w-full navbar-underline scale-x-0"
 									id={`navbar-underline-${i}`}
 								/>
 							</div>
@@ -118,21 +118,22 @@ export default Navbar;
 const animateHover = (index: number) => {
 	let tl = gsap.timeline();
 	tl.to(`#navbar-underline-${index}`, {
-		scaleX: 0,
+		scaleX: 0.7,
 		duration: 0.2,
+		backgroundColor: "#0ea5e9",
 		ease: "Power3.out",
 	});
-	tl.to(`#navbar-underline-${index}`, {
-		backgroundColor: "#ea580c",
-		duration: 0,
-		immediateRender: true,
-	});
+	// tl.to(`#navbar-underline-${index}`, {
+	// 	backgroundColor: "#ea580c",
+	// 	duration: 0,
+	// 	immediateRender: true,
+	// });
 
-	tl.to(`#navbar-underline-${index}`, {
-		scaleX: 1,
-		duration: 0.2,
-		ease: "Power3.out",
-	});
+	// tl.to(`#navbar-underline-${index}`, {
+	// 	scaleX: 1,
+	// 	duration: 0.2,
+	// 	ease: "Power3.out",
+	// });
 };
 
 const cancelAnimation = (index: number) => {
@@ -151,10 +152,10 @@ const animateEntrance = () => {
 		".navbar-underline",
 		{
 			scaleX: 1,
-			duration: 0.3,
+			duration: 1,
 			stagger: 0.1,
 			ease: "elastic.out(1, 0.6)",
 		},
-		"+=0.4"
+		"+=0.8"
 	);
 };

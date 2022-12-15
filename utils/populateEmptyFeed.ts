@@ -1,6 +1,6 @@
 import { globalDataInterface } from "../state/initialState";
 import store from "../state/store";
-
+const PER_PAGE = 10;
 export const getFeedTotalLocally = () => {
 	let data = store.getState().global;
 	let total =
@@ -12,9 +12,12 @@ export const getFeedTotalLocally = () => {
 
 export const populateEmptyFeed = (
 	_data: globalDataInterface | null,
-	surpass: boolean
+	surpass: boolean,
+	page: number
 ) => {
+	// debugger;
 	let data = surpass ? store.getState().global : _data;
+	if (!page) page = 1;
 	let add = {
 		gen: data?.generalPosts && data?.generalPosts.length > 0,
 		vol: data?.volunteers && data?.volunteers.length > 0,
@@ -38,7 +41,11 @@ export const populateEmptyFeed = (
 		return _b - _a;
 	});
 	return {
-		data: sorted.slice(0, sorted.length >= 10 ? 10 : sorted.length),
+		data: sorted.slice(
+			(page - 1) * PER_PAGE,
+			sorted.length >= page * PER_PAGE ? page * PER_PAGE : sorted.length
+		),
 		total: flat.length,
+		...(page && { page: page }),
 	};
 };

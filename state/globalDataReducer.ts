@@ -17,6 +17,7 @@ const appReducer = createReducer(initialState, (builder) => {
 			};
 		}
 	);
+
 	builder.addCase("FILTER_FEED", (state, action: Types.FILTER_FEED) => {
 		return {
 			...state,
@@ -24,6 +25,8 @@ const appReducer = createReducer(initialState, (builder) => {
 				...state.feed,
 				data: action.payload.data,
 				total: action.payload.total,
+				query: action.payload.query,
+				page: action.payload.page,
 			},
 		};
 	});
@@ -33,7 +36,9 @@ const appReducer = createReducer(initialState, (builder) => {
 			feed: {
 				...state.feed,
 				data: action.payload.data,
-				total: action.payload.total,
+				...(action?.payload?.total && { total: action.payload.total }),
+				...(action?.payload?.page && { page: action.payload.page }),
+				query: "",
 			},
 		};
 	});
