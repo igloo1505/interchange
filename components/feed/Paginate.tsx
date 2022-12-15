@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { useAppDispatch } from "../../hooks/ReduxHooks";
+// import { useAppDispatch } from "../../hooks/ReduxHooks";
 import {
 	filterFeed,
 	populateGlobal,
@@ -39,7 +39,7 @@ interface buttonInterface {
 const Paginate = connector(
 	({ feed: { data, page, total, query } }: PaginateProps) => {
 		const [buttons, setButtons] = useState<buttonInterface[]>([1]);
-		const dispatch = useAppDispatch();
+		// const dispatch = useAppDispatch();
 		useEffect(() => {
 			setButtons(getButtons(Math.ceil(total / PER_PAGE), page, total));
 		}, [data, page, total]);
