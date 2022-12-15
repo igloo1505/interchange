@@ -43,17 +43,19 @@ const Home = connector(({ featureds }: { featureds: FeaturedInterface[] }) => {
 	}, []);
 	return (
 		<div className="flex flex-col items-center justify-start w-full min-h-full">
-			<Slider
-				maxWidth={"max(600px, 80%)"}
-				id="main-featured-post-slider"
-				cards={
-					featureds?.length
-						? featureds.map((f, inx) => (
-								<FeaturedSliderCard featured={f} index={inx} />
-						  ))
-						: []
-				}
-			/>
+			{featureds && featureds.length >= 1 && (
+				<Slider
+					maxWidth={"max(600px, 80%)"}
+					id="main-featured-post-slider"
+					cards={
+						featureds?.length
+							? featureds.map((f, inx) => (
+									<FeaturedSliderCard featured={f} index={inx} />
+							  ))
+							: []
+					}
+				/>
+			)}
 			<Feed />
 		</div>
 	);
