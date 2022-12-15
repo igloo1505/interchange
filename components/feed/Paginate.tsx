@@ -38,7 +38,9 @@ interface buttonInterface {
 
 const Paginate = connector(
 	({ feed: { data, page, total, query } }: PaginateProps) => {
-		const [buttons, setButtons] = useState<buttonInterface[]>([1]);
+		const [buttons, setButtons] = useState<buttonInterface[]>([
+			{ n: 1, active: true },
+		]);
 		// const dispatch = useAppDispatch();
 		useEffect(() => {
 			setButtons(getButtons(Math.ceil(total / PER_PAGE), page, total));
