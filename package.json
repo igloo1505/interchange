@@ -50,7 +50,6 @@
 		"react-leaflet": "^4.2.0",
 		"react-redux": "^8.0.5",
 		"react-share": "^4.4.1",
-		"react-spring": "^9.6.0",
 		"redux-saga": "^1.2.1",
 		"sass": "^1.56.1",
 		"sharp": "^0.31.2",

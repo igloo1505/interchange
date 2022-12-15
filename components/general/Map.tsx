@@ -65,7 +65,7 @@ const Map = connector(
 						columnRight ? Math.floor(viewport.width - leftOpen - 32) : 200
 					}px`,
 					height: `${
-						navbar && viewport ? viewport.height - navbar - 32 : 200
+						navbar && viewport ? viewport.height - navbar - 16 : 200
 					}px`,
 				},
 			});

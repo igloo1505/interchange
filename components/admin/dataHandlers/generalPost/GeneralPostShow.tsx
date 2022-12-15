@@ -31,7 +31,11 @@ const GeneralPostShow = () => {
 				<Labeled>
 					<TextField source="location" label="Location" fullWidth />
 				</Labeled>
-				<RichTextField source="description" fullWidth />
+				<RichTextField
+					source="description"
+					fullWidth
+					classes={{ body2: "rich-text-demo" }}
+				/>
 				<Box display={{ xs: "block", sm: "flex", width: "100%" }}>
 					<Box flex={1} mr={{ xs: 0, sm: "0.5em" }}>
 						<Labeled>

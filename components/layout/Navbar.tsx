@@ -63,9 +63,10 @@ export const links: NavLink[] = [
 const Navbar = connector(({ dimensions, props }: NavbarProps) => {
 	const dispatch = useAppDispatch();
 	const [shouldAnimate, setShouldAnimate] = useState(false);
+	const [allowNextAnim, setAllowNextAnim] = useState(false);
 	useEffect(() => {
 		if (typeof window !== "undefined" && shouldAnimate) {
-			animateEntrance();
+			animateEntrance({ onComplete: () => setAllowNextAnim(true) });
 		}
 	}, [shouldAnimate]);
 
@@ -85,7 +86,10 @@ const Navbar = connector(({ dimensions, props }: NavbarProps) => {
 							<div
 								className="flex flex-col items-center justify-center navbar-item cursor-pointer"
 								key={`navbar-link-${i}`}
-								onMouseEnter={() => animateHover(i)}
+								onMouseEnter={() => {
+									if (!allowNextAnim) return;
+									animateHover(i);
+								}}
 								onMouseLeave={() => cancelAnimation(i)}
 							>
 								<Link
@@ -146,8 +150,8 @@ const cancelAnimation = (index: number) => {
 	});
 };
 
-const animateEntrance = () => {
-	let tl = gsap.timeline();
+const animateEntrance = (handler: { onComplete: () => any }) => {
+	let tl = gsap.timeline(handler);
 	tl.to(
 		".navbar-underline",
 		{

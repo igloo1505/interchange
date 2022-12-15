@@ -25,7 +25,7 @@ const Navbar_mobile = connector(({ dimensions, props }: Navbar_mobileProps) => {
 	};
 	return (
 		<div
-			className="grid w-full grid-cols-3 gap-2 py-2 mx-4 md:hidden place-items-center"
+			className="grid w-full grid-cols-3 gap-2 py-2 px-4 md:hidden place-items-center"
 			id="navbar-outer-container"
 		>
 			<div className="flex items-center justify-center h-full place-self-start">

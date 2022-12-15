@@ -49,7 +49,11 @@ const VolunteerShow = () => {
 					label="Something Meaningful"
 					fullWidth
 				/>
-				<RichTextField source="description" fullWidth />
+				<RichTextField
+					source="description"
+					fullWidth
+					classes={{ body2: "rich-text-demo" }}
+				/>
 				<DateField label="Posted Date" source="datePosted" />
 			</SimpleShowLayout>
 		</Show>

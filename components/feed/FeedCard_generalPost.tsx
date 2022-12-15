@@ -7,13 +7,17 @@ import SeeMore from "./SeeMore";
 
 interface FeedCard_generalPostProps {
 	model: GeneralPostInterface;
+	extraStyles: any;
 }
 
-const FeedCard_generalPost = ({ model }: FeedCard_generalPostProps) => {
+const FeedCard_generalPost = ({
+	model,
+	extraStyles,
+}: FeedCard_generalPostProps) => {
 	return (
 		<div
-			className="w-full grid gap-2 min-h-[200px] max-h-[250px]"
-			style={{ gridTemplateColumns: "40% 60%" }}
+			className="w-full grid gap-2 min-h-[200px] sm:max-h-[250px]"
+			style={extraStyles.container}
 		>
 			<div className="flex flex-col justify-start items-start max-h-[250px] overflow-hidden">
 				<CardTitle text={model.title} />

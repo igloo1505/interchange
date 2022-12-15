@@ -8,13 +8,14 @@ import SeeMore from "./SeeMore";
 
 interface FeedCard_patronProps {
 	model: PatronInterface;
+	extraStyles: any;
 }
 
-const FeedCard_patron = ({ model }: FeedCard_patronProps) => {
+const FeedCard_patron = ({ model, extraStyles }: FeedCard_patronProps) => {
 	return (
 		<div
-			className="w-full grid gap-2 min-h-[200px] max-h-[250px]"
-			style={{ gridTemplateColumns: "40% 60%" }}
+			className="w-full grid gap-2 min-h-[200px] sm:max-h-[250px]"
+			style={extraStyles.container}
 		>
 			<div className="flex flex-col justify-start items-start max-h-[250px] overflow-hidden">
 				<CardTitle text="Guest" />

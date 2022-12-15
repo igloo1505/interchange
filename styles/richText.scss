@@ -22,4 +22,36 @@
 		// max-width: 85%;
 		// text-align: center;
 	}
+	strong {
+		color: #0369a1;
+	}
+}
+
+.rich-text-demo {
+	// padding-top: 1rem;
+	// padding-bottom: 1rem;
+	h2 {
+		font-size: 1.1rem;
+		color: #075985;
+		font-weight: 600;
+		margin: 0.25rem auto;
+	}
+	p {
+		text-indent: 2ch;
+		margin: 0.25rem auto;
+	}
+	a {
+		color: #0ea5e9;
+	}
+	blockquote {
+		margin: 0.5rem 8%;
+		font-style: italic;
+		font-weight: 600;
+		color: #0c4a6e;
+		// max-width: 85%;
+		// text-align: center;
+	}
+	strong {
+		color: #0369a1;
+	}
 }

@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import gsap from "gsap";
 import { getIdFromString } from "../../utils/IdFromString";
+import clsx from "clsx";
 
 interface TitleProps {
 	text: string;
 	url?: string;
+	withMarginBottom?: boolean;
 }
 
-const Title = ({ text, url }: TitleProps) => {
+const Title = ({ text, url, withMarginBottom = true }: TitleProps) => {
 	let _idBase = getIdFromString(text);
 	useEffect(() => {
 		setTimeout(() => {
@@ -26,7 +28,7 @@ const Title = ({ text, url }: TitleProps) => {
 		}, 1000);
 	}, []);
 	return (
-		<div className="mt-2 mb-4 text-2xl">
+		<div className={clsx("mt-2 text-2xl", withMarginBottom && "mb-4")}>
 			{url ? (
 				<a href={url}>
 					<div

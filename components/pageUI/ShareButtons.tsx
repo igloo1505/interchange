@@ -64,7 +64,7 @@ const ShareButtons = ({
 	let url = `${window?.location.origin}${router.asPath}`;
 	return (
 		<div
-			className="flex flex-row justify-end items-center gap-2 mb-3"
+			className="flex flex-row justify-end items-center gap-2 mb-3 mt-5"
 			onMouseMove={(e) =>
 				hoverAnimationMove(e, ["email", "twitter", "pocket", "instagram"])
 			}
