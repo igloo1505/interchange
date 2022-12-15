@@ -43,7 +43,7 @@ const FeedCard_volunteer = connector(
 						{sliceText(filterTags({ text: model?.description }), 250)}
 					</div>
 					<SeeMore
-						id={`${model.id}` || `${model._id}` || ""}
+						id={model.id ? model.id : model._id}
 						resource="volunteerSpotlight"
 					/>
 				</div>

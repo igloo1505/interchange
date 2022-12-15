@@ -89,6 +89,7 @@ const Slider = ({
 							top: "50%",
 							left: "8px",
 							transform: "translateY(-50%)",
+							fill: "#fff",
 						}}
 						onClick={() => handleArrowClick("backward")}
 					/>
@@ -100,6 +101,7 @@ const Slider = ({
 							top: "50%",
 							right: "8px",
 							transform: "translateY(-50%)",
+							fill: "#fff",
 						}}
 						onClick={() => handleArrowClick("forward")}
 					/>

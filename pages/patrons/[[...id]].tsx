@@ -4,6 +4,8 @@ import WithColumnRight from "../../components/layout/WithColumnRight";
 import ColumnRight from "../../components/layout/ColumnRight";
 import Navbar from "../../components/layout/Navbar";
 import Navbar_mobile from "../../components/layout/Navbar_mobile";
+import Drawer from "../../components/layout/Drawer";
+import Toast from "../../components/layout/Toast";
 import { connectServerSide } from "../../utils/connectMongo";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import ImageSlider from "../../components/general/ImageSlider";
@@ -25,6 +27,8 @@ const FeaturedPage = ({ data }: FeaturedPageProps) => {
 	return (
 		<Fragment>
 			<Navbar />
+			<Toast />
+			<Drawer />
 			<Navbar_mobile />
 			<ColumnRight />
 			<WithColumnRight>

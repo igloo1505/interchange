@@ -13,14 +13,15 @@ interface DrawerProps {
 	drawer: RootState["UI"]["drawer"];
 }
 
-const Drawer = ({ drawer: { isOpen } }: DrawerProps) => {
+const Drawer = ({ drawer }: DrawerProps) => {
+	console.log("drawer: ", drawer);
 	const dispatch = useAppDispatch();
-	const [show, setShow] = useState(false);
 	const [hoveredIndex, setHoveredIndex] = useState(-1);
 	useEffect(() => {
-		setShow(isOpen);
-		animateBackdropEntrance(isOpen);
-	}, [isOpen]);
+		// debugger;
+		// setShow(drawer.isOpen);
+		animateBackdropEntrance(drawer.isOpen);
+	}, [drawer]);
 	const handleBackdropClick = () => {
 		dispatch(toggleDrawer(false));
 	};
@@ -30,7 +31,7 @@ const Drawer = ({ drawer: { isOpen } }: DrawerProps) => {
 			<div
 				className={clsx(
 					"fixed top-0 left-0 h-screen bg-sky-700 w-fit min-w-[150px] z-[1000] flex flex-col justify-between",
-					show ? "transformDrawer_show" : "transformDrawer_hide"
+					drawer.isOpen ? "transformDrawer_show" : "transformDrawer_hide"
 				)}
 				id="drawer-outer-container"
 			>

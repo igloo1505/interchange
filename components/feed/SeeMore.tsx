@@ -1,8 +1,8 @@
 import React from "react";
 import Link from "next/link";
-
+import { ObjectId } from "mongoose";
 interface SeeMoreProps {
-	id: string;
+	id: string | ObjectId;
 	resource: "volunteerSpotlight" | "post" | "patrons";
 }
 
