@@ -12,10 +12,6 @@ const bShadow = {
 	boc: "#94a3b8",
 };
 
-export const hoverAnimationEnter = (e) => {
-	let target = e.target.classList;
-};
-
 const animateMouseLeave = (e) => {
 	gsap.to(`#${e.target.id}`, {
 		boxShadow: `${bShadow.fx}px ${bShadow.fy}px ${bShadow.fos}px #64748b, ${bShadow.bx}px ${bShadow.by}px ${bShadow.bos}px #94a3b8`,

@@ -4,8 +4,8 @@ import { BsTwitter } from "react-icons/bs";
 import { socialInfo } from "../../utils/infoDetails";
 import * as Icons from "./Icons";
 import {
-	hoverAnimationEnter,
-	hoverAnimationExit,
+	// hoverAnimationEnter,
+	// hoverAnimationExit,
 	hoverAnimationMove,
 } from "../../animations/hoverShareButton";
 import {
@@ -44,7 +44,7 @@ const Button = ({
 				class_name
 			)}
 			id={_id}
-			onMouseEnter={hoverAnimationEnter}
+			// onMouseEnter={hoverAnimationEnter}
 			onMouseLeave={hoverAnimationExit}
 			// onMouseMove={hoverAnimationMove}
 		>

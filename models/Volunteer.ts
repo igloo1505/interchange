@@ -7,6 +7,7 @@ export interface VolunteerInterface {
 	email?: string;
 	primaryImageIndex?: number;
 	_model?: string;
+	_id?: string;
 	name: {
 		first?: string;
 		last?: string;
