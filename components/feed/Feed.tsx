@@ -16,7 +16,7 @@ interface FeedProps {
 
 const Feed = connector(({ feed }: FeedProps) => {
 	const [feedContent, setFeedContent] = useState(
-		Array.isArray(feed.data) ? feed.data : []
+		Boolean(Array.isArray(feed.data) && feed.data.length >= 1) ? feed.data : []
 	);
 	useEffect(() => {
 		setFeedContent(feed.data);
@@ -26,6 +26,7 @@ const Feed = connector(({ feed }: FeedProps) => {
 			<FeedFilter />
 			<div>
 				{feedContent &&
+					feedContent.length >= 1 &&
 					feedContent.map((f, i) => {
 						return <FeedCard model={f} key={`feed-card-${i}`} />;
 					})}
