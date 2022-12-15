@@ -18,7 +18,9 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 		console.log("ids: ".red, ids);
 		for (var i = 0; i < ids.length; i++) {
 			let contact = await Contact.findById(ids[i]);
+			/// @ts-ignore
 			contacts.push(
+				/// @ts-ignore
 				contact.toObject({
 					getters: true,
 					virtuals: true,
@@ -36,6 +38,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 			return sendError(errorResponse, res);
 		}
 		await contacts.forEach(
+			/// @ts-ignore
 			async (v) => await Contact.findByIdAndRemove(v.id || v._id)
 		);
 

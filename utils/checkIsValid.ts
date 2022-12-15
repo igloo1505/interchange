@@ -71,6 +71,7 @@ interface filterInvalidReturn {
 	deleteCount: number;
 	_data: Array<any>;
 }
+/// @ts-ignore
 export const filterInvalid = async (arr: Array<any>): filterInvalidReturn => {
 	let removedArray: any = [];
 	for (let i = 0; i < arr.length; i++) {

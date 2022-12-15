@@ -7,6 +7,8 @@ export interface GeneralPostInterface {
 	_model?: string;
 	url?: string;
 	title: string;
+	id: string;
+	_id: string;
 	images?: { path: string; publicUrl: string }[];
 	primaryImageIndex?: number;
 	autoExpire?: (() => Date) | Date | string;
@@ -69,7 +71,6 @@ const GeneralPostSchema = new Schema<GeneralPostInterface>(
 				await clearAllImages(this);
 			},
 			checkValid() {
-
 				return checkIsValid(this);
 			},
 		},

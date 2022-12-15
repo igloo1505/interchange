@@ -9,6 +9,7 @@ import FeedCard_volunteer from "./FeedCard_volunteer";
 import { useRouter } from "next/router";
 import { connect } from "react-redux";
 import initialState from "../../state/initialState";
+import { RootState } from "../../state/store";
 const CARD_BREAKPOINT = 640;
 const connector = connect((state: RootState, props) => ({
 	viewport: state.UI.dimensions.viewport,

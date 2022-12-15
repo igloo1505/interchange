@@ -17,6 +17,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 		console.log("ids: ".red, ids);
 		for (var i = 0; i < ids.length; i++) {
 			let general = await GeneralPost.findById(ids[i]);
+			/// @ts-ignore
 			generalPosts.push(general);
 		}
 		if (generalPosts.length === 0) {
@@ -32,12 +33,15 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 		for (let i = 0; i < generalPosts.length; i++) {
 			const v = generalPosts[i];
 			debugger;
+			/// @ts-ignore
 			await v.clearImages();
+			/// @ts-ignore
 			await GeneralPost.findByIdAndDelete(v.id || v._id);
 		}
 
 		let response = {
 			response: generalPosts.forEach((v) =>
+				/// @ts-ignore
 				v.toObject({
 					getters: true,
 					virtuals: true,

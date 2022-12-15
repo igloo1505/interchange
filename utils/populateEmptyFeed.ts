@@ -14,7 +14,7 @@ export const populateEmptyFeed = (
 	_data: globalDataInterface | null,
 	surpass: boolean,
 	page: number
-) => {
+): any => {
 	// debugger;
 	let data = surpass ? store.getState().global : _data;
 	if (!page) page = 1;
@@ -25,12 +25,15 @@ export const populateEmptyFeed = (
 	};
 	let flat = [];
 	if (add.gen) {
+		///@ts-ignore
 		flat = [...flat, ...data?.generalPosts];
 	}
 	if (add.vol) {
+		///@ts-ignore
 		flat = [...flat, ...data?.volunteers];
 	}
 	if (add.pat) {
+		///@ts-ignore
 		flat = [...flat, ...data?.patrons];
 	}
 	let sorted = flat.sort((a, b) => {

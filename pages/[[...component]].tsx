@@ -64,8 +64,10 @@ const Landing = ({ data }: LandingProps) => {
 		let hasFeed =
 			store.getState().global?.feed?.data?.length > 0 ? true : false;
 		console.log("hasFeed: ", hasFeed);
+		/// @ts-ignore
 		let feed = populateEmptyFeed(data);
 		dispatch(
+			/// @ts-ignore
 			populateGlobal({
 				...data,
 				...(!hasFeed && { feed: { data: feed, page: 1 } }),
@@ -123,7 +125,7 @@ export const getServerSideProps: GetServerSideProps<{
 	let patrons = await Patron.find().sort({
 		createdAt: "asc",
 	});
-
+	/// @ts-ignore
 	let data: globalDataInterface = {
 		hours: _hours
 			? Array.isArray(_hours)

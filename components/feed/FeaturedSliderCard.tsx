@@ -11,11 +11,12 @@ interface FeaturedSliderCardProps {
 
 const FeaturedSliderCard = ({ featured, index }: FeaturedSliderCardProps) => {
 	const router = useRouter();
-
-	let imageIndex =
-		featured.primaryImageIndex && featured.primaryImageIndex < featured.images
-			? featured.primaryImageIndex
-			: 0;
+	let imageIndex = 0;
+	if (featured.images?.length && featured.primaryImageIndex) {
+		if (featured.primaryImageIndex < featured.images.length) {
+			imageIndex = featured.primaryImageIndex;
+		}
+	}
 	return (
 		<div className="bg-primary-800 text-white grid h-full w-full featuredCard relative z-[100]">
 			<div
@@ -47,15 +48,17 @@ const FeaturedSliderCard = ({ featured, index }: FeaturedSliderCardProps) => {
 				</Link>
 			</div>
 			<div className="absolute h-full w-full bg-black z-[99] transition-all duration-500 slider-backdrop" />
-			<Image
-				src={featured.images[imageIndex]?.publicUrl}
-				alt="Event Image"
-				fill
-				className="object-cover absolute"
-				style={{
-					zIndex: 1,
-				}}
-			/>
+			{featured.images && (
+				<Image
+					src={featured.images[imageIndex]?.publicUrl}
+					alt="Event Image"
+					fill
+					className="object-cover absolute"
+					style={{
+						zIndex: 1,
+					}}
+				/>
+			)}
 		</div>
 	);
 };

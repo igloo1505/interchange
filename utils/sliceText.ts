@@ -6,7 +6,7 @@ export const filterTags = ({
 	brokenArray?: boolean;
 }): string | string[] => {
 	// debugger;
-	if (!text) return;
+	if (!text) return "";
 	let lineBreaks = ["</p>", "</div>", "</u>", "<br>"];
 	let _text = [""];
 	let a = Array.from(text);

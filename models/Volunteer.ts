@@ -114,7 +114,7 @@ const VolunteerSchema = new Schema<VolunteerInterface>(
 VolunteerSchema.alias("_id", "id");
 
 VolunteerSchema.pre("save", function (next) {
-	if (this.quote.string && !this.quote.index) {
+	if (this?.quote?.string && !this?.quote?.index) {
 		this.quote.index = 1;
 	}
 	next();

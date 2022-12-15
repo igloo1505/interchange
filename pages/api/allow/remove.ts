@@ -18,6 +18,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 		for (var i = 0; i < ids.length; i++) {
 			let contact = await AllowAccess.findById(ids[i]);
 			permitted.push(
+				/// @ts-ignore
 				contact.toObject({
 					getters: true,
 					virtuals: true,
@@ -36,6 +37,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 		}
 		for (let i = 0; i < permitted.length; i++) {
 			const v = permitted[i];
+			/// @ts-ignore
 			await AllowAccess.findByIdAndRemove(v.id || v._id);
 		}
 

@@ -6,6 +6,7 @@ const handleFilter = (req: NextApiRequest): object => {
 		console.log("Returning filter {}");
 		return {};
 	}
+	/// @ts-ignore
 	let _filter = { ...qs.parse(req.query.filter) };
 	console.log("query123: ", _filter);
 	if (typeof _filter !== "object") {

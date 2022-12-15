@@ -1,10 +1,10 @@
 import NextAuth, { AuthOptions } from "next-auth";
 import GoogleProvider, { GoogleProfile } from "next-auth/providers/google";
-import clientPromise from "../../../utils/clientPromise";
-import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
+// import clientPromise from "../../../utils/clientPromise";
+// import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import {
 	refreshAccessToken,
-	GOOGLE_AUTHORIZATION_URL,
+	// GOOGLE_AUTHORIZATION_URL,
 } from "../../../utils/refreshToken";
 import { JWT, JWTOptions } from "next-auth/jwt";
 import AllowAccess from "../../../models/AllowAccess";
@@ -59,12 +59,17 @@ export const authOptions: AuthOptions = {
 		},
 		async session({ session, token, user }) {
 			// session.accessToken = token.accessToken;
+			/// @ts-ignore
 			session.user = token.user;
+			/// @ts-ignore
 			session.email = token.email;
+			/// @ts-ignore
 			session.accessToken = token.accessToken;
+			/// @ts-ignore
 			session.error = token.error;
 			return session;
 		},
+		/// @ts-ignore
 		async signIn({ user, account, profile, email, credentials }): any {
 			let allowable = AllowAccess.find();
 			let a = (await allowable).map((m) => m.email.toLowerCase());
@@ -75,6 +80,7 @@ export const authOptions: AuthOptions = {
 			console.log("credentials: ", credentials);
 			console.log("a: ", a);
 			const isAllowedToSignIn =
+				/// @ts-ignore
 				["interchangefp@gmail.com", ...a].indexOf(profile.email) >= 0;
 			console.log("isAllowedToSignIn: ", isAllowedToSignIn);
 			if (isAllowedToSignIn) {

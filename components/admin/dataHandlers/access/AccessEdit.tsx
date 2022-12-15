@@ -3,7 +3,7 @@ import { Edit, SimpleForm, TextInput, DateInput } from "react-admin";
 import Box from "@mui/material/Box";
 
 const AccessEdit = () => {
-	const [viewport, setViewport] = useState();
+	const [viewport, setViewport] = useState<number | undefined | any>();
 	const handleViewport = () => {
 		if (typeof window === "undefined") {
 			return;

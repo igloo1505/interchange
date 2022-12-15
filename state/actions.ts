@@ -91,11 +91,12 @@ export const populateGlobal = (
 export const setFeedDataIndependently = (data?: {
 	data: { data: any[]; page: number };
 }) => {
+	/// @ts-ignore
 	let _data = data ? data : populateEmptyFeed(null, true, null);
 	store.dispatch({
 		type: "SET_FEED_INDEPENDENTLY",
 		payload: {
-			..._data
+			..._data,
 		},
 	});
 };
@@ -103,6 +104,7 @@ export const setFeedDataIndependently = (data?: {
 export const filterFeed = async (
 	query: string,
 	_page?: number
+	/// @ts-ignore
 ): Types.FILTER_FEED => {
 	let page = _page || store.getState().global.feed.page;
 	let res = await axios({
@@ -114,7 +116,9 @@ export const filterFeed = async (
 			perPage: 10,
 		},
 	});
+	/// @ts-ignore
 	if (res.data.success) {
+		/// @ts-ignore
 		return store.dispatch({
 			type: "FILTER_FEED",
 			payload: {
@@ -131,6 +135,7 @@ export const filterFeed = async (
 	}
 };
 
+/// @ts-ignore
 export const setFilterPage = (page: number): Types.SET_FILTER_PAGE => {
 	store.dispatch({
 		type: "SET_FILTER_PAGE",

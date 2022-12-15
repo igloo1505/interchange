@@ -3,11 +3,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import { BsTwitter } from "react-icons/bs";
 import { socialInfo } from "../../utils/infoDetails";
 import * as Icons from "./Icons";
-import {
-	// hoverAnimationEnter,
-	// hoverAnimationExit,
-	hoverAnimationMove,
-} from "../../animations/hoverShareButton";
+import { hoverAnimationMove } from "../../animations/hoverShareButton";
 import {
 	EmailShareButton,
 	FacebookShareButton,
@@ -21,12 +17,11 @@ import {
 import { useRouter } from "next/router";
 import clsx from "clsx";
 interface ShareButtonsProps {
-	quote: string;
+	quote?: string;
 	hashtag?: string;
-	title: string;
-	description: string;
+	title?: string;
+	description?: string;
 	subject?: string;
-	url: string;
 }
 
 const Button = ({
@@ -44,9 +39,6 @@ const Button = ({
 				class_name
 			)}
 			id={_id}
-			// onMouseEnter={hoverAnimationEnter}
-			onMouseLeave={hoverAnimationExit}
-			// onMouseMove={hoverAnimationMove}
 		>
 			{children}
 		</div>

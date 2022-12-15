@@ -29,7 +29,7 @@ export default Admin;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
 	debugger;
-	const session = await unstable_getServerSession(
+	const session: any = await unstable_getServerSession(
 		context.req,
 		context.res,
 		authOptions
@@ -39,7 +39,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 	});
 	console.log(`session: ${JSON.stringify(session, null, 2)}`.red);
 	console.log("token: ", token);
-	let hasEmail = session.email;
+	let hasEmail = session?.email;
 	if (!hasEmail) {
 		return {
 			redirect: {

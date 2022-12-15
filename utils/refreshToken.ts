@@ -2,6 +2,7 @@ export const refreshAccessToken = async (token) => {
 	try {
 		const url =
 			"https://oauth2.googleapis.com/token?" +
+			/// @ts-ignore
 			new URLSearchParams({
 				client_id: process.env.GOOGLE_CLIENT_ID,
 				client_secret: process.env.GOOGLE_CLIENT_SECRET,

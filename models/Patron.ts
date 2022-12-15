@@ -20,7 +20,8 @@ export interface PatronInterface {
 	images?: { path: string; publicUrl: string }[];
 	phone?: number | string | undefined;
 	regularJob?: string;
-	id?: Schema.Types.ObjectId;
+	id?: Schema.Types.ObjectId | string;
+	_id: string;
 }
 
 const PatronSchema = new Schema<PatronInterface>(
@@ -113,7 +114,7 @@ const PatronSchema = new Schema<PatronInterface>(
 PatronSchema.alias("_id", "id");
 
 PatronSchema.pre("save", function (next) {
-	if (this.quote.string && !this.quote.index) {
+	if (this?.quote?.string && !this.quote?.index) {
 		this.quote.index = 1;
 	}
 	next();

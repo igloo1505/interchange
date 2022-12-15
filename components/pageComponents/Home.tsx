@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Fragment } from "react";
-import FeaturedSlider from "../feed/FeaturedSlider";
+// import FeaturedSlider from "../feed/FeaturedSlider";
 import Slider from "../slider/Slider";
 import { connect } from "react-redux";
 import { RootState } from "../../state/store";
@@ -15,7 +15,7 @@ const connector = connect((state: RootState, props) => ({
 
 const Home = connector(({ featureds }: { featureds: FeaturedInterface[] }) => {
 	console.log("featureds: ", featureds);
-	const [animCancel, setAnimCancel] = useState(null);
+	const [animCancel, setAnimCancel] = useState<any>(null);
 	useEffect(() => {
 		const interval = setInterval(() => {
 			let tl = gsap.timeline({

@@ -20,7 +20,7 @@ import { getToken } from "next-auth/jwt";
 const raleway = Raleway({
 	weight: ["200", "400", "500", "600", "800"],
 	style: ["normal", "italic"],
-	// subsets: ["latin"],
+	subsets: ["latin"],
 	variable: "--font-raleway",
 });
 

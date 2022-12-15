@@ -99,14 +99,17 @@ export const getImageFromReq = async (
 		["FeaturedPost"]: Featured,
 	};
 	let images = req?.files?.map((f: multerFileType) => {
+		/// @ts-ignore
 		return { publicUrl: `${f.publicUrl}`, path: `${f.path}` };
 	});
+	/// @ts-ignore
 	let isInMap = Object.keys(modelMap).indexOf(model) >= 0;
 	debugger;
 	if (!isInMap || !req?.body?.id) {
 		return images;
 	}
 	if (isInMap && req.body?.id) {
+		/// @ts-ignore
 		let m = await modelMap[model].findById(req.body.id);
 		if (!m) return images;
 		let val = Array.isArray(m?.images) ? [...m.images, ...images] : images;
@@ -120,6 +123,7 @@ export const getImageFromReq = async (
 export const handleUpdateWithImage = async (
 	req: NextApiRequest,
 	model: string
+	/// @ts-ignore
 ): any => {
 	debugger;
 	let modelMap = {

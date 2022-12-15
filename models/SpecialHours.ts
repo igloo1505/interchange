@@ -1,8 +1,9 @@
 import { Schema, models, model, ObjectId } from "mongoose";
-import Hours, { DailyHoursInterface, Week, Daily } from "./Hours";
+import Hours, { HoursInterface, Week } from "./Hours";
+import Daily from "./Daily";
 
 export interface SpecialHoursInterface {
-	hours: DailyHoursInterface;
+	hours: HoursInterface;
 	dateApplicable: Date | (() => Date) | Week;
 	recurring?: boolean;
 	dateUpdated: (() => Date) | string;

@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import ImageEditField from "../../ImageEditField";
 
 const GeneralPostEdit = () => {
-	const [viewport, setViewport] = useState();
+	const [viewport, setViewport] = useState<number | undefined | any>();
 	const handleViewport = () => {
 		if (typeof window === "undefined") {
 			return;

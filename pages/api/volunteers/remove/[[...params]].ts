@@ -18,6 +18,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 		console.log("ids: ".red, ids);
 		for (var i = 0; i < ids.length; i++) {
 			let volunteer = await Volunteer.findById(ids[i]);
+			/// @ts-ignore
 			volunteers.push(volunteer);
 		}
 		if (volunteers.length === 0) {
@@ -32,12 +33,15 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 		}
 		for (let i = 0; i < volunteers.length; i++) {
 			const v = volunteers[i];
+			/// @ts-ignore
 			await v.clearImages();
+			/// @ts-ignore
 			await Volunteer.findByIdAndRemove(v.id || v._id);
 		}
 
 		let response = {
 			response: volunteers.map((v) =>
+				/// @ts-ignore
 				v.toObject({
 					getters: true,
 					virtuals: true,

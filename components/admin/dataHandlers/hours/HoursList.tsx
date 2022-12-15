@@ -64,31 +64,31 @@ const HoursList = () => {
 			<Datagrid rowClick="show">
 				<FunctionField
 					label={dayValues[0]}
-					render={(r) => renderFunction(r, 0)}
+					render={(r: any) => renderFunction(r, 0)}
 				/>
 				<FunctionField
 					label={dayValues[1]}
-					render={(r) => renderFunction(r, 1)}
+					render={(r: any) => renderFunction(r, 1)}
 				/>
 				<FunctionField
 					label={dayValues[2]}
-					render={(r) => renderFunction(r, 2)}
+					render={(r: any) => renderFunction(r, 2)}
 				/>
 				<FunctionField
 					label={dayValues[3]}
-					render={(r) => renderFunction(r, 3)}
+					render={(r: any) => renderFunction(r, 3)}
 				/>
 				<FunctionField
 					label={dayValues[4]}
-					render={(r) => renderFunction(r, 4)}
+					render={(r: any) => renderFunction(r, 4)}
 				/>
 				<FunctionField
 					label={dayValues[5]}
-					render={(r) => renderFunction(r, 5)}
+					render={(r: any) => renderFunction(r, 5)}
 				/>
 				<FunctionField
 					label={dayValues[6]}
-					render={(r) => renderFunction(r, 6)}
+					render={(r: any) => renderFunction(r, 6)}
 				/>
 			</Datagrid>
 		</List>

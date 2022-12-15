@@ -21,7 +21,7 @@ interface PaginateProps {
 }
 
 const getButtons = (max: number, page: number, total: number) => {
-	let arr = [];
+	let arr: { n: number; active: boolean }[] = [];
 	for (let i = 1; i < max + 1; i++) {
 		arr.push({
 			n: i,
@@ -46,8 +46,13 @@ const Paginate = connector(
 
 		const handleButtonClick = (n: number) => {
 			if (query === "" || !query) {
-				let feedData = populateEmptyFeed(null, true, n);
+				let feedData: { data: any[]; page: number }[] = populateEmptyFeed(
+					null,
+					true,
+					n
+				);
 				console.log("feedData: ", feedData);
+				///@ts-ignore
 				setFeedDataIndependently(feedData);
 			}
 			if (query && query !== "") {

@@ -1,27 +1,6 @@
 import { MouseEvent } from "react";
 import gsap from "gsap";
 
-const bShadow = {
-	fx: 5,
-	fy: 5,
-	fos: 13,
-	foc: "#64748b",
-	bx: -5,
-	by: -5,
-	bos: 13,
-	boc: "#94a3b8",
-};
-
-const animateMouseLeave = (e) => {
-	gsap.to(`#${e.target.id}`, {
-		boxShadow: `${bShadow.fx}px ${bShadow.fy}px ${bShadow.fos}px #64748b, ${bShadow.bx}px ${bShadow.by}px ${bShadow.bos}px #94a3b8`,
-		rotateX: 0,
-		rotateY: 0,
-		duration: 2.5,
-		ease: "elastic.out(1.2, 0.2)",
-	});
-};
-
 const inRange = (n: number) => {
 	return Boolean(n >= -1 && n <= 1);
 };

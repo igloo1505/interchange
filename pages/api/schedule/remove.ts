@@ -20,6 +20,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 		for (var i = 0; i < ids.length; i++) {
 			let hour = await Hours.findById(ids[i]);
 			hours.push(
+				/// @ts-ignore
 				hour.toObject({
 					getters: true,
 					virtuals: true,
@@ -42,6 +43,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 		for (let i = 0; i < hours.length; i++) {
 			const h = hours[i];
 			// await h.clearSubdocs();
+			/// @ts-ignore
 			let _h = await Hours.findById(h.id);
 			await _h.clearSubdocs();
 			// await Hours.findByIdAndRemove(h.id || h._id);
