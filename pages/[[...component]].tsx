@@ -66,11 +66,12 @@ const Landing = ({ data }: LandingProps) => {
 		console.log("hasFeed: ", hasFeed);
 		/// @ts-ignore
 		let feed = populateEmptyFeed(data);
+
 		dispatch(
 			/// @ts-ignore
 			populateGlobal({
 				...data,
-				...(!hasFeed && { feed: { data: feed, page: 1 } }),
+				...(!hasFeed && { feed: { ...feed } }),
 			})
 		);
 	}, [data]);
