@@ -172,7 +172,7 @@ const shelters: ShelterInterface[] = [
 
 const HousingItem = ({ item }: { item: ShelterInterface }) => {
 	return (
-		<div className="flex flex-col items-start justify-start gap-1 mt-2">
+		<div className="flex flex-col items-start justify-start gap-1 mt-2 resources-item">
 			{item.url ? (
 				<a href={item.url}>
 					<div className="text-primary-800">{item.title}</div>
@@ -215,7 +215,7 @@ const Housing = () => {
 			<div className="font-normal text-primary-600">
 				US Department of Housing and Urban Development
 			</div>
-			<div className="ml-3 font-thin">
+			<div className="ml-3 font-thin resources-item">
 				There is information for the homeless and assistance that HUD provides
 				to homeless people. Information is available for renters and rent
 				assistance that HUD facilitates. Often renters that qualify for

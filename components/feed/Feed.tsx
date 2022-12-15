@@ -15,7 +15,9 @@ interface FeedProps {
 }
 
 const Feed = connector(({ feed }: FeedProps) => {
-	const [feedContent, setFeedContent] = useState(feed.data);
+	const [feedContent, setFeedContent] = useState(
+		Array.isArray(feed.data) ? feed.data : []
+	);
 	useEffect(() => {
 		setFeedContent(feed.data);
 	}, [feed]);

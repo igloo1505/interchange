@@ -7,6 +7,7 @@ import clsx from "clsx";
 
 interface SliderProps {
 	cards: JSX.Element[];
+	id?: string;
 	infinite?: boolean;
 	maxWidth?: string;
 	hideButtons?: boolean;
@@ -14,6 +15,7 @@ interface SliderProps {
 
 const Slider = ({
 	cards,
+	id = "",
 	infinite = true,
 	maxWidth,
 	hideButtons = false,
@@ -54,7 +56,11 @@ const Slider = ({
 			}}
 		>
 			<div
-				className="h-[400px] grid w-full"
+				className={clsx(
+					"h-[400px] grid w-full overflow-hidden",
+					id && "scale-0 opacity-0"
+				)}
+				id={id}
 				// style={{
 				// 	// width: cards?.length ? `${cards.length * 100}%` : "100%",
 				//     width: "100%",

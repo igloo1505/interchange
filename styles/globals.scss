@@ -262,29 +262,33 @@ $drawer-close-transition: 0.35s ease-in-out;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	transition: all 0.35s ease-in-out;
-	box-shadow: 5px 5px 24px 8px rgba(0, 0, 0, 0.5);
-	-webkit-box-shadow: 5px 5px 24px 8px rgba(0, 0, 0, 0.5);
-	-moz-box-shadow: 5px 5px 24px 8px rgba(0, 0, 0, 0.5);
+	transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+	cursor: pointer;
+	box-shadow: rgb(100 116 139) 5px 5px 14px,
+		rgb(148 163 184) -9.68103px -2.33206px 14px;
+	-webkit-box-shadow: rgb(100 116 139) 5px 5px 14px,
+		rgb(148 163 184) -9.68103px -2.33206px 14px;
+	-moz-box-shadow: rgb(100 116 139) 5px 5px 14px,
+		rgb(148 163 184) -9.68103px -2.33206px 14px;
 	#Pocket2 {
 		fill: #fff;
-		transition: all 0.05s ease-in-out;
+		// transition: all 0.05s ease-in-out;
 	}
 	#Pocket1 {
 		fill: transparent;
-		transition: all 0.35s ease-in-out;
+		transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
 	}
 	svg {
-		transition: all 0.35s ease-in-out;
+		transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
 		fill: #fff;
 	}
 	&:hover {
-		box-shadow: 5px 5px 24px 5px rgba(0, 0, 0, 0.5);
-		-webkit-box-shadow: 5px 5px 24px 5px rgba(0, 0, 0, 0.5);
-		-moz-box-shadow: 5px 5px 24px 5px rgba(0, 0, 0, 0.5);
+		// box-shadow: 5px 5px 24px 5px rgba(0, 0, 0, 0.5);
+		// -webkit-box-shadow: 5px 5px 24px 5px rgba(0, 0, 0, 0.5);
+		// -moz-box-shadow: 5px 5px 24px 5px rgba(0, 0, 0, 0.5);
 		background-color: #0ea5e9;
 		svg {
-			transition: all 0.35s ease-in-out;
+			transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
 			// transform: rotateZ(360deg);
 			// fill: #475569;
 			// fill: #0ea5e9;
@@ -305,6 +309,10 @@ $drawer-close-transition: 0.35s ease-in-out;
 			fill: #0ea5e9;
 		}
 	}
+}
+.resources-item {
+	transform: translateX(-100vw);
+	opacity: 0;
 }
 
 @import "./slider.scss";

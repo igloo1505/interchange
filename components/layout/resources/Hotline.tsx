@@ -18,7 +18,7 @@ const Hotline = ({
 }: HotlineProps) => {
 	return (
 		<div
-			className="flex flex-col items-start justify-start"
+			className="flex flex-col items-start justify-start resources-item"
 			style={{
 				marginTop: noMargin ? 0 : "1rem",
 			}}

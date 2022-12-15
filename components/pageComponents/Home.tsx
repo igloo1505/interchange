@@ -25,6 +25,12 @@ const Home = connector(({ featureds }: { featureds: FeaturedInterface[] }) => {
 					}
 				},
 			});
+			tl.to("#main-featured-post-slider", {
+				scale: 1,
+				opacity: 1,
+				duration: 1,
+				ease: "elastic.out(1, 0.85)",
+			});
 			tl.to(`.feed-card-container`, {
 				x: 0,
 				duration: 1.75,
@@ -39,6 +45,7 @@ const Home = connector(({ featureds }: { featureds: FeaturedInterface[] }) => {
 		<div className="flex flex-col items-center justify-start w-full min-h-full">
 			<Slider
 				maxWidth={"max(600px, 80%)"}
+				id="main-featured-post-slider"
 				cards={
 					featureds?.length
 						? featureds.map((f, inx) => (

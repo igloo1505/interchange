@@ -87,7 +87,7 @@ const JobPlaces: JobPlaceProps[] = [
 
 const JobPlace = ({ item }: { item: JobPlaceProps }) => {
 	return (
-		<div className="flex flex-col items-start justify-start gap-1 mt-2">
+		<div className="flex flex-col items-start justify-start gap-1 mt-2 resources-item">
 			{item.url ? (
 				<a href={item.url}>
 					<div className="text-primary-800">{item.title}</div>
@@ -133,7 +133,7 @@ const Employment = () => {
 			<div className="ml-3">
 				<ul className="colored-list-bullet">
 					{adaResources.map((a, i) => (
-						<li>{a}</li>
+						<li className="resources-item">{a}</li>
 					))}
 				</ul>
 			</div>

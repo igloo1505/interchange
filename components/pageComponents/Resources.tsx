@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PageTitle from "../layout/PageTitle";
 import SubTitle from "../layout/SubTitle";
 import Hotline from "../layout/resources/Hotline";
@@ -7,12 +7,51 @@ import Housing from "../layout/resources/Housing";
 import BasicNeeds from "../layout/resources/BasicNeeds";
 import Healthcare from "../layout/resources/Healthcare";
 import Employment from "../layout/resources/Employment";
+import gsap from "gsap";
 interface ResourcesProps {}
 
 const Resources = ({}: ResourcesProps) => {
+	useEffect(() => {
+		let tl = gsap.timeline();
+		tl.to("#resources-title-underline", {
+			scaleX: 1,
+			duration: 1,
+			ease: "elastic.out(1, 0.7)",
+		});
+		tl.to(
+			"#resources-title-text",
+			{
+				x: 1,
+				opacity: 1,
+				duration: 2,
+				ease: "elastic.out(1, 0.9)",
+			},
+			"-=0.7"
+		);
+		tl.to(
+			".resources-item",
+			{
+				x: 0,
+				opacity: 1,
+				duration: 0.5,
+				stagger: 0.2,
+				ease: "power4.out",
+			},
+			"-=0.75"
+		);
+	}, []);
 	return (
 		<div className="mx-4 mt-3 mb-8">
-			<PageTitle title="Resources" />
+			<PageTitle
+				title="Resources"
+				id_text="resources-title-text"
+				id_underline="resources-title-underline"
+				extraClasses_underline="scale-x-0"
+				extraStyles={{
+					transform: "translateX(-100vw)",
+					opacity: 0,
+				}}
+			/>
 			<SubTitle title="Hotlines" />
 			<Hotline
 				title="Community Info Line"

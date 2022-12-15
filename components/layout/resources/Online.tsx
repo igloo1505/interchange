@@ -13,7 +13,7 @@ interface OnlineProps {}
 const Online = ({}: OnlineProps) => {
 	return (
 		<div className="mx-3">
-			<div className="font-thin">
+			<div className="font-thin resources-item">
 				State of Wisconsin “Access” The Access site is a tool that you can use
 				to find your Food Share eligibility. There are also other facts that
 				come to light as you fill out the form. This is a full fledged service
@@ -28,7 +28,10 @@ const Online = ({}: OnlineProps) => {
 			>
 				{listItems.map((l, i) => {
 					return (
-						<li className="font-thin" key={`online-resource-item-${i}`}>
+						<li
+							className="font-thin resources-item"
+							key={`online-resource-item-${i}`}
+						>
 							{l}
 						</li>
 					);
