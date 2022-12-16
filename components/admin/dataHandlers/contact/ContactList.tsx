@@ -47,7 +47,7 @@ const ContactList = () => {
 			<Datagrid rowClick="show">
 				<TextField source="name" about="Name" label="Name" />
 				<TextField source="email" label="Email" />
-				<TextField source="website" label="Website" />
+				<TextField source="read" label="Read" />
 				<DateField source="received" locales="cst" />
 			</Datagrid>
 		</List>

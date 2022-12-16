@@ -170,7 +170,13 @@ const shelters: ShelterInterface[] = [
 	},
 ];
 
-const HousingItem = ({ item }: { item: ShelterInterface }) => {
+const HousingItem = ({
+	item,
+	logResourceClick,
+}: {
+	item: ShelterInterface;
+	logResourceClick: (label: string) => void;
+}) => {
 	return (
 		<div className="flex flex-col items-start justify-start gap-1 mt-2 resources-item">
 			{item.url ? (
@@ -182,7 +188,11 @@ const HousingItem = ({ item }: { item: ShelterInterface }) => {
 			)}
 			{item.address && (
 				/// @ts-ignore
-				<a href={item.mapUrl} className="ml-2 text-sm text-primary-500">
+				<a
+					href={item.mapUrl}
+					className="ml-2 text-sm text-primary-500"
+					onClick={() => item.address && logResourceClick(item.address)}
+				>
 					<div>{item.address}</div>
 				</a>
 			)}
@@ -191,6 +201,9 @@ const HousingItem = ({ item }: { item: ShelterInterface }) => {
 					/// @ts-ignore
 					href={item.tel}
 					className="ml-2 text-sm leading-tight tracking-tighter text-primary-500"
+					onClick={() =>
+						item.phone_display && logResourceClick(item.phone_display)
+					}
 				>
 					<div>{item.phone_display}</div>
 				</a>
@@ -209,7 +222,11 @@ const HousingItem = ({ item }: { item: ShelterInterface }) => {
 	);
 };
 
-const Housing = () => {
+const Housing = ({
+	logResourceClick,
+}: {
+	logResourceClick: (label: string) => void;
+}) => {
 	return (
 		<div className="flex flex-col items-start justify-start">
 			<div className="font-normal text-primary-600">
@@ -225,7 +242,11 @@ const Housing = () => {
 			</div>
 			<div>
 				{shelters.map((s: ShelterInterface, i: number) => (
-					<HousingItem item={s} key={`housing-item-${i}`} />
+					<HousingItem
+						item={s}
+						key={`housing-item-${i}`}
+						logResourceClick={logResourceClick}
+					/>
 				))}
 			</div>
 		</div>

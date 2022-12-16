@@ -7,6 +7,7 @@ interface HotlineProps {
 	telephone_display: string;
 	description: string;
 	noMargin?: boolean;
+	logResourceClick: (label: string) => void;
 }
 
 const Hotline = ({
@@ -15,6 +16,7 @@ const Hotline = ({
 	telephone_display,
 	description,
 	noMargin,
+	logResourceClick,
 }: HotlineProps) => {
 	return (
 		<div
@@ -24,7 +26,7 @@ const Hotline = ({
 			}}
 		>
 			<div className="font-semibold text-primary-800">{title}</div>
-			<a href={`tel:${tel}`}>
+			<a href={`tel:${tel}`} onClick={() => logResourceClick(title)}>
 				<div className="flex flex-row items-center justify-center gap-2 ml-2 text-primary-800">
 					<PhoneIcon className="fill-primary-700 h-[0.85rem] w-[0.85rem]" />
 					{telephone_display}

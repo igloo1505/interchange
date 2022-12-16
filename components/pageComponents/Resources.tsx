@@ -8,6 +8,7 @@ import BasicNeeds from "../layout/resources/BasicNeeds";
 import Healthcare from "../layout/resources/Healthcare";
 import Employment from "../layout/resources/Employment";
 import gsap from "gsap";
+import ReactGA from "react-ga4";
 
 let sendAllMarginBottom = 40;
 
@@ -40,6 +41,14 @@ const handleViewportTrigger = (isInitial?: boolean) => {
 };
 
 const Resources = ({}: ResourcesProps) => {
+	ReactGA.send({ hitType: "pageview", page: "/resources" });
+	const logResourceClick = (label: string) => {
+		ReactGA.event({
+			category: "resources",
+			action: "resourceClicked",
+			label: label,
+		});
+	};
 	useEffect(() => {
 		let tl = gsap.timeline();
 		tl.to("#resources-title-underline", {
@@ -93,47 +102,53 @@ const Resources = ({}: ResourcesProps) => {
 				telephone_display="211"
 				tel={211}
 				noMargin
+				logResourceClick={logResourceClick}
 			/>
 			<Hotline
 				title="CDC Health Line"
 				description="Health issues including STD / AIDS"
 				telephone_display="1-800-342-2437"
 				tel={18003422437}
+				logResourceClick={logResourceClick}
 			/>
 			<Hotline
 				title="Domestic Violence Hotline"
 				description=""
 				telephone_display="1-414-933-2722"
 				tel={14149332722}
+				logResourceClick={logResourceClick}
 			/>
 			<Hotline
 				title="Hope House"
 				description="Housing Hotline Homeless Women and Families Only Transitional Housing, referral required."
 				telephone_display="1-414-389-3825"
 				tel={14143893825}
+				logResourceClick={logResourceClick}
 			/>
 			<Hotline
 				title="Milwaukee County Mental Health Crisis Line"
 				description="Housing Hotline Homeless Women and Families Only Transitional Housing, referral required."
 				telephone_display="1-414-259-7222"
 				tel={14142597222}
+				logResourceClick={logResourceClick}
 			/>
 			<Hotline
 				title="Runaway Shelter Hotline"
 				description="Youth 11–17 yrs only"
 				telephone_display="1-414-647-8200"
 				tel={14146478200}
+				logResourceClick={logResourceClick}
 			/>
 			<SubTitle title="Online" />
 			<Online />
 			<SubTitle title="Housing" />
-			<Housing />
+			<Housing logResourceClick={logResourceClick} />
 			<SubTitle title="Basic Needs" />
-			<BasicNeeds />
+			<BasicNeeds logResourceClick={logResourceClick} />
 			<SubTitle title="Employment" />
-			<Employment />
+			<Employment logResourceClick={logResourceClick} />
 			<SubTitle title="Healthcare" />
-			<Healthcare />
+			<Healthcare logResourceClick={logResourceClick} />
 		</div>
 	);
 };

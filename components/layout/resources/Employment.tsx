@@ -85,11 +85,20 @@ const JobPlaces: JobPlaceProps[] = [
 	},
 ];
 
-const JobPlace = ({ item }: { item: JobPlaceProps }) => {
+const JobPlace = ({
+	item,
+	logResourceClick,
+}: {
+	item: JobPlaceProps;
+	logResourceClick: (label: string) => void;
+}) => {
 	return (
 		<div className="flex flex-col items-start justify-start gap-1 mt-2 resources-item">
 			{item.url ? (
-				<a href={item.url}>
+				<a
+					href={item.url}
+					onClick={() => item.url && logResourceClick(item.url)}
+				>
 					<div className="text-primary-800">{item.title}</div>
 				</a>
 			) : (
@@ -97,7 +106,11 @@ const JobPlace = ({ item }: { item: JobPlaceProps }) => {
 			)}
 			{item.address && (
 				/// @ts-ignore
-				<a href={item.mapUrl} className="ml-2 text-sm text-primary-500">
+				<a
+					href={item.mapUrl}
+					className="ml-2 text-sm text-primary-500"
+					onClick={() => item.address && logResourceClick(item.address)}
+				>
 					<div>{item.address}</div>
 				</a>
 			)}
@@ -106,6 +119,9 @@ const JobPlace = ({ item }: { item: JobPlaceProps }) => {
 					/// @ts-ignore
 					href={item.tel}
 					className="ml-2 text-sm leading-tight tracking-tighter text-primary-500"
+					onClick={() =>
+						item.phone_display && logResourceClick(item.phone_display)
+					}
 				>
 					<div>{item.phone_display}</div>
 				</a>
@@ -124,7 +140,11 @@ const JobPlace = ({ item }: { item: JobPlaceProps }) => {
 	);
 };
 
-const Employment = () => {
+const Employment = ({
+	logResourceClick,
+}: {
+	logResourceClick: (label: string) => void;
+}) => {
 	return (
 		<div className="flex flex-col items-start justify-start">
 			<div className="font-normal text-primary-600">
@@ -139,7 +159,13 @@ const Employment = () => {
 			</div>
 			<div>
 				{JobPlaces.map((j, i) => {
-					return <JobPlace item={j} key={`job-place-${i}`} />;
+					return (
+						<JobPlace
+							item={j}
+							key={`job-place-${i}`}
+							logResourceClick={logResourceClick}
+						/>
+					);
 				})}
 			</div>
 		</div>

@@ -7,6 +7,7 @@ import { FeaturedInterface } from "../../models/Featured";
 import FeaturedSliderCard from "../feed/FeaturedSliderCard";
 import Feed from "../feed/Feed";
 import gsap from "gsap";
+import ReactGA from "react-ga4";
 
 const connector = connect((state: RootState, props) => ({
 	featureds: state.global.featuredPosts,
@@ -14,7 +15,7 @@ const connector = connect((state: RootState, props) => ({
 }));
 
 const Home = connector(({ featureds }: { featureds: FeaturedInterface[] }) => {
-	console.log("featureds: ", featureds);
+	ReactGA.send({ hitType: "pageview", page: "/" });
 	const [animCancel, setAnimCancel] = useState<any>(null);
 	useEffect(() => {
 		const interval = setInterval(() => {

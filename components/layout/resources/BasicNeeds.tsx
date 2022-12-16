@@ -8,12 +8,16 @@ interface BasicItemInterface {
 	mapUrl?: string;
 	bullets: string[];
 	url?: string;
+	logResourceClick: (label: string) => void;
 }
 const BasicItem = (item: BasicItemInterface) => {
 	return (
 		<div className="flex flex-col items-start justify-start gap-1 mt-2 resources-item">
 			{item.url ? (
-				<a href={item.url}>
+				<a
+					href={item.url}
+					onClick={() => item.url && item.logResourceClick(item.url)}
+				>
 					<div className="text-primary-800">{item.title}</div>
 				</a>
 			) : (
@@ -21,7 +25,11 @@ const BasicItem = (item: BasicItemInterface) => {
 			)}
 			{item.address && (
 				/// @ts-ignore
-				<a href={item.mapUrl} className="ml-2 text-sm text-primary-500">
+				<a
+					href={item.mapUrl}
+					className="ml-2 text-sm text-primary-500"
+					onClick={() => item.address && item.logResourceClick(item.address)}
+				>
 					<div>{item.address}</div>
 				</a>
 			)}
@@ -30,6 +38,9 @@ const BasicItem = (item: BasicItemInterface) => {
 					/// @ts-ignore
 					href={item.tel}
 					className="ml-2 text-sm leading-tight tracking-tighter text-primary-500"
+					onClick={() =>
+						item.phone_display && item.logResourceClick(item.phone_display)
+					}
 				>
 					<div>{item.phone_display}</div>
 				</a>
@@ -45,9 +56,11 @@ const BasicItem = (item: BasicItemInterface) => {
 	);
 };
 
-interface BasicNeedsProps {}
+interface BasicNeedsProps {
+	logResourceClick: (label: string) => void;
+}
 
-const BasicNeeds = ({}: BasicNeedsProps) => {
+const BasicNeeds = ({ logResourceClick }: BasicNeedsProps) => {
 	return (
 		<div>
 			<BasicItem
@@ -60,6 +73,7 @@ const BasicNeeds = ({}: BasicNeedsProps) => {
 					"Monday to Thursday, 9:30am–3:00pm",
 				]}
 				tel={14143421522}
+				logResourceClick={logResourceClick}
 			/>
 			<BasicItem
 				title="St Vincent de Paul"
@@ -70,6 +84,7 @@ const BasicNeeds = ({}: BasicNeedsProps) => {
 					"9:00am-5:00pm",
 				]}
 				tel={14144627837}
+				logResourceClick={logResourceClick}
 			/>
 		</div>
 	);

@@ -104,11 +104,11 @@ const Navbar = connector(({ dimensions, props }: NavbarProps) => {
 									shallow={true}
 								>
 									{l.text}
+									<div
+										className="h-[4px] bg-sky-700 w-full navbar-underline scale-x-0"
+										id={`navbar-underline-${i}`}
+									/>
 								</Link>
-								<div
-									className="h-[4px] bg-sky-700 w-full navbar-underline scale-x-0"
-									id={`navbar-underline-${i}`}
-								/>
 							</div>
 						);
 					})}

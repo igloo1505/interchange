@@ -7,6 +7,8 @@ import { HiPhoneArrowUpRight } from "react-icons/hi2";
 import animate from "../../animations/animate";
 import { submitNewContact } from "../../state/actions";
 import PageTitle from "../layout/PageTitle";
+import ReactGA from "react-ga4";
+
 interface ContactProps {}
 
 const validationSchema = yup.object({
@@ -30,6 +32,7 @@ const validationSchema = yup.object({
 });
 
 const Contact = ({}: ContactProps) => {
+	ReactGA.send({ hitType: "pageview", page: "/contact" });
 	useEffect(() => {
 		if (typeof window === "undefined") {
 			return;
@@ -59,6 +62,12 @@ const Contact = ({}: ContactProps) => {
 			let success = await submitNewContact(formData);
 			if (success) {
 				formik.resetForm();
+				ReactGA.event({
+					category: "contact submitted",
+					action: "contact",
+					label: "contact submission",
+					nonInteraction: false,
+				});
 			}
 		},
 	});

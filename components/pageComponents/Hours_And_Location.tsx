@@ -9,6 +9,7 @@ import { RootState } from "../../state/store";
 import initialState from "../../state/initialState";
 import { dayKeys, dayValues } from "../../utils/utilityFunctions";
 import SubTitle from "../layout/SubTitle";
+import ReactGA from "react-ga4";
 
 const connector = connect((state: RootState, props: any) => ({
 	global: state.global,
@@ -57,6 +58,7 @@ interface HoursAndLocationProps {
 
 const HoursAndLocation = connector(
 	({ global, viewport }: HoursAndLocationProps) => {
+		ReactGA.send({ hitType: "pageview", page: "/hoursAndLocation" });
 		useEffect(() => {
 			if (typeof window === "undefined") {
 				return;

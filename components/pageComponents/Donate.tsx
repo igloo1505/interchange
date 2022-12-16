@@ -5,10 +5,12 @@ import DonationCard from "../general/DonationCard";
 import SubTitle from "../layout/SubTitle";
 import ConditionalGoFundMeLink from "../general/ConditionalGoFundmeLink";
 import gsap from "gsap";
+import ReactGA from "react-ga4";
 
 interface DonateProps {}
 
 const Donate = ({}: DonateProps) => {
+	ReactGA.send({ hitType: "pageview", page: "/donate" });
 	useEffect(() => {
 		if (typeof window === "undefined") {
 			return;

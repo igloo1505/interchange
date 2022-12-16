@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import PageTitle from "../layout/PageTitle";
 import gsap from "gsap";
 import SubTitle from "../layout/SubTitle";
+import ReactGA from "react-ga4";
 
 interface t_i {
 	time: string;
@@ -124,6 +125,7 @@ const Opportunity = ({ item }: { item: Opportunity_i }) => {
 };
 
 const Volunteer = () => {
+	ReactGA.send({ hitType: "pageview", page: "/volunteer" });
 	useEffect(() => {
 		if (typeof window === "undefined") {
 			return;

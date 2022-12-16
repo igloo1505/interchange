@@ -4,6 +4,8 @@ import { pageEnum } from "../../utils/utilityFunctions";
 import PageTitle from "../layout/PageTitle";
 import gsap from "gsap";
 import clsx from "clsx";
+import ReactGA from "react-ga4";
+
 interface AboutProps {}
 interface SectionProps {
 	label?: string;
@@ -81,6 +83,7 @@ const getInvolved = [
 ];
 
 const About = ({}: AboutProps) => {
+	ReactGA.send({ hitType: "pageview", page: "/about" });
 	useEffect(() => {
 		if (typeof window === "undefined") {
 			return;
