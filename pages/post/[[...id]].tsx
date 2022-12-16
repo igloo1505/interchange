@@ -13,16 +13,17 @@ import Title from "../../components/pageUI/Title";
 import Location from "../../components/pageUI/Location";
 import Body from "../../components/pageUI/Body";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 const ShareButtons = dynamic(
 	() => import("../../components/pageUI/ShareButtons"),
 	{ ssr: false }
 );
 
-interface FeaturedPageProps {
+interface GeneralPostPageProps {
 	data: GeneralPostInterface;
 }
 
-const FeaturedPage = ({ data }: FeaturedPageProps) => {
+const GeneralPostPage = ({ data }: GeneralPostPageProps) => {
 	return (
 		<Fragment>
 			<Navbar />
@@ -34,13 +35,27 @@ const FeaturedPage = ({ data }: FeaturedPageProps) => {
 				<div className="px-3">
 					<Title text={data.title} url={data.url} />
 					{data?.location && <Location location={data.location} />}
-					{data?.images && (
-						<ImageSlider
-							images={data.images}
-							animated={true}
-							animatedDelay={1500}
-						/>
-					)}
+					{data?.images &&
+						(data?.images.length > 1 ? (
+							<ImageSlider
+								images={data.images}
+								animated={true}
+								animatedDelay={1500}
+							/>
+						) : (
+							<div>
+								<Image
+									src={data.images[0].publicUrl}
+									alt="Post Image"
+									width={900}
+									height={900}
+									className="w-full h-auto object-contain relative"
+									// style={{
+									// 	position: "relative !important",
+									// }}
+								/>
+							</div>
+						))}
 					<Body text={data.description} />
 					<ShareButtons title={data.title} description={data.title} />
 				</div>
@@ -49,7 +64,7 @@ const FeaturedPage = ({ data }: FeaturedPageProps) => {
 	);
 };
 
-export default FeaturedPage;
+export default GeneralPostPage;
 
 export const getServerSideProps: GetServerSideProps<{
 	data: { data: GeneralPostInterface };

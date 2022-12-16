@@ -4,6 +4,18 @@ import gsap from "gsap";
 const inRange = (n: number) => {
 	return Boolean(n >= -1 && n <= 1);
 };
+
+export const handleShadowReset = (e: MouseEvent | any) => {
+	if (!e.target?.id) return;
+	let tl = gsap.timeline();
+	tl.to(`#${e.target.id}`, {
+		boxShadow:
+			"rgb(100 116 139) 5px 5px 14px, rgb(148 163 184) -9.68103px -2.33206px 14px",
+		duration: 2,
+		ease: "elastic.out(1, 0.3)",
+	});
+};
+
 const getGeo = (
 	e: MouseEvent,
 	id: string

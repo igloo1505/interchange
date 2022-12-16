@@ -3,7 +3,10 @@ import MailIcon from "@mui/icons-material/Mail";
 import { BsTwitter } from "react-icons/bs";
 import { socialInfo } from "../../utils/infoDetails";
 import * as Icons from "./Icons";
-import { hoverAnimationMove } from "../../animations/hoverShareButton";
+import {
+	hoverAnimationMove,
+	handleShadowReset,
+} from "../../animations/hoverShareButton";
 import {
 	EmailShareButton,
 	FacebookShareButton,
@@ -39,6 +42,7 @@ const Button = ({
 				class_name
 			)}
 			id={_id}
+			onMouseLeave={handleShadowReset}
 		>
 			{children}
 		</div>
@@ -58,7 +62,7 @@ const ShareButtons = ({
 		<div
 			className="flex flex-row justify-end items-center gap-2 mb-3 mt-5"
 			onMouseMove={(e) =>
-				hoverAnimationMove(e, ["email", "twitter", "pocket", "instagram"])
+				hoverAnimationMove(e, ["email", "twitter", "pocket", "linkedIn"])
 			}
 		>
 			<Button class_name="email">
@@ -81,10 +85,14 @@ const ShareButtons = ({
 					<Icons.Pocket />
 				</PocketShareButton>
 			</Button>
-			<Button class_name="instagram">
-				<InstapaperShareButton url={url} title={title}>
-					<Icons.Instagram />
-				</InstapaperShareButton>
+			<Button class_name="linkedIn">
+				<LinkedinShareButton
+					url={url}
+					summary={title}
+					title={"From the Interchange Food Pantry"}
+				>
+					<Icons.LinkedIn />
+				</LinkedinShareButton>
 			</Button>
 		</div>
 	);

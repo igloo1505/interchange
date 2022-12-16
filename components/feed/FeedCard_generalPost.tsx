@@ -32,7 +32,7 @@ const FeedCard_generalPost = ({
 				<div className="px-3">
 					{sliceText(filterTags({ text: model?.description }), 250)}
 				</div>
-				<SeeMore id={model.id || model._id} resource="post" />
+				<SeeMore id={model.id ? model.id : model._id} resource="post" />
 			</div>
 		</div>
 	);

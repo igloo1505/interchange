@@ -278,6 +278,7 @@ $drawer-close-transition: 0.35s ease-in-out;
 		fill: transparent;
 		transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
 	}
+
 	svg {
 		transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
 		fill: #fff;
@@ -299,6 +300,19 @@ $drawer-close-transition: 0.35s ease-in-out;
 	}
 }
 
+.share-icon.linkedIn {
+	background-color: #fff;
+	transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+	svg {
+		fill: #075985;
+	}
+	&:hover {
+		background-color: #fff;
+		svg {
+			fill: #0ea5e9;
+		}
+	}
+}
 .share-icon.instagram {
 	background-color: #fff;
 	svg {

@@ -31,7 +31,7 @@ const FeedCard_patron = ({ model, extraStyles }: FeedCard_patronProps) => {
 				<div className="px-3">
 					{sliceText(filterTags({ text: model?.description }), 250)}
 				</div>
-				<SeeMore id={`${model.id}` || `${model._id}`} resource="patrons" />
+				<SeeMore id={model.id ? model.id : model._id} resource="patrons" />
 			</div>
 		</div>
 	);
