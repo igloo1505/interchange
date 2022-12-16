@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { MapContainer, TileLayer, useMap, Popup, Marker } from "react-leaflet";
 import clsx from "clsx";
+import info from "../../utils/infoDetails";
 
 interface Map_hoursAndLocationProps {}
 const Map_hoursAndLocation = ({}: Map_hoursAndLocationProps) => {
@@ -19,7 +20,10 @@ const Map_hoursAndLocation = ({}: Map_hoursAndLocationProps) => {
 				/>
 				<Marker position={[43.0459852, -87.9121041]}>
 					<Popup>
-						130 E. Juneau Ave. <br /> Just off Water & Juneau
+						130 E. Juneau Ave. <br />{" "}
+						<a href={info.mapsHref} target="_blank">
+							Open in Google Maps
+						</a>
 					</Popup>
 				</Marker>
 			</MapContainer>

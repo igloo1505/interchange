@@ -37,8 +37,16 @@ const details: detailsInterface = {
 
 export default details;
 
-export const socialInfo = {
+interface socialInterface {
+	twitter: {
+		related: string[] | null;
+	};
+	goFundMeURL: string | null;
+}
+
+export const socialInfo: socialInterface = {
 	twitter: {
 		related: [],
 	},
+	goFundMeURL: null,
 };

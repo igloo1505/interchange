@@ -6,6 +6,7 @@ import { RootState } from "../../state/store";
 import { toggleColumnRight } from "../../state/actions";
 import initialState from "../../state/initialState";
 import clsx from "clsx";
+import info from "../../utils/infoDetails";
 
 const connector = connect((state: RootState, props: any) => ({
 	columnRight: state.UI.dimensions.columnRight.width,
@@ -114,7 +115,10 @@ const Map = connector(
 					/>
 					<Marker position={[43.0459852, -87.9121041]}>
 						<Popup>
-							130 E. Juneau Ave. <br /> Just off Water & Juneau
+							130 E. Juneau Ave. <br />
+							<a href={info.mapsHref} target="_blank">
+								Open in Google Maps
+							</a>
 						</Popup>
 					</Marker>
 				</MapContainer>

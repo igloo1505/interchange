@@ -163,7 +163,7 @@ const animateEntrance = () => {
 		x: 0,
 		opacity: 1,
 		duration: 2,
-		stagger: 0.15,
+		stagger: 0.1,
 		// ease: "elastic.out(1, 0.8)",
 		ease: "power3.out",
 	});
@@ -173,10 +173,10 @@ const animateEntrance = () => {
 			x: 0,
 			opacity: 1,
 			duration: 2,
-			stagger: 0.15,
+			stagger: 0.1,
 			ease: "power3.out",
 		},
-		"-=1.5"
+		"-=1.8"
 	);
 	tl.to(
 		".about-interchange-li-bottom",
@@ -184,7 +184,7 @@ const animateEntrance = () => {
 			x: 0,
 			opacity: 1,
 			duration: 2,
-			stagger: 0.15,
+			stagger: 0.1,
 			ease: "power3.out",
 		},
 		"-=1.5"
@@ -197,7 +197,7 @@ const animateEntrance = () => {
 			duration: 1,
 			ease: "elastic.out(1, 0.7)",
 		},
-		"-=4"
+		"-=4."
 	);
 	tl.to(
 		"#about-page-title",
@@ -206,6 +206,6 @@ const animateEntrance = () => {
 			duration: 1.5,
 			ease: "elastic.out(1, 0.8)",
 		},
-		"-=3.5"
+		"-=4"
 	);
 };
