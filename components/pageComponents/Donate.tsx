@@ -49,7 +49,7 @@ const Donate = ({}: DonateProps) => {
 		);
 	}, []);
 	return (
-		<div className="mx-4 my-3">
+		<div className="mx-4 mt-3 mb-8">
 			<PageTitle
 				title="Donate"
 				id_underline="donate-page-underline"

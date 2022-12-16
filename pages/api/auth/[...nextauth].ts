@@ -14,6 +14,8 @@ export const authOptions: AuthOptions = {
 	// Configure one or more authentication providers
 	providers: [
 		GoogleProvider({
+			id: "google",
+			name: "google",
 			/// @ts-ignore
 			clientId: process.env.GOOGLE_CLIENT_ID,
 			/// @ts-ignore
@@ -73,12 +75,6 @@ export const authOptions: AuthOptions = {
 		async signIn({ user, account, profile, email, credentials }): any {
 			let allowable = AllowAccess.find();
 			let a = (await allowable).map((m) => m.email.toLowerCase());
-			console.log("user: ", user);
-			console.log("account: ", account);
-			console.log("profile: ", profile);
-			console.log("email: ", email);
-			console.log("credentials: ", credentials);
-			console.log("a: ", a);
 			const isAllowedToSignIn =
 				/// @ts-ignore
 				["interchangefp@gmail.com", ...a].indexOf(profile.email) >= 0;
@@ -98,13 +94,13 @@ export const authOptions: AuthOptions = {
 	jwt: {
 		maxAge: 30 * 24 * 60 * 60,
 	},
-	// pages: {
-	// 	signIn: "/auth/signin",
-	// 	signOut: "/auth/signout",
-	// 	error: "/auth/error", // Error code passed in query string as ?error=
-	// 	verifyRequest: "/auth/verify-request", // (used for check email message)
-	// 	newUser: "/auth/new-user", // New users will be directed here on first sign in (leave the property out if not of interest)
-	// },
+	pages: {
+		signIn: "/auth/signin",
+		signOut: "/auth/signout",
+		error: "/auth/error", // Error code passed in query string as ?error=
+		verifyRequest: "/auth/verify-request", // (used for check email message)
+		newUser: "/auth/new-user",
+	},
 	debug: true,
 	secret: process.env.NEXTAUTH_SECRET,
 	// adapter: MongoDBAdapter(clientPromise),

@@ -8,7 +8,36 @@ import BasicNeeds from "../layout/resources/BasicNeeds";
 import Healthcare from "../layout/resources/Healthcare";
 import Employment from "../layout/resources/Employment";
 import gsap from "gsap";
+
+let sendAllMarginBottom = 40;
+
 interface ResourcesProps {}
+
+const handleViewportTrigger = (isInitial?: boolean) => {
+	let viewportPortion = isInitial ? 0.0001 : 0.3;
+	let sendAll =
+		document.body.clientHeight - window.innerHeight - window.scrollY <=
+		sendAllMarginBottom;
+	let ems = document.getElementsByClassName("resources-item");
+	for (let i = 0; i < ems.length; i++) {
+		const em: Element | null = ems.item(i);
+		if (!em) return;
+		let rect = em?.getBoundingClientRect();
+		if (
+			rect.top -
+				(window.screenTop + window.innerHeight * (1 - viewportPortion)) <=
+				0 ||
+			sendAll
+		) {
+			/// @ts-ignore
+			em.style.transition = "all 0.35s ease-in-out";
+			/// @ts-ignore
+			em.style.transform = "translateX(0)";
+			/// @ts-ignore
+			em.style.opacity = "1";
+		}
+	}
+};
 
 const Resources = ({}: ResourcesProps) => {
 	useEffect(() => {
@@ -28,17 +57,22 @@ const Resources = ({}: ResourcesProps) => {
 			},
 			"-=0.7"
 		);
-		tl.to(
-			".resources-item",
-			{
-				x: 0,
-				opacity: 1,
-				duration: 0.5,
-				stagger: 0.2,
-				ease: "power4.out",
-			},
-			"-=0.75"
-		);
+		// tl.to(
+		// 	".resources-item",
+		// 	{
+		// 		x: 0,
+		// 		opacity: 1,
+		// 		duration: 0.5,
+		// 		stagger: 0.2,
+		// 		ease: "power4.out",
+		// 	},
+		// 	"-=0.75"
+		// );
+		if (typeof window === "undefined") {
+			return;
+		}
+		handleViewportTrigger(true);
+		window.addEventListener("scroll", () => handleViewportTrigger());
 	}, []);
 	return (
 		<div className="mx-4 mt-3 mb-8">

@@ -14,7 +14,6 @@ interface DrawerProps {
 }
 
 const Drawer = ({ drawer }: DrawerProps) => {
-	console.log("drawer: ", drawer);
 	const dispatch = useAppDispatch();
 	const [hoveredIndex, setHoveredIndex] = useState(-1);
 	useEffect(() => {
