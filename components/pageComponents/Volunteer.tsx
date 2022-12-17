@@ -3,6 +3,7 @@ import PageTitle from "../layout/PageTitle";
 import gsap from "gsap";
 import SubTitle from "../layout/SubTitle";
 import ReactGA from "react-ga4";
+import VolunteerHighlightSlider from "../pageUI/VolunteerHighlightSlider";
 
 interface t_i {
 	time: string;
@@ -161,6 +162,22 @@ const Volunteer = () => {
 					<Opportunity item={o} />
 				))}
 			</div>
+			<div className="mt-2 w-full flex flex-col justify-center items-start">
+				<div className="mt-4 font-thin max-w-[980px]">
+					Volunteer walk-ins of one or two individuals are welcomed.
+				</div>
+
+				<div className="mt-2 font-thin max-w-[980px]">
+					Volunteer groups (3+ volunteers): If interested in any of these
+					opportunities, leave a message on our contact page for pantry director
+					George Neureuther or call the Interchange Food Pantry at{" "}
+					<a href="tel:14145512184" className="text-primary-700 font-normal">
+						(414) 551-2184
+					</a>
+					.
+				</div>
+			</div>
+			<VolunteerHighlightSlider />
 		</div>
 	);
 };

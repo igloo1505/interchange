@@ -77,7 +77,7 @@ const Donate = ({}: DonateProps) => {
 			</div>
 			<div>
 				<SubTitle title="Other ways to give" />
-				<div>
+				<div className="mx-2 md:mx-5 lg:mx-9">
 					<div>
 						To make a donation by check or money order, please send your
 						donation payable to{" "}

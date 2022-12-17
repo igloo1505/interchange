@@ -66,7 +66,7 @@ const HoursAndLocation = connector(
 			animateEntrance();
 		}, []);
 		return (
-			<div className="mx-4 my-3">
+			<div className="mx-4 mt-3 mb-8">
 				<PageTitle
 					title="Hours & Location"
 					id_text="hoursAndLocationTitle"
@@ -92,6 +92,30 @@ const HoursAndLocation = connector(
 					<Map />
 				</div>
 				{viewport.width < 768 && <HoursSection global={global} />}
+				<div className="w-full flex flex-col justify-start items-start font-thin">
+					<SubTitle title="Interchange guests: What you’ll need at the pantry" />
+					<div className="mt-3 indent-3">
+						The Interchange Food Pantry serves our guests four times per week
+						with nutritious and healthy food choices. At the pantry, we will
+						need to confirm identifications for all living in your household. We
+						ask that if you come for food, please bring these items:
+					</div>
+					<div className="text-primary-700 font-bold mt-2">Adults</div>
+					<ul className="colored-list-bullet">
+						<li className="pl-3"> A Government-issued picture ID</li>
+						<li className="pl-3"> Proof of address</li>
+					</ul>
+					<div className="text-primary-700 font-bold mt-2">
+						Children under 18 acceptable identifications:
+					</div>
+					<ul className="colored-list-bullet">
+						<li className="pl-3">Social Security card</li>
+						<li className="pl-3">Birth Certificate</li>
+						<li className="pl-3">WIC folder</li>
+						<li className="pl-3">School Report Card</li>
+						<li className="pl-3">ForwardHealth Card</li>
+					</ul>
+				</div>
 			</div>
 		);
 	}

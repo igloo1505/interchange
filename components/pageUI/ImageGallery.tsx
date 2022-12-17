@@ -105,11 +105,11 @@ const GallerySliderImage = ({
 		<Image
 			src={image.publicUrl}
 			alt="Gallery Slider Image Preview"
-			width={proportionalWidth ? proportionalWidth : 150}
-			height={proportionalWidth ? proportionalWidth : 150}
+			width={proportionalWidth ? proportionalWidth - 16 : 150}
+			height={proportionalWidth ? proportionalWidth - 16 : 150}
 			className={clsx(
-				"object-cover max-h-full h-full w-auto rounded-sm",
-				!isActive && "shadow-lg hover:shadow-sm transition-shadow duration-300"
+				"object-cover max-h-full h-full w-auto rounded-sm hover:scale-[0.97] transition-all duration-300",
+				!isActive && "shadow-lg hover:shadow-sm"
 			)}
 			style={{
 				...(proportionalWidth && { width: `${proportionalWidth}px` }),
@@ -122,7 +122,7 @@ const GallerySliderImage = ({
 	);
 };
 
-const ImageGalleryScrollingSelector = ({
+export const ImageGalleryScrollingSelector = ({
 	images,
 	activeImageIndex,
 	setActiveImageIndex,
@@ -165,9 +165,9 @@ const ImageGalleryScrollingSelector = ({
 		);
 	};
 	return (
-		<div className="w-full flex flex-row justify-center items-center">
+		<div className="w-full flex flex-row justify-center items-center h-full">
 			<div
-				className="grid h-full w-fit max-w-full place-items-center"
+				className="grid h-full w-fit max-w-full place-items-center overflow-hidden"
 				id="image-gallery-scroll-selector"
 				style={{
 					gridTemplateColumns:
@@ -175,17 +175,26 @@ const ImageGalleryScrollingSelector = ({
 				}}
 			>
 				{images.length >= maxScrollWidth && (
-					<ArrowBackIosIcon
-						className="fill-primary-700 text-primary-700 cursor-pointer"
-						onClick={() => handleScroll("-")}
-					/>
+					<div className="bg-white w-fit z-[9999] h-full flex justify-center items-center">
+						<div
+							className="bg-primary-700 h-full w-[36px] z-[10000] flex flex-col justify-center items-center cursor-pointer mx-2 hover:bg-primary-600 transition-all duration-300"
+							onClick={() => handleScroll("-")}
+							style={{
+								borderTopLeftRadius: "6px",
+								borderBottomLeftRadius: "6px",
+								height: "calc(100% - 1rem)",
+							}}
+						>
+							<ArrowBackIosIcon className="fill-white text-white cursor-pointer w-full text-center ml-2" />
+						</div>
+					</div>
 				)}
 				<div
 					// className="w-full h-full max-h-full grid place-items-center"
-					className="w-fit h-full max-h-full flex flex-row justify-center items-center gap-2"
-					// style={{
-					// 	gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
-					// }}
+					className="w-fit max-h-full flex flex-row justify-center items-center gap-2"
+					style={{
+						height: "calc(100% - 1.75rem)",
+					}}
 				>
 					{images.map((im, i) => (
 						<GallerySliderImage
@@ -198,10 +207,19 @@ const ImageGalleryScrollingSelector = ({
 					))}
 				</div>
 				{images.length >= maxScrollWidth && (
-					<ArrowForwardIosIcon
-						className="fill-primary-700 text-primary-700 cursor-pointer"
-						onClick={() => handleScroll("+")}
-					/>
+					<div className="bg-white w-fit z-[9999] h-full flex justify-center items-center">
+						<div
+							className="bg-primary-700 h-full w-[36px] z-[10000] flex flex-col justify-center items-center cursor-pointer mx-2 hover:bg-primary-600 transition-all duration-300"
+							onClick={() => handleScroll("+")}
+							style={{
+								borderTopRightRadius: "6px",
+								borderBottomRightRadius: "6px",
+								height: "calc(100% - 1rem)",
+							}}
+						>
+							<ArrowForwardIosIcon className="fill-white text-white cursor-pointer w-full text-center indent-0" />
+						</div>
+					</div>
 				)}
 			</div>
 		</div>
