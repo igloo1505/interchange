@@ -56,7 +56,7 @@ const VolunteerHighlightCard = ({
 	return (
 		<div
 			id={_id}
-			className="h-fit w-auto absolute grid"
+			className="h-fit w-auto absolute grid gap-1"
 			style={{
 				opacity: activeIndex === index ? 1 : 0,
 				// gridTemplateRows: "2rem 1fr",
@@ -65,7 +65,7 @@ const VolunteerHighlightCard = ({
 			}}
 		>
 			<Link href={`/volunteerSpotlight/${volunteer._id}`} className="w-fit">
-				<div className="font-bold text-primary-800 w-fit">
+				<div className="font-bold text-primary-800 w-fit md:text-xl">
 					{volunteer.name.first}
 				</div>
 			</Link>
