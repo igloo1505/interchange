@@ -36,8 +36,15 @@ const VolunteerSpotlightPage = ({ data }: VolunteerSpotlightPageProps) => {
 				<div className="px-3">
 					<Title text={"Volunteer Spotlight"} withMarginBottom={false} />
 					{data.name?.first && <SubTitle text={data.name.first} />}
-					<div className="w-full h-[400px]">
-						{data?.images && (
+					{data?.images && (
+						<div
+							className="w-full"
+							style={{
+								...(data.images && {
+									height: data.images.length > 1 ? "400px" : "fit-content",
+								}),
+							}}
+						>
 							<ImageGallery
 								images={data.images}
 								animated={true}
@@ -46,8 +53,8 @@ const VolunteerSpotlightPage = ({ data }: VolunteerSpotlightPageProps) => {
 									data.primaryImageIndex ? data.primaryImageIndex : 0
 								}
 							/>
-						)}
-					</div>
+						</div>
+					)}
 					<Body text={data.description} />
 					<ShareButtons
 						title={`Volunteer Spotlight: ${

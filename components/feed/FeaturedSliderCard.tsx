@@ -18,7 +18,7 @@ const FeaturedSliderCard = ({ featured, index }: FeaturedSliderCardProps) => {
 		}
 	}
 	return (
-		<div className="bg-primary-800 text-white grid h-full w-full featuredCard relative z-[100]">
+		<div className="text-white grid h-full w-full featuredCard relative z-[100]">
 			<div
 				className="px-5 py-4 text-2xl flex flex-row justify-start items-center font-bold z-[100]"
 				style={{

@@ -18,6 +18,7 @@ interface ImageGalleryProps {
 	animated?: boolean;
 	animatedDelay?: number;
 	primaryImageIndex?: number;
+	viewport: typeof initialState.UI.dimensions.viewport;
 }
 
 const GalleryMainImage = connector(
@@ -207,43 +208,62 @@ const ImageGalleryScrollingSelector = ({
 	);
 };
 
-const ImageGallery = ({
-	images,
-	animated = true,
-	animatedDelay = 500,
-	primaryImageIndex = 0,
-}: ImageGalleryProps) => {
-	const [activeImageIndex, setActiveImageIndex] = useState(primaryImageIndex);
-	return (
-		<div
-			className="w-full h-full gap-2 grid my-3"
-			style={{
-				gridTemplateRows: "80% 20%",
-			}}
-		>
-			<div className="grid place-items-center relative w-full h-full">
-				{images &&
-					(images.length > 1 ? (
-						images.map((im, i) => (
-							<GalleryMainImage
-								image={im}
-								key={`gallery-main-image-${i}`}
-								isActive={activeImageIndex === i}
-								index={i}
-								activeIndex={activeImageIndex}
-							/>
-						))
-					) : (
-						<div>Single Image</div>
-					))}
+const ImageGallery = connector(
+	({
+		images,
+		animated = true,
+		animatedDelay = 500,
+		primaryImageIndex = 0,
+		viewport,
+	}: ImageGalleryProps) => {
+		const [activeImageIndex, setActiveImageIndex] = useState(primaryImageIndex);
+		return (
+			<div
+				className="w-full gap-2 grid my-3"
+				style={{
+					gridTemplateRows: images.length > 1 ? "80% 20%" : "1fr",
+					height: images.length > 1 ? "100%" : "fit-content",
+				}}
+			>
+				<div
+					className="grid place-items-center relative w-full"
+					style={{
+						height: images.length > 1 ? "100%" : "fit-content",
+					}}
+				>
+					{images &&
+						(images.length > 1 ? (
+							images.map((im, i) => (
+								<GalleryMainImage
+									image={im}
+									key={`gallery-main-image-${i}`}
+									isActive={activeImageIndex === i}
+									index={i}
+									activeIndex={activeImageIndex}
+								/>
+							))
+						) : (
+							<div>
+								<Image
+									src={images[0].publicUrl}
+									alt="Image Gallery Interchange Food Pantry"
+									width={viewport.width || 1440}
+									height={viewport.height || 1440}
+									className="max-w-full max-h-[400px] object-contain"
+								/>
+							</div>
+						))}
+				</div>
+				{images.length > 1 && (
+					<ImageGalleryScrollingSelector
+						images={images}
+						activeImageIndex={activeImageIndex}
+						setActiveImageIndex={setActiveImageIndex}
+					/>
+				)}
 			</div>
-			<ImageGalleryScrollingSelector
-				images={images}
-				activeImageIndex={activeImageIndex}
-				setActiveImageIndex={setActiveImageIndex}
-			/>
-		</div>
-	);
-};
+		);
+	}
+);
 
 export default ImageGallery;

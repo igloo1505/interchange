@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FeaturedInterface } from "../../models/Featured";
 import gsap from "gsap";
 import clsx from "clsx";
+import { AnimateSlider } from "./Slider";
 
 export interface SliderCardProps {
 	activeIndex: number;
@@ -12,6 +13,10 @@ export interface SliderCardProps {
 	setIsAnimating: (val: boolean) => void;
 	isHovered: boolean;
 	setIsHovered: (val: boolean) => void;
+	lastActiveIndex: number;
+	setLastActiveIndex: (val: number) => void;
+	animate: AnimateSlider;
+	_id: string;
 }
 
 const SliderCard = ({
@@ -23,52 +28,74 @@ const SliderCard = ({
 	isHovered,
 	isAnimating,
 	setIsHovered,
+	lastActiveIndex,
+	setLastActiveIndex,
+	animate,
+	_id,
 }: SliderCardProps) => {
+	console.log("animate: ", animate);
 	// const [isActive, setIsActive] = useState(false);
-	const [lastActiveIndex, setLastActiveIndex] = useState(activeIndex);
 	const [isInitialRender, setIsInitialRender] = useState(true);
-	let _id = `slider-card-${index}`;
+
+	const log = (val: string) => {
+		if (index === 0) {
+			let diffLast = Math.abs(lastActiveIndex % count);
+			let diffActive = Math.abs(activeIndex % count);
+			console.log("diffActive: ", diffActive);
+			console.log("diffLast: ", diffLast);
+			console.log("lastActiveIndex: ", lastActiveIndex);
+			console.log("activeIndex: ", activeIndex);
+			console.log(`Card 0 ${val}`);
+		}
+	};
 	useEffect(() => {
-		// debugger;
+		// if (isAnimating) return;
 		const onComplete = () => {
 			setLastActiveIndex(activeIndex);
-			setIsAnimating(false);
+			setTimeout(() => setIsAnimating(false), 500);
 			if (isInitialRender) {
 				setIsInitialRender(false);
 			}
 		};
-		// if (isActive) return;
-		// setIsActive(true);
-		if (isAnimating) return;
 		let diffLast = Math.abs(lastActiveIndex % count);
 		let diffActive = Math.abs(activeIndex % count);
 		if (activeIndex > lastActiveIndex && diffLast === index) {
-			setIsAnimating(true);
-			sendLeft(_id, isInitialRender, onComplete);
+			// if (activeIndex > lastActiveIndex && diffActive !== index) {
+			// setIsAnimating(true);
+			// sendLeft(_id, isInitialRender, onComplete);
+			animate.sendLeft(isInitialRender, onComplete);
+			log("setLeft");
 		}
 		if (activeIndex < lastActiveIndex && diffLast === index) {
-			setIsAnimating(true);
-			sendRight(_id, isInitialRender, onComplete);
+			// if (activeIndex < lastActiveIndex && diffActive !== index) {
+			// setIsAnimating(true);
+			// sendRight(_id, isInitialRender, onComplete);
+			animate.sendRight(isInitialRender, onComplete);
+			log("sendRight");
 		}
 		if (diffActive === index && lastActiveIndex > activeIndex) {
-			setIsAnimating(true);
+			// setIsAnimating(true);
 			// debugger;
-			fromLeft(_id, isInitialRender, onComplete);
+			// fromLeft(_id, isInitialRender, onComplete);
+			animate.fromLeft(isInitialRender, onComplete);
+			log("fromLeft");
 		}
 		if (
 			diffActive === index &&
 			Boolean(lastActiveIndex < activeIndex || isInitialRender)
 		) {
-			setIsAnimating(true);
+			// setIsAnimating(true);
 			// debugger;
-			fromRight(_id, isInitialRender, onComplete);
+			// fromRight(_id, isInitialRender, onComplete);
+			animate.fromRight(isInitialRender, onComplete);
+			log("fromRight");
 		}
 		setIsInitialRender(false);
 	}, [activeIndex, index]);
 	return (
 		<div
 			className={clsx(
-				"w-full h-full bg-primary-700 absolute",
+				"w-full h-full absolute",
 				isHovered && "sliderCard-hovered"
 			)}
 			style={{
@@ -84,66 +111,3 @@ const SliderCard = ({
 };
 
 export default SliderCard;
-
-const sendLeft = (id: string, isInitial: boolean, onComplete: () => void) => {
-	console.log("sendLeft");
-	let tl = gsap.timeline({ onComplete: onComplete });
-	tl.to(`#${id}`, {
-		x: "-100%",
-		duration: isInitial ? 0 : 1,
-		ease: "elastic.out(1, 0.7)",
-		immediateRender: isInitial,
-	});
-};
-const sendRight = (id: string, isInitial: boolean, onComplete: () => void) => {
-	console.log("sendRight");
-	let tl = gsap.timeline({ onComplete: onComplete });
-	tl.to(`#${id}`, {
-		x: "100%",
-		duration: isInitial ? 0 : 1,
-		ease: "elastic.out(1, 0.7)",
-		immediateRender: isInitial,
-	});
-};
-const fromRight = (id: string, isInitial: boolean, onComplete: () => void) => {
-	console.log("fromRight");
-	let tl = gsap.timeline({ onComplete: onComplete });
-	tl.fromTo(
-		`#${id}`,
-		{
-			x: "100%",
-			duration: isInitial ? 0 : 1,
-			ease: "elastic.out(1, 0.7)",
-			immediateRender: isInitial,
-			delay: 1,
-		},
-		{
-			x: 0,
-			duration: isInitial ? 0 : 1,
-			ease: "elastic.out(1, 0.7)",
-			immediateRender: isInitial,
-			delay: 0.25,
-		}
-	);
-};
-const fromLeft = (id: string, isInitial: boolean, onComplete: () => void) => {
-	console.log("fromLeft");
-	let tl = gsap.timeline({ onComplete: onComplete });
-	tl.fromTo(
-		`#${id}`,
-		{
-			x: "-100%",
-			duration: isInitial ? 0 : 1,
-			ease: "elastic.out(1, 0.7)",
-			immediateRender: isInitial,
-			delay: 1,
-		},
-		{
-			x: 0,
-			duration: isInitial ? 0 : 1,
-			ease: "elastic.out(1, 0.7)",
-			immediateRender: isInitial,
-			delay: 0.25,
-		}
-	);
-};

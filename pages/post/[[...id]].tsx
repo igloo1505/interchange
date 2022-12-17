@@ -36,8 +36,15 @@ const GeneralPostPage = ({ data }: GeneralPostPageProps) => {
 				<div className="px-3">
 					<Title text={data.title} url={data.url} />
 					{data?.location && <Location location={data.location} />}
-					<div className="w-full h-[400px]">
-						{data?.images && (
+					{data?.images && (
+						<div
+							className="w-full"
+							style={{
+								...(data.images && {
+									height: data.images.length > 1 ? "400px" : "fit-content",
+								}),
+							}}
+						>
 							<ImageGallery
 								images={data.images}
 								animated={true}
@@ -46,8 +53,8 @@ const GeneralPostPage = ({ data }: GeneralPostPageProps) => {
 									data.primaryImageIndex ? data.primaryImageIndex : 0
 								}
 							/>
-						)}
-					</div>
+						</div>
+					)}
 
 					<Body text={data.description} />
 					<ShareButtons title={data.title} description={data.title} />
