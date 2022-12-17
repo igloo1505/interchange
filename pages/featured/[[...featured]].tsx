@@ -8,7 +8,7 @@ import Drawer from "../../components/layout/Drawer";
 import Toast from "../../components/layout/Toast";
 import { connectServerSide } from "../../utils/connectMongo";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import ImageSlider from "../../components/general/ImageSlider";
+import ImageGallery from "../../components/pageUI/ImageGallery";
 import Title from "../../components/pageUI/Title";
 import Location from "../../components/pageUI/Location";
 import Body from "../../components/pageUI/Body";
@@ -34,13 +34,18 @@ const FeaturedPage = ({ data }: FeaturedPageProps) => {
 				<div className="px-3">
 					<Title text={data.title} url={data.url} />
 					{data?.location && <Location location={data.location} />}
-					{data?.images && (
-						<ImageSlider
-							images={data.images}
-							animated={true}
-							animatedDelay={1500}
-						/>
-					)}
+					<div className="w-full h-[400px]">
+						{data?.images && (
+							<ImageGallery
+								images={data.images}
+								animated={true}
+								animatedDelay={1500}
+								primaryImageIndex={
+									data.primaryImageIndex ? data.primaryImageIndex : 0
+								}
+							/>
+						)}
+					</div>
 					<Body text={data.description} />
 					<ShareButtons title={data.title} description={data.title} />
 				</div>

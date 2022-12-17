@@ -8,12 +8,11 @@ import Drawer from "../../components/layout/Drawer";
 import Toast from "../../components/layout/Toast";
 import { connectServerSide } from "../../utils/connectMongo";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import ImageSlider from "../../components/general/ImageSlider";
 import Title from "../../components/pageUI/Title";
 import SubTitle from "../../components/pageUI/SubTitle";
-import Location from "../../components/pageUI/Location";
 import Body from "../../components/pageUI/Body";
 import dynamic from "next/dynamic";
+import ImageGallery from "../../components/pageUI/ImageGallery";
 const ShareButtons = dynamic(
 	() => import("../../components/pageUI/ShareButtons"),
 	{ ssr: false }
@@ -35,13 +34,18 @@ const FeaturedPage = ({ data }: FeaturedPageProps) => {
 				<div className="px-3">
 					<Title text={"Featured Guest"} withMarginBottom={false} />
 					{data.name?.first && <SubTitle text={data.name.first} />}
-					{data?.images && (
-						<ImageSlider
-							images={data.images}
-							animated={true}
-							animatedDelay={1500}
-						/>
-					)}
+					<div className="w-full h-[400px]">
+						{data?.images && (
+							<ImageGallery
+								images={data.images}
+								animated={true}
+								animatedDelay={1500}
+								primaryImageIndex={
+									data.primaryImageIndex ? data.primaryImageIndex : 0
+								}
+							/>
+						)}
+					</div>
 					<Body text={data.description} />
 					<ShareButtons
 						title={`Guest Spotlight: ${

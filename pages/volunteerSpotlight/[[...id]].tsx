@@ -10,10 +10,10 @@ import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import ImageSlider from "../../components/general/ImageSlider";
 import Title from "../../components/pageUI/Title";
 import SubTitle from "../../components/pageUI/SubTitle";
-import Location from "../../components/pageUI/Location";
 import Body from "../../components/pageUI/Body";
 import dynamic from "next/dynamic";
 import Volunteer, { VolunteerInterface } from "../../models/Volunteer";
+import ImageGallery from "../../components/pageUI/ImageGallery";
 
 const ShareButtons = dynamic(
 	() => import("../../components/pageUI/ShareButtons"),
@@ -36,13 +36,18 @@ const VolunteerSpotlightPage = ({ data }: VolunteerSpotlightPageProps) => {
 				<div className="px-3">
 					<Title text={"Volunteer Spotlight"} withMarginBottom={false} />
 					{data.name?.first && <SubTitle text={data.name.first} />}
-					{data?.images && (
-						<ImageSlider
-							images={data.images}
-							animated={true}
-							animatedDelay={1500}
-						/>
-					)}
+					<div className="w-full h-[400px]">
+						{data?.images && (
+							<ImageGallery
+								images={data.images}
+								animated={true}
+								animatedDelay={1500}
+								primaryImageIndex={
+									data.primaryImageIndex ? data.primaryImageIndex : 0
+								}
+							/>
+						)}
+					</div>
 					<Body text={data.description} />
 					<ShareButtons
 						title={`Volunteer Spotlight: ${

@@ -8,12 +8,13 @@ import Drawer from "../../components/layout/Drawer";
 import Toast from "../../components/layout/Toast";
 import { connectServerSide } from "../../utils/connectMongo";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import ImageSlider from "../../components/general/ImageSlider";
 import Title from "../../components/pageUI/Title";
 import Location from "../../components/pageUI/Location";
 import Body from "../../components/pageUI/Body";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import ImageGallery from "../../components/pageUI/ImageGallery";
+
 const ShareButtons = dynamic(
 	() => import("../../components/pageUI/ShareButtons"),
 	{ ssr: false }
@@ -35,27 +36,19 @@ const GeneralPostPage = ({ data }: GeneralPostPageProps) => {
 				<div className="px-3">
 					<Title text={data.title} url={data.url} />
 					{data?.location && <Location location={data.location} />}
-					{data?.images &&
-						(data?.images.length > 1 ? (
-							<ImageSlider
+					<div className="w-full h-[400px]">
+						{data?.images && (
+							<ImageGallery
 								images={data.images}
 								animated={true}
 								animatedDelay={1500}
+								primaryImageIndex={
+									data.primaryImageIndex ? data.primaryImageIndex : 0
+								}
 							/>
-						) : (
-							<div>
-								<Image
-									src={data.images[0].publicUrl}
-									alt="Post Image"
-									width={900}
-									height={900}
-									className="w-full h-auto object-contain relative"
-									// style={{
-									// 	position: "relative !important",
-									// }}
-								/>
-							</div>
-						))}
+						)}
+					</div>
+
 					<Body text={data.description} />
 					<ShareButtons title={data.title} description={data.title} />
 				</div>
