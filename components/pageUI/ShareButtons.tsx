@@ -75,7 +75,7 @@ const ShareButtons = ({
 					url={url}
 					title={title}
 					hashtags={["interchangeFP"]}
-					related={socialInfo.twitter.related}
+					related={socialInfo.twitter.related || undefined}
 				>
 					<BsTwitter className="fill-primary-500 m-3 h-8 w-8" />
 				</TwitterShareButton>

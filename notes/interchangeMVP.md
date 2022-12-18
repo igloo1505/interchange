@@ -5,7 +5,6 @@
 - [ ] Create *easily* removable stripe donation portal. _Not sure if they will want this, so make sure it's easy to remove_
 - [ ] Make sure **all** features of main site are maintained
 
-
 ### UI
 - [x] _conditionally_ display special events
 - [x] sort volunteers by date added
@@ -45,6 +44,7 @@
 
 ## Bug Fixes: 
 - [x] Disallow scrolling when map is open
+- [ ] Handle lazy loading... first load is massive.
 - [ ] Fix accordion on docs page to animate more smoothly.
 - [ ] Adjust image index on deleting of image.
 - [ ] Make sure Upload with images works, rather than just Update on all models.

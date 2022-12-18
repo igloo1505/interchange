@@ -5,7 +5,7 @@ import { RootState } from "../../state/store";
 import { ImageGalleryScrollingSelector } from "./ImageGallery";
 
 import VolunteerHighlightCard from "./VolunteerHighlightCard";
-const connector = connect((state: RootState, props) => ({
+const connector = connect((state: RootState) => ({
 	volunteers: state.global.volunteers,
 }));
 

@@ -59,7 +59,6 @@ const VolunteerHighlightCard = ({
 			className="h-fit w-auto absolute grid gap-1"
 			style={{
 				opacity: activeIndex === index ? 1 : 0,
-				// gridTemplateRows: "2rem 1fr",
 				gridTemplateRows: "auto 1fr",
 				zIndex: activeIndex === index ? 1000 : 1,
 			}}
