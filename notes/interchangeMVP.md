@@ -45,6 +45,8 @@
 ## Bug Fixes: 
 - [x] Disallow scrolling when map is open
 - [ ] Handle lazy loading... first load is massive.
+- [ ] Handle horizontal scroll based on container width and photo widths in gallery component.
+    - Map array of images with Id's and get array of widths, then query container width and sum widths up to index of active image. When accounting for padding, margin and gap this should provide a pretty reliable way to scroll horizontally without overflowing.
 - [ ] Fix accordion on docs page to animate more smoothly.
 - [ ] Adjust image index on deleting of image.
 - [ ] Make sure Upload with images works, rather than just Update on all models.

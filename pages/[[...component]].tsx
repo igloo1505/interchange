@@ -1,10 +1,39 @@
 import React, { Fragment, useEffect } from "react";
-import About from "../components/pageComponents/About";
-import Contact from "../components/pageComponents/Contact";
-import Volunteer from "../components/pageComponents/Volunteer";
-import Resources from "../components/pageComponents/Resources";
-import Donate from "../components/pageComponents/Donate";
-import Hours_And_Location from "../components/pageComponents/Hours_And_Location";
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
+// import About from "../components/pageComponents/About";
+const About = dynamic(() => import("../components/pageComponents/About"), {
+	suspense: true,
+});
+const Contact = dynamic(() => import("../components/pageComponents/Contact"), {
+	suspense: true,
+});
+// import Contact from "../components/pageComponents/Contact";
+// import Volunteer from "../components/pageComponents/Volunteer";
+const Volunteer = dynamic(
+	() => import("../components/pageComponents/Volunteer"),
+	{
+		suspense: true,
+	}
+);
+//   import Resources from "../components/pageComponents/Resources";
+const Resources = dynamic(
+	() => import("../components/pageComponents/Resources"),
+	{
+		suspense: true,
+	}
+);
+// import Donate from "../components/pageComponents/Donate";
+const Donate = dynamic(() => import("../components/pageComponents/Donate"), {
+	suspense: true,
+});
+//   import Hours_And_Location from "../components/pageComponents/Hours_And_Location";
+const Hours_And_Location = dynamic(
+	() => import("../components/pageComponents/Hours_And_Location"),
+	{
+		suspense: true,
+	}
+);
 import Home from "../components/pageComponents/Home";
 import { useRouter } from "next/router";
 import WithColumnRight from "../components/layout/WithColumnRight";
@@ -38,17 +67,47 @@ const ComponentSwitcher = ({
 }: ComponentSwitcherInterface) => {
 	switch (path) {
 		case pageEnum.about:
-			return <About {...extraProps} />;
+			return (
+				<Suspense fallback={`Loading...`}>
+					{" "}
+					<About {...extraProps} />
+				</Suspense>
+			);
 		case pageEnum.contact:
-			return <Contact {...extraProps} />;
+			return (
+				<Suspense fallback={`Loading...`}>
+					{" "}
+					<Contact {...extraProps} />
+				</Suspense>
+			);
 		case pageEnum.donate:
-			return <Donate {...extraProps} />;
+			return (
+				<Suspense fallback={`Loading...`}>
+					{" "}
+					<Donate {...extraProps} />
+				</Suspense>
+			);
 		case pageEnum.hoursAndLocation:
-			return <Hours_And_Location {...extraProps} />;
+			return (
+				<Suspense fallback={`Loading...`}>
+					{" "}
+					<Hours_And_Location {...extraProps} />
+				</Suspense>
+			);
 		case pageEnum.resources:
-			return <Resources {...extraProps} />;
+			return (
+				<Suspense fallback={`Loading...`}>
+					{" "}
+					<Resources {...extraProps} />
+				</Suspense>
+			);
 		case pageEnum.volunteer:
-			return <Volunteer {...extraProps} />;
+			return (
+				<Suspense fallback={`Loading...`}>
+					{" "}
+					<Volunteer {...extraProps} />
+				</Suspense>
+			);
 		default:
 			return <Home />;
 	}
