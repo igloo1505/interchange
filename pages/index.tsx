@@ -13,7 +13,6 @@ import { useAppDispatch } from "../hooks/ReduxHooks";
 import { populateEmptyFeed } from "../utils/populateEmptyFeed";
 import { populateGlobal } from "../state/actions";
 // Serverside stuff
-import mongoose from "mongoose";
 import { globalDataInterface } from "../state/initialState";
 import { GetServerSideProps } from "next";
 import { dayKeys } from "../utils/utilityFunctions";

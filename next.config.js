@@ -14,7 +14,8 @@ module.exports = withPWA({
 		minimumCacheTTL: 1500000,
 	},
 	compiler: {
-		removeConsole: process.env.NODE_ENV === "production",
+		// removeConsole: process.env.NODE_ENV === "production",
+		removeConsole: false,
 	},
 	swcMinify: true,
 });
