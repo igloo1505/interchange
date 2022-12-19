@@ -114,7 +114,7 @@ const Opportunity = ({ item }: { item: Opportunity_i }) => {
 			<div>
 				{item.data.map((d, i) => {
 					return (
-						<div className="mx-2">
+						<div className="mx-2" key={`134adfaf${i}`}>
 							<div className="text-primary-600">{d.time}</div>
 							<div className="ml-4">{d.description}</div>
 						</div>
@@ -158,8 +158,8 @@ const Volunteer = () => {
 			</div>
 			<SubTitle title="Volunteer Opportunities" />
 			<div>
-				{opportunities.map((o) => (
-					<Opportunity item={o} />
+				{opportunities.map((o, z) => (
+					<Opportunity item={o} key={`opportunity-key-${z}`} />
 				))}
 			</div>
 			<div className="mt-2 w-full flex flex-col justify-center items-start">
