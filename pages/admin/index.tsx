@@ -1,6 +1,6 @@
 import type { GetServerSidePropsContext, NextPage } from "next";
 import dynamic from "next/dynamic";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import {
 	SessionProvider,
 	SessionContext,
@@ -22,6 +22,7 @@ const App = dynamic(() => import("../../components/admin/Main"), {
 
 const Admin: NextPage = ({ ...props }) => {
 	console.log("props in admin...: ", props);
+
 	return <App />;
 };
 

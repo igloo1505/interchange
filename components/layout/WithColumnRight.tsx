@@ -33,6 +33,7 @@ const WithColumnRight = connector(
 		hideColumnRight,
 	}: WithColumnRightProps) => {
 		const router = useRouter();
+
 		const [size, setSizes] = useState({
 			open: "10vw 1fr",
 			closed: "1fr 200px",

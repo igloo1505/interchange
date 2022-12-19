@@ -8,6 +8,8 @@ import { RootState } from "../../state/store";
 import initialState from "../../state/initialState";
 import IFPLogo from "../../public/assets/IFP-logo.png";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import clsx from "clsx";
 const connector = connect((state: RootState, props: any) => ({
 	dimensions: state.UI.dimensions,
 	props: props,
@@ -61,9 +63,15 @@ export const links: NavLink[] = [
 ];
 
 const Navbar = connector(({ dimensions, props }: NavbarProps) => {
-	const dispatch = useAppDispatch();
 	const [shouldAnimate, setShouldAnimate] = useState(false);
 	const [allowNextAnim, setAllowNextAnim] = useState(false);
+	const router = useRouter();
+	const [shouldHide, setShouldHide] = useState(false);
+	useEffect(() => {
+		console.log(router);
+		let should = `${router.asPath}`.startsWith("/admin");
+		setShouldHide(should);
+	}, [router]);
 	useEffect(() => {
 		if (typeof window !== "undefined" && shouldAnimate) {
 			animateEntrance({ onComplete: () => setAllowNextAnim(true) });
@@ -72,8 +80,13 @@ const Navbar = connector(({ dimensions, props }: NavbarProps) => {
 
 	return (
 		<div
-			className="flex-col items-center justify-center hidden w-screen md:flex max-w-screen"
+			className={clsx(
+				"flex-col items-center justify-center hidden w-screen md:flex max-w-screen"
+			)}
 			id="navbar-outer-container"
+			style={{
+				...(shouldHide && { display: "none" }),
+			}}
 		>
 			<div className="w-full h-fit py-2 flex justify-center items-center">
 				<Image src={IFPLogo} alt="Interchange Food Pantry Logo" height={80} />
