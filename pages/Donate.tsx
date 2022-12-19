@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import PageTitle from "../layout/PageTitle";
-import DonationCard from "../general/DonationCard";
-// import SubTitle from "../pageUI/SubTitle";
-import SubTitle from "../layout/SubTitle";
-import ConditionalGoFundMeLink from "../general/ConditionalGoFundmeLink";
+import PageTitle from "../components/layout/PageTitle";
+import DonationCard from "../components/general/DonationCard";
+// import SubTitle from "../components/pageUI/SubTitle";
+import SubTitle from "../components/layout/SubTitle";
+import ConditionalGoFundMeLink from "../components/general/ConditionalGoFundmeLink";
 import gsap from "gsap";
 import ReactGA from "react-ga4";
 
@@ -91,13 +91,16 @@ const Donate = ({}: DonateProps) => {
 						<br /> 1105 N Waverly Place,
 						<br /> Milwaukee, WI 53202
 					</div>{" "}
-					<div>
+					<div className="my-2">
 						You can also donate online to our{" "}
 						<ConditionalGoFundMeLink text="GoFundMe Healthy Food Fund" />.
 					</div>
-					<div>
+					<div className="mt-2">
 						Are you interested in holding a food drive for the Interchange Food
-						Panty? If so, please email us at{" "}
+						Panty?
+					</div>
+					<div className="ml-3">
+						If so, please email us at{" "}
 						<a
 							href="mailto:ifpmilwaukee@gmail.com"
 							className="text-primary-600"

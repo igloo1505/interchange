@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import PageTitle from "../layout/PageTitle";
-import SubTitle from "../layout/SubTitle";
-import Hotline from "../layout/resources/Hotline";
-import Online from "../layout/resources/Online";
-import Housing from "../layout/resources/Housing";
-import BasicNeeds from "../layout/resources/BasicNeeds";
-import Healthcare from "../layout/resources/Healthcare";
-import Employment from "../layout/resources/Employment";
+import PageTitle from "../components/layout/PageTitle";
+import SubTitle from "../components/layout/SubTitle";
+import Hotline from "../components/layout/resources/Hotline";
+import Online from "../components/layout/resources/Online";
+import Housing from "../components/layout/resources/Housing";
+import BasicNeeds from "../components/layout/resources/BasicNeeds";
+import Healthcare from "../components/layout/resources/Healthcare";
+import Employment from "../components/layout/resources/Employment";
 import gsap from "gsap";
 import ReactGA from "react-ga4";
 

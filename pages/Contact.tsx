@@ -2,11 +2,11 @@ import React, { useState, useEffect, ChangeEvent } from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import gsap from "gsap";
-import info from "../../utils/infoDetails";
+import info from "../utils/infoDetails";
 import { HiPhoneArrowUpRight } from "react-icons/hi2";
-import animate from "../../animations/animate";
-import { submitNewContact } from "../../state/actions";
-import PageTitle from "../layout/PageTitle";
+import animate from "../animations/animate";
+import { submitNewContact } from "../state/actions";
+import PageTitle from "../components/layout/PageTitle";
 import ReactGA from "react-ga4";
 
 interface ContactProps {}

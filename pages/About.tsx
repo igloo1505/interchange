@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
-import { pageEnum } from "../../utils/utilityFunctions";
-import PageTitle from "../layout/PageTitle";
+import { pageEnum } from "../utils/utilityFunctions";
+import PageTitle from "../components/layout/PageTitle";
 import gsap from "gsap";
 import clsx from "clsx";
 import ReactGA from "react-ga4";
@@ -122,7 +122,7 @@ const About = ({}: AboutProps) => {
 				right={false}
 			/>
 			<ul
-				className="flex flex-col items-start justify-center gap-1 mx-5 my-4 colored-list-bullet"
+				className="flex flex-col items-start justify-center gap-1 mx-10 font-thin my-4 colored-list-bullet"
 				style={{
 					listStyle: "none",
 				}}

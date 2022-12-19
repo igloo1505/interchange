@@ -6,6 +6,13 @@ import Listeners from "../components/layout/Listeners";
 import store from "../state/store";
 import { Raleway } from "@next/font/google";
 import LockBodyListener from "../components/layout/LockBodyListener";
+import Toast from "../components/layout/Toast";
+import Drawer from "../components/layout/Drawer";
+import Navbar from "../components/layout/Navbar";
+import Navbar_mobile from "../components/layout/Navbar_mobile";
+import ColumnRight from "../components/layout/ColumnRight";
+import WithColumnRight from "../components/layout/WithColumnRight";
+
 // TODO: Add SEO in before pushing to production
 // import Seo from '../components/layout/Seo';
 import ReactGA from "react-ga4";
@@ -24,7 +31,14 @@ export default function App({ Component, pageProps }: AppProps) {
 			<Provider store={store}>
 				<Listeners />
 				<LockBodyListener />
-				<Component {...pageProps} />
+				<Toast />
+				<Drawer />
+				<Navbar />
+				<Navbar_mobile />
+				<ColumnRight />
+				<WithColumnRight>
+					<Component {...pageProps} />
+				</WithColumnRight>
 			</Provider>
 		</main>
 	);

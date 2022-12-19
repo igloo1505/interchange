@@ -1,24 +1,29 @@
 import React, { useState, useEffect, Fragment } from "react";
-import PageTitle from "../layout/PageTitle";
+import PageTitle from "../components/layout/PageTitle";
 import gsap from "gsap";
-import info from "../../utils/infoDetails";
-import clsx from "clsx";
+import info from "../utils/infoDetails";
 import dynamic from "next/dynamic";
 import { connect } from "react-redux";
-import { RootState } from "../../state/store";
-import initialState from "../../state/initialState";
-import { dayKeys, dayValues } from "../../utils/utilityFunctions";
-import SubTitle from "../layout/SubTitle";
+import { RootState } from "../state/store";
+import initialState from "../state/initialState";
+import { dayKeys, dayValues } from "../utils/utilityFunctions";
+import SubTitle from "../components/layout/SubTitle";
 import ReactGA from "react-ga4";
+import { connectServerSide } from "../utils/connectMongo";
+import Hours, { HoursInterface } from "../models/Hours";
+import { GetServerSideProps } from "next";
 
 const connector = connect((state: RootState, props: any) => ({
 	global: state.global,
 	viewport: state.UI.dimensions.viewport,
 }));
 
-const Map = dynamic(() => import("../general/Map_hoursAndLocation"), {
-	ssr: false,
-});
+const Map = dynamic(
+	() => import("../components/general/Map_hoursAndLocation"),
+	{
+		ssr: false,
+	}
+);
 
 const Day = ({ dayKey, data }: { dayKey: string; data: any }) => {
 	return (
@@ -31,19 +36,28 @@ const Day = ({ dayKey, data }: { dayKey: string; data: any }) => {
 	);
 };
 
-const HoursSection = ({ global }: { global: typeof initialState.global }) => {
+const HoursSection = ({
+	global,
+	fromServerSide,
+}: {
+	global: typeof initialState.global;
+	fromServerSide: { hours: object };
+}) => {
+	const [_hours, set_hours] = useState(global.hours || {});
+	useEffect(() => {
+		if (!global?.hours && fromServerSide?.hours) {
+			console.log("fromServerSide: ", fromServerSide);
+			set_hours(fromServerSide.hours);
+		}
+	}, [fromServerSide]);
 	return (
 		<Fragment>
 			<SubTitle title="Pantry Hours" />
 			<div>
-				{global?.hours &&
-					Object.keys(global.hours).map((h, i) => {
+				{_hours &&
+					Object.keys(_hours).map((h, i) => {
 						return (
-							<Day
-								dayKey={h}
-								key={`daily-schedule-${i}`}
-								data={global?.hours?.[h]}
-							/>
+							<Day dayKey={h} key={`daily-schedule-${i}`} data={_hours?.[h]} />
 						);
 					})}
 			</div>
@@ -54,10 +68,11 @@ const HoursSection = ({ global }: { global: typeof initialState.global }) => {
 interface HoursAndLocationProps {
 	global: typeof initialState.global;
 	viewport: typeof initialState.UI.dimensions.viewport;
+	data: { hours: object };
 }
 
 const HoursAndLocation = connector(
-	({ global, viewport }: HoursAndLocationProps) => {
+	({ global, viewport, data }: HoursAndLocationProps) => {
 		ReactGA.send({ hitType: "pageview", page: "/hoursAndLocation" });
 		useEffect(() => {
 			if (typeof window === "undefined") {
@@ -87,14 +102,18 @@ const HoursAndLocation = connector(
 							on the north side of the street inside the Village Church.
 						</div>
 						{viewport.width >= 768 && <div className="h-[1rem]" />}
-						{viewport.width >= 768 && <HoursSection global={global} />}
+						{viewport.width >= 768 && (
+							<HoursSection global={global} fromServerSide={data} />
+						)}
 					</div>
 					<Map />
 				</div>
-				{viewport.width < 768 && <HoursSection global={global} />}
+				{viewport.width < 768 && (
+					<HoursSection global={global} fromServerSide={data} />
+				)}
 				<div className="w-full flex flex-col justify-start items-start font-thin">
 					<SubTitle title="Interchange guests: What you’ll need at the pantry" />
-					<div className="mt-3 indent-3">
+					<div className="mt-3 mb-2 indent-3">
 						The Interchange Food Pantry serves our guests four times per week
 						with nutritious and healthy food choices. At the pantry, we will
 						need to confirm identifications for all living in your household. We
@@ -139,4 +158,37 @@ const animateEntrance = () => {
 		},
 		"-=0.3"
 	);
+};
+
+export const getServerSideProps: GetServerSideProps<{
+	data: any;
+}> = async (context) => {
+	const { req, res } = connectServerSide(context.req, context.res);
+	let hours = await Hours.find().sort({
+		createdAt: "asc",
+	});
+	let _hours = {};
+	for (let i = 0; i < dayKeys.length; i++) {
+		const k: string = dayKeys[i];
+		if (hours[0][k]) {
+			/// @ts-ignore
+			_hours[k] = {
+				/// @ts-ignore
+				open: hours[0][k]?.["open"],
+				/// @ts-ignore
+				close: hours[0][k]?.["close"],
+			};
+		}
+	}
+	/// @ts-ignore
+	let data: any = {
+		hours: _hours
+			? Array.isArray(_hours)
+				? JSON.parse(JSON.stringify(_hours[0]))
+				: JSON.parse(JSON.stringify(_hours))
+			: null,
+	};
+	return {
+		props: { data },
+	};
 };

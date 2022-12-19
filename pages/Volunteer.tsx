@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import PageTitle from "../layout/PageTitle";
+import PageTitle from "../components/layout/PageTitle";
 import gsap from "gsap";
-import SubTitle from "../layout/SubTitle";
+import SubTitle from "../components/layout/SubTitle";
 import ReactGA from "react-ga4";
-import VolunteerHighlightSlider from "../pageUI/VolunteerHighlightSlider";
+import VolunteerHighlightSlider from "../components/pageUI/VolunteerHighlightSlider";
 
 interface t_i {
 	time: string;
@@ -99,7 +99,7 @@ const Opportunity = ({ item }: { item: Opportunity_i }) => {
 			className="flex flex-col items-start justify-start mt-3 volunteer-opportunity"
 			style={{
 				// transform: "translateX(-100vw)",
-				transform: "scale(0, 0)",
+				// transform: "scale(0, 0)",
 				opacity: 0,
 			}}
 		>
@@ -144,7 +144,7 @@ const Volunteer = () => {
 					transform: "translateX(-100vw)",
 				}}
 			/>
-			<div className="mx-2 my-2 font-thin">
+			<div className="mx-2 mb-2 mt-4 font-thin">
 				The Interchange Food Pantry wouldn't be known for serving its guests
 				respectfully and connecting them with the high-quality food they need
 				without its outstanding volunteers. They help prepare the pantry hours
@@ -205,11 +205,9 @@ const animateEntrance = () => {
 		".volunteer-opportunity",
 		{
 			opacity: 1,
-			scale: 1,
-			transformOrigin: "center",
-			duration: 1.5,
+			duration: 2.5,
 			stagger: 0.15,
-			ease: "elastic.out(1, 0.8)",
+			ease: "power3.out",
 			// ease: "power3.out",
 		},
 		"-=1"
