@@ -47,7 +47,7 @@ const Home = connector(
 				/// @ts-ignore
 				populateGlobal({
 					...data,
-					...(!hasFeed && { feed: { data: feed, page: 1 } }),
+					...(!hasFeed && { feed: { ...feed } }),
 				})
 			);
 		}, [data]);
@@ -99,8 +99,6 @@ const Home = connector(
 	}
 );
 
-export default Home;
-
 export const getServerSideProps: GetServerSideProps<{
 	data: globalDataInterface;
 }> = async (context) => {
@@ -151,3 +149,5 @@ export const getServerSideProps: GetServerSideProps<{
 		props: { data },
 	};
 };
+
+export default Home;
