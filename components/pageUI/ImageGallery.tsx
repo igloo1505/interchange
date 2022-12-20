@@ -389,7 +389,7 @@ const ImageGallery = connector(
 								/>
 							))
 						) : (
-							<div>
+							<div className="max-w-[768px] h-auto">
 								<Image
 									src={images[0].publicUrl}
 									alt="Image Gallery Interchange Food Pantry"
