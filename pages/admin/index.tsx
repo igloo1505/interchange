@@ -30,11 +30,8 @@ export default Admin;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
 	debugger;
-	const session = await unstable_getServerSession(
-		context.req,
-		context.res,
-		authOptions
-	);
+	const session: { email: string; id: string } | null =
+		await unstable_getServerSession(context.req, context.res, authOptions);
 	if (!session) {
 		return {
 			redirect: {
