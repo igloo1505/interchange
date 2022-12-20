@@ -8,6 +8,7 @@ import {
 	ImageInput,
 	ImageField,
 	DateInput,
+	PasswordInput,
 } from "react-admin";
 import Box from "@mui/material/Box";
 import RichText from "../RichText";
@@ -19,6 +20,12 @@ const AccessCreate = () => {
 				<TextInput
 					source="email"
 					label="Email"
+					validate={[required()]}
+					fullWidth
+				/>
+				<PasswordInput
+					source="password"
+					label="Password"
 					validate={[required()]}
 					fullWidth
 				/>

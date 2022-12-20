@@ -74,11 +74,14 @@ const Navbar = connector(({ dimensions, props }: NavbarProps) => {
 		setShouldHide(should);
 	}, [router]);
 	useEffect(() => {
-		if (typeof window !== "undefined" && shouldAnimate) {
-			animateEntrance({ onComplete: () => setAllowNextAnim(true) });
+		// if (typeof window !== "undefined" && shouldAnimate) {
+		if (typeof window !== "undefined") {
+			setTimeout(() => {
+				animateEntrance({ onComplete: () => setAllowNextAnim(true) });
+			}, 1500);
 		}
-	}, [shouldAnimate]);
-
+	}, []);
+	dimensions.viewport.width;
 	return (
 		<div
 			className={clsx(
@@ -97,9 +100,9 @@ const Navbar = connector(({ dimensions, props }: NavbarProps) => {
 			<div className="flex-row items-center justify-center w-full gap-2 py-3 md:flex">
 				{dimensions.viewport.width > 768 &&
 					links.map((l, i, a) => {
-						if (!shouldAnimate && i === a.length - 1) {
-							setShouldAnimate(true);
-						}
+						// if (!shouldAnimate && i === a.length - 1) {
+						// 	setShouldAnimate(true);
+						// }
 						return (
 							<div
 								className="flex flex-col items-center justify-center navbar-item cursor-pointer"

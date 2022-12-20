@@ -5,6 +5,8 @@ import { ErrorResponse, sendError } from "../../../types/ErrorResponse";
 import connectDB from "../../../utils/connectMongo";
 import "colors";
 import multer from "multer";
+import bcrypt from "bcrypt";
+
 const handler = nc();
 handler.use(multer().any());
 
@@ -22,8 +24,18 @@ handler.put(async (req: NextApiRequest, res: NextApiResponse) => {
 		let ids: any[] = req.body?.ids ? req.body.ids : [req.body.id];
 
 		let updatedAllows: any[] = [];
-
 		for (const _id of ids) {
+			let currentAccess = await AllowAccess.findById(_id);
+			if (!currentAccess) {
+				return res
+					.status(500)
+					.json({ success: false, error: "User not found." });
+			}
+			if (req.body.password && req.body.password !== currentAccess.password) {
+				let salt = await bcrypt.genSalt(10);
+				let hashedPassword = await bcrypt.hash(req.body.password, salt);
+				req.body.password = hashedPassword;
+			}
 			let _allow = await AllowAccess.findByIdAndUpdate(_id, req.body, {
 				new: true,
 			});

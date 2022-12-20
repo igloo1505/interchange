@@ -30,39 +30,38 @@ export default Admin;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
 	debugger;
-	const session: any = await unstable_getServerSession(
+	const session = await unstable_getServerSession(
 		context.req,
 		context.res,
 		authOptions
 	);
-	const token = await getToken({
-		req: context.req,
-	});
-	console.log(`session: ${JSON.stringify(session, null, 2)}`.red);
-	console.log("token: ", token);
-	let hasEmail = session?.email;
-	if (!hasEmail) {
+	if (!session) {
 		return {
 			redirect: {
-				destination: "/api/auth/signin",
+				destination: "/auth/signin",
 				permanent: false,
 			},
 		};
 	}
-	let permissionGranted;
-	const { req, res } = connectServerSide(context.req, context.res);
-	// let _session = getSession(req);
-
-	let allowable = await AllowAccess.find();
-	let _allowable = [{ email: "interchangefp@gmail.com" }, ...allowable].map(
-		(l) => l.email.toLowerCase()
-	);
-	console.log("allowable: ", _allowable);
-	console.log(`session: ${session}`.bgBlue.white);
-	if (!allowable || _allowable.indexOf(hasEmail.toLowerCase()) < 0) {
+	let sessionEmail = session?.email;
+	if (!sessionEmail) {
+		console.log("Email not in accessToken");
 		return {
 			redirect: {
-				destination: "/",
+				destination: "/auth/signin",
+				permanent: false,
+			},
+		};
+	}
+	await connectServerSide(context.req, context.res);
+
+	let allowable = await AllowAccess.findOne({ email: sessionEmail });
+
+	if (allowable._id.toString() !== session?.id) {
+		console.log("Invalid id found in token");
+		return {
+			redirect: {
+				destination: "/auth/signin",
 				permanent: false,
 			},
 		};

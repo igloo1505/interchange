@@ -1,23 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Edit, SimpleForm, TextInput, DateInput } from "react-admin";
+import {
+	Edit,
+	SimpleForm,
+	TextInput,
+	DateInput,
+	PasswordInput,
+	required,
+} from "react-admin";
 import Box from "@mui/material/Box";
 
 const AccessEdit = () => {
-	const [viewport, setViewport] = useState<number | undefined | any>();
-	const handleViewport = () => {
-		if (typeof window === "undefined") {
-			return;
-		}
-		let w = window.innerWidth;
-		setViewport(w);
-	};
-	useEffect(() => {
-		if (typeof window === "undefined") {
-			return;
-		}
-		handleViewport();
-		window.addEventListener("resize", handleViewport);
-	}, []);
 	return (
 		<Edit
 			sx={{
@@ -30,11 +22,7 @@ const AccessEdit = () => {
 			}}
 		>
 			<SimpleForm mode="onBlur" reValidateMode="onBlur">
-				<TextInput
-					source="email"
-					// validate={required()}
-					fullWidth
-				/>
+				<TextInput source="email" validate={[required()]} fullWidth />
 				<DateInput
 					source="autoExpire"
 					label="Auto Expire"

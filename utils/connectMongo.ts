@@ -40,3 +40,18 @@ export const connectServerSide = (
 			return { req, res };
 		});
 };
+
+
+export const connectMongo_minimal = (): boolean => {
+	if (mongoose.connections[0].readyState) {
+		return true
+	}
+	return mongoose
+		.connect(process.env.MONGO_URI, {
+			useNewUrlParser: true,
+			useUnifiedTopology: true,
+		})
+		.then(async () => {
+			return true
+		});	
+}

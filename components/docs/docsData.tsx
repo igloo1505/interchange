@@ -89,16 +89,14 @@ export const sections: section[] = [
 							</Link>{" "}
 							half of this app is controlled through the same email associated
 							with the databases accounts and the analytics account listed
-							below. Once you change your password with Google even I won't have
-							access to the admin half of this app anymore. While it's pretty
-							self explanatory, there are certainly some quirks. You can read
-							more about the admin part of this app{" "}
-							<a
-								onClick={() => handleScrollTo("doc-section-title-admin")}
-								className="text-primary-800 font-bold cursor-pointer"
-							>
-								here.
-							</a>
+							below. While I originally tried to associate the two directly,
+							Google set's unreasonable requirements for a project of this scale
+							and the time frame for a project I wasn't sure would even be used
+							seemed prohibitive, so for right now the password here is not
+							directly associated with your google email. You can however change
+							your password to the admin portion of this app from within the
+							admin portion of the app, at which point even I couldn't access
+							that portion of the app without your password.
 						</div>
 					</div>
 				),
@@ -114,34 +112,9 @@ export const sections: section[] = [
 						ability to edit things within this application without granting them
 						access to more personal and critical accounts.
 						<div className="my-1 indent-3">
-							To keep things simple I only added authentication through Google
-							for now, since that is where much of the data is being held
-							anyway, but if you'd like I can create the ability for volunteers
-							or employee's to gain access to the{" "}
-							<Link href="/admin" className="text-primary-800 font-bold">
-								Admin
-							</Link>{" "}
-							portion of this app with other emails as well. Once you login
-							yourself, with the email and password I will provide when I send
-							this over, you can then create other{" "}
-							<span className="text-primary-600">permitted</span> emails that
-							will have access only to the{" "}
-							<Link href="/admin" className="text-primary-800 font-bold">
-								Admin
-							</Link>{" "}
-							portion of this app without gaining access to everything
-							associated with the primary email.
-						</div>
-						<div className="my-1 indent-3">
-							This works by handling the authentication first with Google,
-							managed entirely by Google, and then cross-referencing that with
-							the emails you add to that portion of the{" "}
-							<Link href="/admin" className="text-primary-800 font-bold">
-								Admin
-							</Link>{" "}
-							panel. Because of this, for now those emails must be associated
-							with Google accounts, but I can change that in the future if you'd
-							like.
+							The only way for another person to access the admin portion of
+							this app is through an email and password, and only if that email
+							is allowed by you in the admin portion of this app.
 						</div>
 					</div>
 				),
