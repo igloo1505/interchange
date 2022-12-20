@@ -1,7 +1,5 @@
 import NextAuth, { AuthOptions } from "next-auth";
 import GoogleProvider, { GoogleProfile } from "next-auth/providers/google";
-// import clientPromise from "../../../utils/clientPromise";
-// import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import {
 	refreshAccessToken,
 	// GOOGLE_AUTHORIZATION_URL,
@@ -22,11 +20,7 @@ export const authOptions: AuthOptions = {
 			profile(profile: GoogleProfile) {
 				return {
 					id: profile.email,
-					// email: profile.email,
 					...profile,
-					// Return all the profile information you need.
-					// The only truly required field is `id`
-					// to be able identify the account when added to a database
 				};
 			},
 			// authorization: {

@@ -90,7 +90,9 @@ const Navbar = connector(({ dimensions, props }: NavbarProps) => {
 			}}
 		>
 			<div className="w-full h-fit py-2 flex justify-center items-center">
-				<Image src={IFPLogo} alt="Interchange Food Pantry Logo" height={80} />
+				<Link href="/">
+					<Image src={IFPLogo} alt="Interchange Food Pantry Logo" height={80} />
+				</Link>
 			</div>
 			<div className="flex-row items-center justify-center w-full gap-2 py-3 md:flex">
 				{dimensions.viewport.width > 768 &&

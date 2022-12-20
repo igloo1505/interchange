@@ -111,7 +111,7 @@ const HoursAndLocation = connector(
 				{viewport.width < 768 && (
 					<HoursSection global={global} fromServerSide={data} />
 				)}
-				<div className="w-full flex flex-col justify-start items-start font-thin">
+				<div className="w-full flex flex-col justify-start items-start font-thin mt-8">
 					<SubTitle title="Interchange guests: What you’ll need at the pantry" />
 					<div className="mt-3 mb-2 indent-3">
 						The Interchange Food Pantry serves our guests four times per week

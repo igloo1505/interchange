@@ -16,14 +16,16 @@ export const hideNavbarPaths = ["/admin", "/docs", "/auth"];
 export const hideColumnRight = (path: string): boolean => {
 	// let x =
 	return (
-		hideColumnRightPaths.map((a: string) => path.startsWith(a)).filter((b) => b)
-			.length >= 1
+		hideColumnRightPaths
+			.map((a: string) => path.toLowerCase().startsWith(a))
+			.filter((b) => b).length >= 1
 	);
 };
 export const hideNavbar = (path: string): boolean => {
 	return (
-		hideNavbarPaths.map((a: string) => path.startsWith(a)).filter((b) => b)
-			.length >= 1
+		hideNavbarPaths
+			.map((a: string) => path.toLowerCase().startsWith(a))
+			.filter((b) => b).length >= 1
 	);
 };
 
@@ -34,10 +36,8 @@ const Listeners = ({}: ListenersProps) => {
 		if (typeof window === "undefined") {
 			return;
 		}
-		let shouldHideRightColumn = false;
-		if (hideColumnRightPaths.indexOf(router.asPath.toLowerCase()) >= 0) {
-			shouldHideRightColumn = true;
-		}
+		console.log(router.asPath);
+		let shouldHideRightColumn = hideColumnRight(router.asPath) || false;
 		dispatch(setHideRightColumn(shouldHideRightColumn));
 	}, [router.asPath]);
 	const handleDimensions = () => {

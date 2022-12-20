@@ -6,8 +6,13 @@ interface BodyProps {
 
 const Body = ({ text }: BodyProps) => {
 	return (
-		<div className="text-black rich-text-body">
-			<div dangerouslySetInnerHTML={{ __html: text }} />
+		<div className="text-black rich-text-body w-full flex flex-col justify-start items-center">
+			<div
+				dangerouslySetInnerHTML={{ __html: text }}
+				style={{
+					maxWidth: "min(980px, calc(100% - 2rem))",
+				}}
+			/>
 		</div>
 	);
 };

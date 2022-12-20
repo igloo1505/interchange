@@ -1,13 +1,6 @@
 import React, { Fragment } from "react";
-import WithColumnRight from "../../components/layout/WithColumnRight";
-import ColumnRight from "../../components/layout/ColumnRight";
-import Navbar from "../../components/layout/Navbar";
-import Navbar_mobile from "../../components/layout/Navbar_mobile";
-import Drawer from "../../components/layout/Drawer";
-import Toast from "../../components/layout/Toast";
 import { connectServerSide } from "../../utils/connectMongo";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import ImageSlider from "../../components/general/ImageSlider";
 import Title from "../../components/pageUI/Title";
 import SubTitle from "../../components/pageUI/SubTitle";
 import Body from "../../components/pageUI/Body";
@@ -26,47 +19,38 @@ interface VolunteerSpotlightPageProps {
 
 const VolunteerSpotlightPage = ({ data }: VolunteerSpotlightPageProps) => {
 	return (
-		<Fragment>
-			<Navbar />
-			<Toast />
-			<Drawer />
-			<Navbar_mobile />
-			<ColumnRight />
-			<WithColumnRight>
-				<div className="px-3">
-					<Title text={"Volunteer Spotlight"} withMarginBottom={false} />
-					{data.name?.first && <SubTitle text={data.name.first} />}
-					{data?.images && (
-						<div
-							className="w-full"
-							style={{
-								...(data.images && {
-									height: data.images.length > 1 ? "400px" : "fit-content",
-								}),
-							}}
-						>
-							<ImageGallery
-								images={data.images}
-								animated={true}
-								animatedDelay={1500}
-								primaryImageIndex={
-									data.primaryImageIndex ? data.primaryImageIndex : 0
-								}
-							/>
-						</div>
-					)}
-					<Body text={data.description} />
-					<ShareButtons
-						title={`Volunteer Spotlight: ${
-							data.name?.first ? data.name?.first : ""
-						}`}
-						description={`Volunteer Spotlight: ${
-							data.name?.first ? data.name?.first : ""
-						}`}
+		<div className="px-3">
+			<Title text={"Volunteer Spotlight"} withMarginBottom={false} />
+			{data.name?.first && <SubTitle text={data.name.first} />}
+			{data?.images && (
+				<div
+					className="w-full"
+					style={{
+						...(data.images && {
+							height: data.images.length > 1 ? "400px" : "fit-content",
+						}),
+					}}
+				>
+					<ImageGallery
+						images={data.images}
+						animated={true}
+						animatedDelay={1500}
+						primaryImageIndex={
+							data.primaryImageIndex ? data.primaryImageIndex : 0
+						}
 					/>
 				</div>
-			</WithColumnRight>
-		</Fragment>
+			)}
+			<Body text={data.description} />
+			<ShareButtons
+				title={`Volunteer Spotlight: ${
+					data.name?.first ? data.name?.first : ""
+				}`}
+				description={`Volunteer Spotlight: ${
+					data.name?.first ? data.name?.first : ""
+				}`}
+			/>
+		</div>
 	);
 };
 
