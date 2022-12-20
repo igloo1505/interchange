@@ -8,7 +8,6 @@ import {
 } from "../../../utils/refreshToken";
 import { JWT, JWTOptions } from "next-auth/jwt";
 import AllowAccess from "../../../models/AllowAccess";
-import "colors";
 
 export const authOptions: AuthOptions = {
 	// Configure one or more authentication providers
@@ -73,12 +72,12 @@ export const authOptions: AuthOptions = {
 		},
 		/// @ts-ignore
 		async signIn({ user, account, profile, email, credentials }): any {
-			let allowable = AllowAccess.find();
-			let a = (await allowable).map((m) => m.email.toLowerCase());
+			let allowable = await AllowAccess.find();
+			let a = allowable.map((m) => m.email.toLowerCase());
 			const isAllowedToSignIn =
 				/// @ts-ignore
 				["interchangefp@gmail.com", ...a].indexOf(profile.email) >= 0;
-			console.log("isAllowedToSignIn: ", isAllowedToSignIn);
+			// console.log("isAllowedToSignIn: ", isAllowedToSignIn);
 			if (isAllowedToSignIn) {
 				return true;
 			} else {
@@ -97,7 +96,6 @@ export const authOptions: AuthOptions = {
 	pages: {
 		signIn: "/auth/signin",
 	},
-	debug: true,
 	secret: process.env.NEXTAUTH_SECRET,
 	// adapter: MongoDBAdapter(clientPromise),
 };
