@@ -14,11 +14,17 @@ export const hideColumnRightPaths = [
 ];
 export const hideNavbarPaths = ["/admin", "/docs", "/auth"];
 export const hideColumnRight = (path: string): boolean => {
-	// let x = hideColumnRightPaths.map((a: string) => path.startsWith(a)).filter((b) => b).length >= 1
-	return hideColumnRightPaths.indexOf(path.toLowerCase()) >= 0;
+	// let x =
+	return (
+		hideColumnRightPaths.map((a: string) => path.startsWith(a)).filter((b) => b)
+			.length >= 1
+	);
 };
 export const hideNavbar = (path: string): boolean => {
-	return hideNavbarPaths.indexOf(path.toLowerCase()) >= 0;
+	return (
+		hideNavbarPaths.map((a: string) => path.startsWith(a)).filter((b) => b)
+			.length >= 1
+	);
 };
 
 const Listeners = ({}: ListenersProps) => {
