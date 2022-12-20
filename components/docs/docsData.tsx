@@ -501,14 +501,20 @@ export const sections: section[] = [
 					<div className="flex flex-col justify-start items-start my-3">
 						<div className="flex flex-row gap-1">
 							Home:
-							<a href="https://interchange-git-main-igloodevelopment.vercel.app/admin">
-								https://interchange-git-main-igloodevelopment.vercel.app
+							<a href="https://interchange.vercel.app/">
+								https://interchange.vercel.app
 							</a>
 						</div>
 						<div className="flex flex-row gap-1">
 							Admin:
-							<a href="https://interchange-git-main-igloodevelopment.vercel.app/admin">
-								https://interchange-git-main-igloodevelopment.vercel.app/admin
+							<a href="https://interchange.vercel.app/admin">
+								https://interchange.vercel.app/admin
+							</a>
+						</div>
+						<div className="flex flex-row gap-1">
+							Firebase:
+							<a href="https://console.firebase.google.com/u/2/project/interchange-4d029/overview">
+								https://console.firebase.google.com/u/2/project/interchange-4d029/overview
 							</a>
 						</div>
 					</div>

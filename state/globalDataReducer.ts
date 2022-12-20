@@ -1,10 +1,6 @@
 import * as Types from "./ReduxTypes";
 import { createReducer } from "@reduxjs/toolkit";
 import initState from "./initialState";
-import {
-	getFeedTotalLocally,
-	populateEmptyFeed,
-} from "../utils/populateEmptyFeed";
 const initialState = initState.global;
 
 const appReducer = createReducer(initialState, (builder) => {

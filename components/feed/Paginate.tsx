@@ -82,6 +82,7 @@ const Paginate = connector(
 								n.active && "bg-primary-300 text-primary-900 cursor-default"
 							)}
 							onClick={() => handleButtonClick(n.n)}
+							key={`paginate-button-${n.n}`}
 						>
 							{n.n}
 						</div>

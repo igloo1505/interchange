@@ -157,6 +157,7 @@ const Slider = ({
 								setLastActiveIndex={setLastActiveIndex}
 								animate={animates[i]}
 								_id={`slider-card-${i}`}
+								key={`slider-card-${i}`}
 							>
 								{Card}
 							</SliderCard>

@@ -6,7 +6,20 @@ import { setHideRightColumn } from "../../state/actions";
 
 interface ListenersProps {}
 
-export const hidePaths = ["/hoursandlocation", "/admin"];
+export const hideColumnRightPaths = [
+	"/hoursandlocation",
+	"/admin",
+	"/docs",
+	"/auth",
+];
+export const hideNavbarPaths = ["/admin", "/docs", "/auth"];
+export const hideColumnRight = (path: string): boolean => {
+	// let x = hideColumnRightPaths.map((a: string) => path.startsWith(a)).filter((b) => b).length >= 1
+	return hideColumnRightPaths.indexOf(path.toLowerCase()) >= 0;
+};
+export const hideNavbar = (path: string): boolean => {
+	return hideNavbarPaths.indexOf(path.toLowerCase()) >= 0;
+};
 
 const Listeners = ({}: ListenersProps) => {
 	const router = useRouter();
@@ -16,7 +29,7 @@ const Listeners = ({}: ListenersProps) => {
 			return;
 		}
 		let shouldHideRightColumn = false;
-		if (hidePaths.indexOf(router.asPath.toLowerCase()) >= 0) {
+		if (hideColumnRightPaths.indexOf(router.asPath.toLowerCase()) >= 0) {
 			shouldHideRightColumn = true;
 		}
 		dispatch(setHideRightColumn(shouldHideRightColumn));

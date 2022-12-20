@@ -8,7 +8,7 @@ import info from "../../utils/infoDetails";
 import { useAppDispatch } from "../../hooks/ReduxHooks";
 import { toggleColumnRight } from "../../state/actions";
 import { useRouter } from "next/router";
-import { hidePaths } from "./Listeners";
+import { hideColumnRight } from "./Listeners";
 const Map = dynamic(() => import("../general/Map"), { ssr: false });
 
 interface ColumnRightProps {
@@ -28,11 +28,7 @@ const ColumnRight = connector(
 		const dispatch = useAppDispatch();
 		const [listenerKey, setListenerKey] = useState(false);
 		const router = useRouter();
-		const [shouldHide, setShouldHide] = useState(false);
-		useEffect(() => {
-			let should = `${router.asPath}`.startsWith("/admin");
-			setShouldHide(should);
-		}, [router]);
+
 		const toggleOpen = (val?: boolean) => {
 			dispatch(toggleColumnRight(val));
 		};
@@ -47,10 +43,11 @@ const ColumnRight = connector(
 		});
 		useEffect(() => {
 			let _delay = animationDelay || 0;
-			if (hidePaths.indexOf(router.asPath.toLowerCase()) < 0) {
+			let shouldHide = hideColumnRight(router.asPath);
+			if (!shouldHide) {
 				setTimeout(animateEntrance, _delay);
 			}
-			if (hidePaths.indexOf(router.asPath.toLowerCase()) >= 0) {
+			if (shouldHide) {
 				hideColumn();
 			}
 		}, [router.asPath]);

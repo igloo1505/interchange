@@ -10,6 +10,7 @@ import IFPLogo from "../../public/assets/IFP-logo.png";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import clsx from "clsx";
+import { hideNavbar } from "./Listeners";
 const connector = connect((state: RootState, props: any) => ({
 	dimensions: state.UI.dimensions,
 	props: props,
@@ -69,7 +70,7 @@ const Navbar = connector(({ dimensions, props }: NavbarProps) => {
 	const [shouldHide, setShouldHide] = useState(false);
 	useEffect(() => {
 		console.log(router);
-		let should = `${router.asPath}`.startsWith("/admin");
+		let should = hideNavbar(router.asPath);
 		setShouldHide(should);
 	}, [router]);
 	useEffect(() => {
