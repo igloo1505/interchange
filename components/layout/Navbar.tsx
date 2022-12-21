@@ -81,7 +81,6 @@ const Navbar = connector(({ dimensions, props }: NavbarProps) => {
 			}, 1500);
 		}
 	}, []);
-	dimensions.viewport.width;
 	return (
 		<div
 			className={clsx(

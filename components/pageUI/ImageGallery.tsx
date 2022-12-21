@@ -6,6 +6,7 @@ import { RootState } from "../../state/store";
 import initialState from "../../state/initialState";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { isMobile } from "react-device-detect";
 import clsx from "clsx";
 
 const connector = connect((state: RootState, props) => ({
@@ -317,6 +318,7 @@ export const ImageGalleryScrollingSelector = ({
 					className="w-fit max-h-full flex flex-row justify-center items-center gap-2 transition-transform duration-500"
 					style={{
 						height: "calc(100% - 1.75rem)",
+						...(isMobile && { overflowX: "scroll" }),
 					}}
 					id="image-gallery-scroll-selector-inner"
 				>
