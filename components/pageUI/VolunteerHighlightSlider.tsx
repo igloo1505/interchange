@@ -4,6 +4,7 @@ import initialState from "../../state/initialState";
 import { RootState } from "../../state/store";
 import { ImageGalleryScrollingSelector } from "./ImageGallery";
 import VolunteerHighlightCard from "./VolunteerHighlightCard";
+import { isMobile } from "react-device-detect";
 
 const connector = connect((state: RootState) => ({
 	volunteers: state.global.volunteers,
@@ -42,19 +43,22 @@ const VolunteerHighlightSlider = connector(
 						/>
 					))}
 				</div>
-				<div className="max-w-full">
-					<ImageGalleryScrollingSelector
-						activeImageIndex={activeIndex}
-						setActiveImageIndex={setActiveIndex}
-						/// @ts-ignore
-						images={_volunteers.map((v) => {
-							if (!v.images) return;
-							return v.primaryImageIndex
-								? v.images[v.primaryImageIndex]
-								: v.images[0];
-						})}
-					/>
-				</div>
+
+				{!isMobile && (
+					<div className="max-w-full">
+						<ImageGalleryScrollingSelector
+							activeImageIndex={activeIndex}
+							setActiveImageIndex={setActiveIndex}
+							/// @ts-ignore
+							images={_volunteers.map((v) => {
+								if (!v.images) return;
+								return v.primaryImageIndex
+									? v.images[v.primaryImageIndex]
+									: v.images[0];
+							})}
+						/>
+					</div>
+				)}
 			</div>
 		);
 	}
