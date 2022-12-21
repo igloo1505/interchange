@@ -31,13 +31,14 @@ const VolunteerHighlightSlider = connector(
 				}}
 			>
 				<div className="h-full grid overflow-hidden relative place-items-center">
-					{volunteers.map((v, i) => (
+					{volunteers.map((v, i, a) => (
 						<VolunteerHighlightCard
 							volunteer={v}
 							key={`volunteer-highlight-card-${i}`}
 							setActiveIndex={setActiveIndex}
 							activeIndex={activeIndex}
 							index={i}
+							nImages={a.length}
 						/>
 					))}
 				</div>

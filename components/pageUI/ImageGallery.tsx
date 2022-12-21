@@ -108,6 +108,7 @@ const GallerySliderImage = ({
 		<Image
 			src={image.publicUrl}
 			alt="Gallery Slider Image Preview"
+			draggable={false}
 			width={proportionalWidth ? proportionalWidth - 16 : 150}
 			height={proportionalWidth ? proportionalWidth - 16 : 150}
 			id={id}
@@ -315,7 +316,7 @@ export const ImageGalleryScrollingSelector = ({
 					</div>
 				)}
 				<div
-					className="w-fit max-h-full flex flex-row justify-center items-center gap-2 transition-transform duration-500"
+					className="w-fit max-h-full flex flex-row justify-center items-center gap-2 transition-transform duration-500 select-none"
 					style={{
 						height: "calc(100% - 1.75rem)",
 						...(isMobile && { overflowX: "scroll" }),
@@ -402,7 +403,7 @@ const ImageGallery = connector(
 							</div>
 						))}
 				</div>
-				{images.length > 1 && (
+				{images.length > 1 && !isMobile && (
 					<ImageGalleryScrollingSelector
 						images={images}
 						activeImageIndex={activeImageIndex}

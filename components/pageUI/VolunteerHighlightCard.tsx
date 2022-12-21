@@ -4,12 +4,15 @@ import Image from "next/image";
 import gsap from "gsap";
 import clsx from "clsx";
 import Link from "next/link";
+import { isMobile } from "react-device-detect";
+import { useDrag } from "@use-gesture/react";
 
 interface VolunteerHighlightCardProps {
 	volunteer: VolunteerInterface;
 	setActiveIndex: (number) => void;
 	activeIndex: number;
 	index: number;
+	nImages: number;
 }
 
 const VolunteerHighlightCard = ({
@@ -17,6 +20,7 @@ const VolunteerHighlightCard = ({
 	activeIndex,
 	setActiveIndex,
 	index,
+	nImages,
 }: VolunteerHighlightCardProps) => {
 	let _id = `volunteer-card-${volunteer._id || volunteer.id}`;
 	const [lastActiveIndex, setLastActiveIndex] = useState(activeIndex || 0);
@@ -53,10 +57,19 @@ const VolunteerHighlightCard = ({
 		}
 		setLastActiveIndex(activeIndex);
 	}, [activeIndex, index]);
+
+	const bind = useDrag(({ swipe: [swipeX] }) => {
+		let newIndex = activeIndex + swipeX;
+		if (newIndex < 0) newIndex = nImages - 1;
+		if (newIndex > nImages - 1) newIndex = 0;
+		setActiveIndex(newIndex);
+	});
+
 	return (
 		<div
+			{...bind()}
 			id={_id}
-			className="h-fit w-auto absolute grid gap-1"
+			className="h-fit w-auto absolute grid gap-1 touch-none"
 			style={{
 				opacity: activeIndex === index ? 1 : 0,
 				gridTemplateRows: "auto 1fr",
@@ -64,7 +77,7 @@ const VolunteerHighlightCard = ({
 			}}
 		>
 			<Link href={`/volunteerSpotlight/${volunteer._id}`} className="w-fit">
-				<div className="font-bold text-primary-800 w-fit md:text-xl">
+				<div className="font-bold text-primary-800 w-fit md:text-xl select-none">
 					{volunteer.name.first}
 				</div>
 			</Link>
@@ -81,8 +94,10 @@ const VolunteerHighlightCard = ({
 							src={volunteer.images[volunteer.primaryImageIndex || 0].publicUrl}
 							height={400}
 							width={400}
+							draggable={false}
 							alt="Volunteer Spotlight Image"
 							className="max-h-[280px] h-[280px] w-auto max-w-full"
+							style={{ userSelect: "none" }}
 						/>
 					</Link>
 				</div>
