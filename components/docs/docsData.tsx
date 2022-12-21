@@ -93,10 +93,7 @@ export const sections: section[] = [
 							Google set's unreasonable requirements for a project of this scale
 							and the time frame for a project I wasn't sure would even be used
 							seemed prohibitive, so for right now the password here is not
-							directly associated with your google email. You can however change
-							your password to the admin portion of this app from within the
-							admin portion of the app, at which point even I couldn't access
-							that portion of the app without your password.
+							directly associated with your google email.
 						</div>
 					</div>
 				),
