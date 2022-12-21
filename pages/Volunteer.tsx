@@ -4,6 +4,20 @@ import gsap from "gsap";
 import SubTitle from "../components/layout/SubTitle";
 import ReactGA from "react-ga4";
 import VolunteerHighlightSlider from "../components/pageUI/VolunteerHighlightSlider";
+import store from "../state/store";
+import { useAppDispatch } from "../hooks/ReduxHooks";
+import { populateEmptyFeed } from "../utils/populateEmptyFeed";
+import { populateGlobal } from "../state/actions";
+// Server-side stuff...
+import { GetServerSideProps } from "next";
+import { globalDataInterface } from "../state/initialState";
+import { connectServerSide } from "../utils/connectMongo";
+import { dayKeys } from "../utils/utilityFunctions";
+import Hours from "../models/Hours";
+import Featured from "../models/Featured";
+import GeneralPost from "../models/GeneralPost";
+import Volunteers from "../models/Volunteer";
+import Patron from "../models/Patron";
 
 interface t_i {
 	time: string;
@@ -125,14 +139,28 @@ const Opportunity = ({ item }: { item: Opportunity_i }) => {
 	);
 };
 
-const Volunteer = () => {
+const Volunteer = ({ data }) => {
 	ReactGA.send({ hitType: "pageview", page: "/volunteer" });
+	const dispatch = useAppDispatch();
 	useEffect(() => {
 		if (typeof window === "undefined") {
 			return;
 		}
 		animateEntrance();
 	}, []);
+	useEffect(() => {
+		let hasFeed =
+			store.getState().global?.feed?.data?.length > 0 ? true : false;
+		/// @ts-ignore
+		let feed = populateEmptyFeed(data);
+		dispatch(
+			/// @ts-ignore
+			populateGlobal({
+				...data,
+				...(!hasFeed && { feed: { ...feed } }),
+			})
+		);
+	}, [data]);
 	return (
 		<div className="mx-4 mt-3 mb-8">
 			<PageTitle
@@ -182,8 +210,6 @@ const Volunteer = () => {
 	);
 };
 
-export default Volunteer;
-
 const animateEntrance = () => {
 	let tl = gsap.timeline();
 	tl.to("#volunteer-page-underline", {
@@ -213,3 +239,56 @@ const animateEntrance = () => {
 		"-=1"
 	);
 };
+
+export const getServerSideProps: GetServerSideProps<{
+	data: globalDataInterface;
+}> = async (context) => {
+	const { req, res } = connectServerSide(context.req, context.res);
+	let hours = await Hours.find().sort({
+		createdAt: "asc",
+	});
+	let _hours = {};
+	for (let i = 0; i < dayKeys.length; i++) {
+		const k: string = dayKeys[i];
+		if (hours[0][k]) {
+			/// @ts-ignore
+			_hours[k] = {
+				/// @ts-ignore
+				open: hours[0][k]?.["open"],
+				/// @ts-ignore
+				close: hours[0][k]?.["close"],
+			};
+		}
+	}
+	let featuredPosts = await Featured.find().sort({
+		createdAt: "asc",
+	});
+	let generalPosts = await GeneralPost.find().sort({
+		createdAt: "asc",
+	});
+	let volunteers = await Volunteers.find().sort({
+		createdAt: "asc",
+	});
+	let patrons = await Patron.find().sort({
+		createdAt: "asc",
+	});
+	/// @ts-ignore
+	let data: globalDataInterface = {
+		hours: _hours
+			? Array.isArray(_hours)
+				? JSON.parse(JSON.stringify(_hours[0]))
+				: JSON.parse(JSON.stringify(_hours))
+			: null,
+		featuredPosts: featuredPosts
+			? JSON.parse(JSON.stringify(featuredPosts))
+			: [],
+		generalPosts: generalPosts ? JSON.parse(JSON.stringify(generalPosts)) : [],
+		volunteers: volunteers ? JSON.parse(JSON.stringify(volunteers)) : [],
+		patrons: patrons ? JSON.parse(JSON.stringify(patrons)) : [],
+	};
+	return {
+		props: { data },
+	};
+};
+
+export default Volunteer;
