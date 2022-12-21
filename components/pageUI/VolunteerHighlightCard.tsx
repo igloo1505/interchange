@@ -14,6 +14,8 @@ interface VolunteerHighlightCardProps {
 	activeIndex: number;
 	index: number;
 	nImages: number;
+	isInitialIndex: boolean;
+	setIsInitialIndex: (boolean) => void;
 }
 
 const VolunteerHighlightCard = ({
@@ -22,10 +24,12 @@ const VolunteerHighlightCard = ({
 	setActiveIndex,
 	index,
 	nImages,
+	isInitialIndex,
+	setIsInitialIndex,
 }: VolunteerHighlightCardProps) => {
 	let _id = `volunteer-card-${volunteer._id || volunteer.id}`;
 	const [lastActiveIndex, setLastActiveIndex] = useState(activeIndex || 0);
-	const [isInitialIndex, setIsInitialIndex] = useState(true);
+
 	let tl = gsap.timeline();
 	useEffect(() => {
 		let fromRight = activeIndex > lastActiveIndex;
@@ -109,8 +113,8 @@ const VolunteerHighlightCard = ({
 			{isInitialIndex && isMobile && (
 				<div
 					className="bg-primary-700 opacity-90 grid place-items-center w-full h-full absolute"
-					onTouchStart={() => setIsInitialIndex(false)}
 					onClick={() => setIsInitialIndex(false)}
+					
 				>
 					<SwipeIcon
 						className="text-white fill-white"

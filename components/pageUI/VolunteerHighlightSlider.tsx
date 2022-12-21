@@ -24,12 +24,13 @@ const VolunteerHighlightSlider = connector(
 			return <Fragment></Fragment>;
 		}
 		const [activeIndex, setActiveIndex] = useState(0);
+		const [isInitialIndex, setIsInitialIndex] = useState(true);
 		return (
 			<div
 				className="max-w-full grid h-[400px] mt-3 mb-8 gap-2"
 				style={{
 					gridTemplateRows: "1fr 80px",
-					...(isMobile && { maxHeight: "300px" }),
+					// ...(isMobile && { maxHeight: "300px" }),
 				}}
 			>
 				<div className="h-full grid overflow-hidden relative place-items-center">
@@ -41,6 +42,8 @@ const VolunteerHighlightSlider = connector(
 							activeIndex={activeIndex}
 							index={i}
 							nImages={a.length}
+							isInitialIndex={isInitialIndex}
+							setIsInitialIndex={setIsInitialIndex}
 						/>
 					))}
 				</div>
