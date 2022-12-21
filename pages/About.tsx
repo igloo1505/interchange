@@ -153,7 +153,19 @@ const About = ({}: AboutProps) => {
 					return g;
 				})}
 			</ul>
-			<Section content="For more information, contact pantry director George Neureuther by using the contact form in the contact section." />
+			<div
+				className={clsx("mx-3 mt-2", `about-interchange-section`)}
+				style={{
+					// transform: `translateX(${right ? "-" : ""}100vw)`,
+					opacity: 0,
+				}}
+			>
+				For more information, contact pantry director George Neureuther by using
+				the{" "}
+				<Link href="/contact" className="text-primary-600">
+					contact form in the contact section.
+				</Link>
+			</div>
 		</div>
 	);
 };
