@@ -6,6 +6,7 @@ import clsx from "clsx";
 import Link from "next/link";
 import { isMobile } from "react-device-detect";
 import { useDrag } from "@use-gesture/react";
+import SwipeIcon from "@mui/icons-material/Swipe";
 
 interface VolunteerHighlightCardProps {
 	volunteer: VolunteerInterface;
@@ -24,6 +25,7 @@ const VolunteerHighlightCard = ({
 }: VolunteerHighlightCardProps) => {
 	let _id = `volunteer-card-${volunteer._id || volunteer.id}`;
 	const [lastActiveIndex, setLastActiveIndex] = useState(activeIndex || 0);
+	const [isInitialIndex, setIsInitialIndex] = useState(true);
 	let tl = gsap.timeline();
 	useEffect(() => {
 		let fromRight = activeIndex > lastActiveIndex;
@@ -63,6 +65,7 @@ const VolunteerHighlightCard = ({
 		if (newIndex < 0) newIndex = nImages - 1;
 		if (newIndex > nImages - 1) newIndex = 0;
 		setActiveIndex(newIndex);
+		setIsInitialIndex(false);
 	});
 
 	return (
@@ -100,6 +103,22 @@ const VolunteerHighlightCard = ({
 							style={{ userSelect: "none" }}
 						/>
 					</Link>
+				</div>
+			)}
+
+			{isInitialIndex && isMobile && (
+				<div
+					className="bg-primary-700 opacity-90 grid place-items-center w-full h-full absolute"
+					onTouchStart={() => setIsInitialIndex(false)}
+					onClick={() => setIsInitialIndex(false)}
+				>
+					<SwipeIcon
+						className="text-white fill-white"
+						sx={{
+							width: "3rem",
+							height: "3rem",
+						}}
+					/>
 				</div>
 			)}
 		</div>

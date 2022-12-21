@@ -6,6 +6,7 @@ import { ImageGalleryScrollingSelector } from "./ImageGallery";
 import VolunteerHighlightCard from "./VolunteerHighlightCard";
 import { isMobile } from "react-device-detect";
 
+
 const connector = connect((state: RootState) => ({
 	volunteers: state.global.volunteers,
 }));
