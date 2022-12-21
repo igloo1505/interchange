@@ -162,7 +162,7 @@ const About = ({}: AboutProps) => {
 			>
 				For more information, contact pantry director George Neureuther by using
 				the{" "}
-				<Link href="/contact" className="text-primary-600">
+				<Link href="/Contact" className="text-primary-600">
 					contact form in the contact section.
 				</Link>
 			</div>
