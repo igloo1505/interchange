@@ -457,7 +457,7 @@ export const sections: section[] = [
 					anyone without the link I will send. If you do like it, just let me
 					know what changes you'd like to make and I can adjust things
 					accordingly... It's not like I have a whole lot else going on right
-					now. To make is official and replace your current site I would just
+					now. To make it official and replace your current site I would just
 					need to know some information regarding your DNS (The place where you
 					bought interchangefoodpantry.org), and the service you use to collect
 					donations online. I can create a demo Stripe account which won't
