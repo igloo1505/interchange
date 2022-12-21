@@ -6,7 +6,6 @@ import { ImageGalleryScrollingSelector } from "./ImageGallery";
 import VolunteerHighlightCard from "./VolunteerHighlightCard";
 import { isMobile } from "react-device-detect";
 
-
 const connector = connect((state: RootState) => ({
 	volunteers: state.global.volunteers,
 }));
@@ -30,6 +29,7 @@ const VolunteerHighlightSlider = connector(
 				className="max-w-full grid h-[400px] mt-3 mb-8 gap-2"
 				style={{
 					gridTemplateRows: "1fr 80px",
+					...(isMobile && { maxHeight: "300px" }),
 				}}
 			>
 				<div className="h-full grid overflow-hidden relative place-items-center">
@@ -44,7 +44,6 @@ const VolunteerHighlightSlider = connector(
 						/>
 					))}
 				</div>
-
 				{!isMobile && (
 					<div className="max-w-full">
 						<ImageGalleryScrollingSelector
