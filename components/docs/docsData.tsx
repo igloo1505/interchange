@@ -443,14 +443,12 @@ export const sections: section[] = [
 				for work again these past 4-6 weeks, I've only been able to scrounge up
 				a couple of tiny freelance projects, and building demo after demo that
 				will never be seen by anyone apart from recruiters gets old in a hurry.
-				Just before I wound up in my current situation I was in a really dark
-				place mentally, and it wouldn't have taken many hungry nights for me to
-				decide this wasn't worth it. Not only does Interchange help with the
-				obvious needs of people in similar situations to my own, the people
-				there are some of the nicest I've ever met. I know a more modern web
-				presence isn't likely high on your list of priorities, but Interchange
-				and the people there have such a huge impact on the community I wanted
-				to help in whatever way I can, and I'm not good at a whole lot.
+				Not only does Interchange help with the obvious needs of people in
+				similar situations to my own, the people there are some of the nicest
+				I've ever met. I know a more modern web presence isn't likely high on
+				your list of priorities, but Interchange and the people there have such
+				a huge impact on the community I wanted to help in whatever way I can,
+				and I'm not good at a whole lot.
 				<div className="my-1 indent-3">
 					Poke around in the app and decide whether or not you'd like to use it.
 					Like I said, it's built directly from code so everything is changeable
